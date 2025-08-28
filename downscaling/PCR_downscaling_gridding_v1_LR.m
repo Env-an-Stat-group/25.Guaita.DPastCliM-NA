@@ -383,6 +383,7 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
                         else
                             if size(var_data,1)>1 && size(var_data,2)>1
                                 varid = netcdf.defVar(ncid, var_name, NC_CLASS, [dim_site,dim_time]);
+                                netcdf.defVarDeflate(ncid, varid, 1, 1, 3);
                                 netcdf.putVar(ncid, varid, var_data);
                                 netcdf.putAtt(ncid, varid, 'description', var_desc{i_var});
                                 netcdf.putAtt(ncid, varid, 'unit', unit_text);
@@ -408,11 +409,13 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
                         end
                     case 3
                         varid = netcdf.defVar(ncid, var_name, NC_CLASS, [dim_lon,dim_lat,dim_time]);
+                        netcdf.defVarDeflate(ncid, varid, 1, 1, 5);
                         netcdf.putVar(ncid, varid, var_data);
                         netcdf.putAtt(ncid, varid, 'description', var_desc{i_var});
                         netcdf.putAtt(ncid, varid, 'unit', unit_text);
                     case 4
                         varid = netcdf.defVar(ncid, var_name, NC_CLASS, [dim_lon,dim_lat,dim_time,dim_bound]);
+                        netcdf.defVarDeflate(ncid, varid, 1, 1, 5);
                         netcdf.putVar(ncid, varid, var_data);
                         netcdf.putAtt(ncid, varid, 'description', var_desc{i_var});
                         netcdf.putAtt(ncid, varid, 'unit', unit_text);
@@ -520,6 +523,7 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
                         else
                             if size(var_data,1)>1 && size(var_data,2)>1
                                 varid = netcdf.defVar(ncid, var_name, NC_CLASS, [dim_site,dim_time]);
+                                netcdf.defVarDeflate(ncid, varid, 1, 1, 3);
                                 netcdf.putVar(ncid, varid, var_data);
                                 netcdf.putAtt(ncid, varid, 'description', var_desc{i_var});
                                 netcdf.putAtt(ncid, varid, 'unit', unit_text);
@@ -545,11 +549,13 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
                         end
                     case 3
                         varid = netcdf.defVar(ncid, var_name, NC_CLASS, [dim_lon,dim_lat,dim_time]);
+                        netcdf.defVarDeflate(ncid, varid, 1, 1, 5);
                         netcdf.putVar(ncid, varid, var_data);
                         netcdf.putAtt(ncid, varid, 'description', var_desc{i_var});
                         netcdf.putAtt(ncid, varid, 'unit', unit_text);
                     case 4
                         varid = netcdf.defVar(ncid, var_name, NC_CLASS, [dim_lon,dim_lat,dim_time,dim_bound]);
+                        netcdf.defVarDeflate(ncid, varid, 1, 1, 5);
                         netcdf.putVar(ncid, varid, var_data);
                         netcdf.putAtt(ncid, varid, 'description', var_desc{i_var});
                         netcdf.putAtt(ncid, varid, 'unit', unit_text);
