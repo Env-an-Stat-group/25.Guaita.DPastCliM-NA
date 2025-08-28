@@ -15,7 +15,7 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'tas'; % variable name
+name_var = 'pr'; % variable name
 name_experiment = 'past2k';
 % starting and ending year for the PMIP expeirment considered.
 % weird enough, but the past experiments start counting years from 7000 CE
@@ -196,7 +196,8 @@ switch name_var
 
                 sigma2_tmp = sum((obsTable_tmp.Y-obsTable_tmp.dsESY).^2)/height(obsTable_tmp);
                 residual_tmp = ...
-                    log((sigma2_tmp)/2)+log((obsTable_tmp.Value + obsTable_tmp.Y_t)./(obsTable_tmp.dsEValue+obsTable_tmp.Y_t));
+                    log((obsTable_tmp.Value + obsTable_tmp.Y_t)./(obsTable_tmp.dsEValue+obsTable_tmp.Y_t))...
+                    +exp((sigma2_tmp)/2);
                 residual_mat(i_ID,idx_time)=residual_tmp;
             end
         end
