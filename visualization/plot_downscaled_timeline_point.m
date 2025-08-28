@@ -1,0 +1,91 @@
+function plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_tmp, ...
+    y_obs, y_esm, y_ds, y_inf, y_sup, ...
+    path_fig, suffix, name_model, res_plot)
+    % Plot a timeline of observations, ESM, and downscaled data
+    % with yearly means and shaded prediction intervals.
+    %
+    % Inputs:
+    %   time_ESM     - time vector for ESM (months since 0 CE)
+    %   time_obs_tmp - time vector for observations (months since 0 CE)
+    %   y_obs        - observed values (monthly)
+    %   y_esm        - ESM values (monthly)
+    %   y_ds         - downscaled values (monthly)
+    %   y_inf        - lower PI bound (monthly)
+    %   y_sup        - upper PI bound (monthly)
+
+    % --- Create figure ---
+    f = figure('Position', [50, 0, 1500, 300]);
+    hold on;
+
+    % --- Improved colorblind-friendly palette ---
+    colors = [
+        0.2, 0.2, 0.2;    % Dark Gray for observations
+        0.90, 0.45, 0.30; % Vermilion for downscaled PCR
+        0.35, 0.70, 0.90; % Sky Blue for ESM
+    ];
+
+    % --- Convert months to years ---
+    years_obs = floor(time_obs_tmp / 12);
+    years_esm = floor(time_ESM / 12);
+
+    % --- Aggregate to yearly means (force double to avoid accumarray errors) ---
+    y_obs = accumarray(years_obs+1, double(y_obs), [], @mean, NaN);
+    y_esm = accumarray(years_esm+1, double(y_esm), [], @mean, NaN);
+    y_ds  = accumarray(years_esm+1, double(y_ds),  [], @mean, NaN);
+    y_inf = accumarray(years_esm+1, double(y_inf), [], @mean, NaN);
+    y_sup = accumarray(years_esm+1, double(y_sup), [], @mean, NaN);
+
+    % identify years that don't have just few months for averaging
+    flag_noyears_obs = accumarray(years_obs+1,1,[],@sum,nan)<12;
+    y_obs(flag_noyears_obs)=nan;
+    flag_noyears_esm = accumarray(years_esm+1,1,[],@sum,nan)<12;
+    y_esm(flag_noyears_esm)=nan;
+    y_ds(flag_noyears_esm)=nan;
+    y_inf(flag_noyears_esm)=nan;
+    y_sup(flag_noyears_esm)=nan;
+
+    % --- Construct year axes ---
+    year_obs_axis = (0:length(y_obs)-1)';
+    year_esm_axis = (0:length(y_esm)-1)';
+
+    % --- Shaded PI area (same color as downscaled PCR, transparent) ---
+    fill([year_esm_axis(not(flag_noyears_esm)); flipud(year_esm_axis(not(flag_noyears_esm)))], ...
+        [y_inf(not(flag_noyears_esm)); flipud(y_sup(not(flag_noyears_esm)))], colors(3,:), ...
+         'FaceAlpha', 0.17, 'EdgeColor', 'none', 'HandleVisibility', 'off');
+
+    % --- Plot lines ---
+    plot(year_esm_axis, y_esm, 'LineWidth', 0.7, 'Color', colors(2,:), 'DisplayName', name_model);
+    plot(year_obs_axis, y_obs, 'LineWidth', 1.3, 'Color', colors(1,:), 'DisplayName', 'GHCN-m');
+    plot(year_esm_axis, y_ds,  'LineWidth', 1, 'Color', colors(3,:), 'DisplayName', 'PCR downscaled');
+    
+    % --- Title and labels ---
+    title([name_var ' timeline in ' suffix], 'FontSize', 16, 'FontWeight', 'bold');
+    xlabel('Year', 'FontSize', 14);
+    ylabel(unit_var, 'FontSize', 14);
+
+    % --- Grid and axis formatting ---
+    grid on;
+    set(gca, 'FontSize', 12);
+
+    % Define ticks every 100 years
+    maxYear = max([max(year_obs_axis), max(year_esm_axis)]);  % full span
+    yearTicks = 0:100:maxYear;
+    xticks(yearTicks);
+    xticklabels(yearTicks);
+    xlim([0 maxYear]);
+
+    % --- Variable-specific y-limits ---
+    switch name_var
+        case 'pr'
+            ylim([0 ceil(prctile(y_sup,99.5,'all'))])
+        case 'tas'
+            ylim([floor(prctile(y_inf,0.5,'all')) ceil(prctile(y_sup,99,'all'))])
+    end
+
+    % --- Legend ---
+    legend('show', 'Location', 'northeastoutside', 'FontSize', 12);
+
+    % --- Save the figure ---
+    name_figuresave = fullfile(path_fig, [name_var '_timeline_' suffix]);
+    print(f, name_figuresave, '-dtiff', res_plot);
+end
