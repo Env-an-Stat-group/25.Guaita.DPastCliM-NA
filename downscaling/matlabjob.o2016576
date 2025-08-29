@@ -1,0 +1,132 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2023 The MathWorks, Inc.
+                  R2023b (23.2.0.2365128) 64-bit (glnxa64)
+                              August 23, 2023
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+Starting downscaling...
+Setting up variables...
+load and stack ESM data for the specified model
+Done in 2.8 mins
+create downscaled maps and observation maps (LR)
+Loaded raw (ungridded) downscaled data
+Aggregated stations that were in the same grid (and filtered them through the calibration dataset)
+---> had 6708 calibration stations
+---> now have 6002 stations
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 4 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 24 workers.
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+iteration 1 #station(1-1200) done
+---> Done. Been running for 2.7 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 2 #station(1201-2400) done
+---> Done. Been running for 4.2 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 3 #station(2401-3600) done
+---> Done. Been running for 5.7 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 4 #station(3601-4800) done
+---> Done. Been running for 7.2 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 5 #station(4801-6000) done
+---> Done. Been running for 8.7 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 6 #station(6001-7200) done
+---> Done. Been running for 10.2 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 7 #station(7201-8400) done
+---> Done. Been running for 11.8 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 8 #station(8401-9600) done
+---> Done. Been running for 13.3 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 9 #station(9601-10800) done
+---> Done. Been running for 14.9 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 10 #station(10801-12000) done
+---> Done. Been running for 16.5 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 11 #station(12001-13200) done
+---> Done. Been running for 18 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 12 #station(13201-14400) done
+---> Done. Been running for 19.6 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 13 #station(14401-15600) done
+---> Done. Been running for 21.3 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 14 #station(15601-16800) done
+---> Done. Been running for 23 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 15 #station(16801-18000) done
+---> Done. Been running for 24.7 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 16 #station(18001-19200) done
+---> Done. Been running for 26.2 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 17 #station(19201-20400) done
+---> Done. Been running for 27.8 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 18 #station(20401-21600) done
+---> Done. Been running for 29.4 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 19 #station(21601-22800) done
+---> Done. Been running for 31.1 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 20 #station(22801-24000) done
+---> Done. Been running for 32.8 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+iteration 21 #station(24001-24180) done
+---> Done. Been running for 33.6 mins
+converting output to single float
+adjusting downscaling gridded products to standard deviation of the ESM data
+converting output to single float and reshape variables
+Done in 33.7 mins
+finished
+Parallel pool using the 'Processes' profile is shutting down.
