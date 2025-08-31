@@ -1,0 +1,703 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2023 The MathWorks, Inc.
+                  R2023b (23.2.0.2365128) 64-bit (glnxa64)
+                              August 23, 2023
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+Starting downscaling...
+Setting up variables...
+load and stack ESM data for the specified model
+Done in 2.4 mins
+Aggregating obs table
+doing month 1-1
+doing month 2-2
+doing month 3-3
+doing month 4-4
+doing month 5-5
+doing month 6-6
+doing month 7-7
+doing month 8-8
+doing month 9-9
+doing month 10-10
+doing month 11-11
+doing month 12-12
+Done in 2.7 mins
+get the residuals...
+station number 100
+station number 200
+station number 300
+station number 400
+station number 500
+station number 600
+station number 700
+station number 800
+station number 900
+station number 1000
+station number 1100
+station number 1200
+station number 1300
+station number 1400
+station number 1500
+station number 1600
+station number 1700
+station number 1800
+station number 1900
+station number 2000
+station number 2100
+station number 2200
+station number 2300
+station number 2400
+station number 2500
+station number 2600
+station number 2700
+station number 2800
+station number 2900
+station number 3000
+station number 3100
+station number 3200
+station number 3300
+station number 3400
+station number 3500
+station number 3600
+station number 3700
+station number 3800
+station number 3900
+station number 4000
+station number 4100
+station number 4200
+station number 4300
+station number 4400
+station number 4500
+station number 4600
+station number 4700
+station number 4800
+station number 4900
+station number 5000
+station number 5100
+station number 5200
+station number 5300
+station number 5400
+station number 5500
+station number 5600
+station number 5700
+station number 5800
+station number 5900
+station number 6000
+station number 6100
+station number 6200
+station number 6300
+station number 6400
+station number 6500
+station number 6600
+station number 6700
+station number 6800
+station number 6900
+station number 7000
+station number 7100
+station number 7200
+station number 7300
+station number 7400
+station number 7500
+station number 7600
+station number 7700
+station number 7800
+station number 7900
+station number 8000
+station number 8100
+station number 8200
+station number 8300
+station number 8400
+station number 8500
+station number 8600
+station number 8700
+station number 8800
+station number 8900
+station number 9000
+station number 9100
+station number 9200
+station number 9300
+station number 9400
+station number 9500
+station number 9600
+station number 9700
+station number 9800
+station number 9900
+station number 10000
+station number 10100
+station number 10200
+station number 10300
+station number 10400
+station number 10500
+station number 10600
+station number 10700
+station number 10800
+station number 10900
+station number 11000
+station number 11100
+station number 11200
+station number 11300
+station number 11400
+station number 11500
+timestep 100
+Been running for 32.1 mins
+timestep 200
+Been running for 37.1 mins
+timestep 300
+Been running for 44 mins
+timestep 400
+Been running for 54.7 mins
+timestep 500
+Been running for 73 mins
+timestep 600
+Been running for 93.6 mins
+timestep 700
+Been running for 113.4 mins
+timestep 800
+Been running for 131.3 mins
+timestep 900
+Been running for 147.4 mins
+timestep 1000
+Been running for 161.7 mins
+timestep 1100
+Been running for 174 mins
+timestep 1200
+Been running for 182 mins
+Done in 182.1 mins
+calibrating arma model
+transforming the residuals through Spatial Error Model
+MAM - Lambda = 0.9; thresh = 5 km
+JJA - Lambda = 0.9; thresh = 5 km
+SON - Lambda = 0.9; thresh = 5 km
+DJF - Lambda = 0.9; thresh = 5 km
+p=1, q=1
+for PCR...
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 4 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 24 workers.
+Done in 282.8 mins
+downscale data for every month and aggregate in same matrix
+doing month 1-1
+Been running for 3.6 mins
+doing month 2-2
+Been running for 7.2 mins
+doing month 3-3
+Been running for 10.8 mins
+doing month 4-4
+Been running for 14.4 mins
+doing month 5-5
+Been running for 17.9 mins
+doing month 6-6
+Been running for 21.4 mins
+doing month 7-7
+Been running for 24.9 mins
+doing month 8-8
+Been running for 28.5 mins
+doing month 9-9
+Been running for 31.9 mins
+doing month 10-10
+Been running for 35.4 mins
+doing month 11-11
+Been running for 38.8 mins
+doing month 12-12
+Been running for 42.2 mins
+Done in 42.2 mins
+generate residuals from ARMA and add them to the predicted average
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 4 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 24 workers.
+IdleTimeout has been reached.
+Parallel pool using the 'Processes' profile is shutting down.
+iteration 1 #station(1-48) done
+---> Done. Been running for 0.7 mins
+iteration 2 #station(49-96) done
+---> Done. Been running for 0.7 mins
+iteration 3 #station(97-144) done
+---> Done. Been running for 0.7 mins
+iteration 4 #station(145-192) done
+---> Done. Been running for 0.7 mins
+iteration 5 #station(193-240) done
+---> Done. Been running for 0.7 mins
+iteration 6 #station(241-288) done
+---> Done. Been running for 0.7 mins
+iteration 7 #station(289-336) done
+---> Done. Been running for 0.7 mins
+iteration 8 #station(337-384) done
+---> Done. Been running for 0.7 mins
+iteration 9 #station(385-432) done
+---> Done. Been running for 0.7 mins
+iteration 10 #station(433-480) done
+---> Done. Been running for 0.7 mins
+iteration 11 #station(481-528) done
+---> Done. Been running for 0.8 mins
+iteration 12 #station(529-576) done
+---> Done. Been running for 0.8 mins
+iteration 13 #station(577-624) done
+---> Done. Been running for 0.8 mins
+iteration 14 #station(625-672) done
+---> Done. Been running for 0.8 mins
+iteration 15 #station(673-720) done
+---> Done. Been running for 0.8 mins
+iteration 16 #station(721-768) done
+---> Done. Been running for 0.8 mins
+iteration 17 #station(769-816) done
+---> Done. Been running for 0.8 mins
+iteration 18 #station(817-864) done
+---> Done. Been running for 0.8 mins
+iteration 19 #station(865-912) done
+---> Done. Been running for 0.8 mins
+iteration 20 #station(913-960) done
+---> Done. Been running for 0.8 mins
+iteration 21 #station(961-1008) done
+---> Done. Been running for 0.8 mins
+iteration 22 #station(1009-1056) done
+---> Done. Been running for 0.8 mins
+iteration 23 #station(1057-1104) done
+---> Done. Been running for 0.8 mins
+iteration 24 #station(1105-1152) done
+---> Done. Been running for 0.8 mins
+iteration 25 #station(1153-1200) done
+---> Done. Been running for 0.8 mins
+iteration 26 #station(1201-1248) done
+---> Done. Been running for 0.8 mins
+iteration 27 #station(1249-1296) done
+---> Done. Been running for 0.8 mins
+iteration 28 #station(1297-1344) done
+---> Done. Been running for 0.8 mins
+iteration 29 #station(1345-1392) done
+---> Done. Been running for 0.8 mins
+iteration 30 #station(1393-1440) done
+---> Done. Been running for 0.8 mins
+iteration 31 #station(1441-1488) done
+---> Done. Been running for 0.8 mins
+iteration 32 #station(1489-1536) done
+---> Done. Been running for 0.8 mins
+iteration 33 #station(1537-1584) done
+---> Done. Been running for 0.8 mins
+iteration 34 #station(1585-1632) done
+---> Done. Been running for 0.8 mins
+iteration 35 #station(1633-1680) done
+---> Done. Been running for 0.8 mins
+iteration 36 #station(1681-1728) done
+---> Done. Been running for 0.8 mins
+iteration 37 #station(1729-1776) done
+---> Done. Been running for 0.8 mins
+iteration 38 #station(1777-1824) done
+---> Done. Been running for 0.8 mins
+iteration 39 #station(1825-1872) done
+---> Done. Been running for 0.8 mins
+iteration 40 #station(1873-1920) done
+---> Done. Been running for 0.8 mins
+iteration 41 #station(1921-1968) done
+---> Done. Been running for 0.8 mins
+iteration 42 #station(1969-2016) done
+---> Done. Been running for 0.8 mins
+iteration 43 #station(2017-2064) done
+---> Done. Been running for 0.8 mins
+iteration 44 #station(2065-2112) done
+---> Done. Been running for 0.8 mins
+iteration 45 #station(2113-2160) done
+---> Done. Been running for 0.8 mins
+iteration 46 #station(2161-2208) done
+---> Done. Been running for 0.8 mins
+iteration 47 #station(2209-2256) done
+---> Done. Been running for 0.8 mins
+iteration 48 #station(2257-2304) done
+---> Done. Been running for 0.8 mins
+iteration 49 #station(2305-2352) done
+---> Done. Been running for 0.8 mins
+iteration 50 #station(2353-2400) done
+---> Done. Been running for 0.8 mins
+iteration 51 #station(2401-2448) done
+---> Done. Been running for 0.8 mins
+iteration 52 #station(2449-2496) done
+---> Done. Been running for 0.8 mins
+iteration 53 #station(2497-2544) done
+---> Done. Been running for 0.8 mins
+iteration 54 #station(2545-2592) done
+---> Done. Been running for 0.8 mins
+iteration 55 #station(2593-2640) done
+---> Done. Been running for 0.8 mins
+iteration 56 #station(2641-2688) done
+---> Done. Been running for 0.8 mins
+iteration 57 #station(2689-2736) done
+---> Done. Been running for 0.8 mins
+iteration 58 #station(2737-2784) done
+---> Done. Been running for 0.8 mins
+iteration 59 #station(2785-2832) done
+---> Done. Been running for 0.8 mins
+iteration 60 #station(2833-2880) done
+---> Done. Been running for 0.8 mins
+iteration 61 #station(2881-2928) done
+---> Done. Been running for 0.8 mins
+iteration 62 #station(2929-2976) done
+---> Done. Been running for 0.8 mins
+iteration 63 #station(2977-3024) done
+---> Done. Been running for 0.8 mins
+iteration 64 #station(3025-3072) done
+---> Done. Been running for 0.8 mins
+iteration 65 #station(3073-3120) done
+---> Done. Been running for 0.8 mins
+iteration 66 #station(3121-3168) done
+---> Done. Been running for 0.8 mins
+iteration 67 #station(3169-3216) done
+---> Done. Been running for 0.8 mins
+iteration 68 #station(3217-3264) done
+---> Done. Been running for 0.8 mins
+iteration 69 #station(3265-3312) done
+---> Done. Been running for 0.8 mins
+iteration 70 #station(3313-3360) done
+---> Done. Been running for 0.8 mins
+iteration 71 #station(3361-3408) done
+---> Done. Been running for 0.8 mins
+iteration 72 #station(3409-3456) done
+---> Done. Been running for 0.8 mins
+iteration 73 #station(3457-3504) done
+---> Done. Been running for 0.8 mins
+iteration 74 #station(3505-3552) done
+---> Done. Been running for 0.8 mins
+iteration 75 #station(3553-3600) done
+---> Done. Been running for 0.8 mins
+iteration 76 #station(3601-3648) done
+---> Done. Been running for 0.8 mins
+iteration 77 #station(3649-3696) done
+---> Done. Been running for 0.8 mins
+iteration 78 #station(3697-3744) done
+---> Done. Been running for 0.8 mins
+iteration 79 #station(3745-3792) done
+---> Done. Been running for 0.8 mins
+iteration 80 #station(3793-3840) done
+---> Done. Been running for 0.8 mins
+iteration 81 #station(3841-3888) done
+---> Done. Been running for 0.8 mins
+iteration 82 #station(3889-3936) done
+---> Done. Been running for 0.8 mins
+iteration 83 #station(3937-3984) done
+---> Done. Been running for 0.8 mins
+iteration 84 #station(3985-4032) done
+---> Done. Been running for 0.8 mins
+iteration 85 #station(4033-4080) done
+---> Done. Been running for 0.8 mins
+iteration 86 #station(4081-4128) done
+---> Done. Been running for 0.8 mins
+iteration 87 #station(4129-4176) done
+---> Done. Been running for 0.8 mins
+iteration 88 #station(4177-4224) done
+---> Done. Been running for 0.8 mins
+iteration 89 #station(4225-4272) done
+---> Done. Been running for 0.8 mins
+iteration 90 #station(4273-4320) done
+---> Done. Been running for 0.8 mins
+iteration 91 #station(4321-4368) done
+---> Done. Been running for 0.8 mins
+iteration 92 #station(4369-4416) done
+---> Done. Been running for 0.8 mins
+iteration 93 #station(4417-4464) done
+---> Done. Been running for 0.8 mins
+iteration 94 #station(4465-4512) done
+---> Done. Been running for 0.8 mins
+iteration 95 #station(4513-4560) done
+---> Done. Been running for 0.8 mins
+iteration 96 #station(4561-4608) done
+---> Done. Been running for 0.8 mins
+iteration 97 #station(4609-4656) done
+---> Done. Been running for 0.8 mins
+iteration 98 #station(4657-4704) done
+---> Done. Been running for 0.8 mins
+iteration 99 #station(4705-4752) done
+---> Done. Been running for 0.8 mins
+iteration 100 #station(4753-4800) done
+---> Done. Been running for 0.8 mins
+iteration 101 #station(4801-4848) done
+---> Done. Been running for 0.8 mins
+iteration 102 #station(4849-4896) done
+---> Done. Been running for 0.8 mins
+iteration 103 #station(4897-4944) done
+---> Done. Been running for 0.8 mins
+iteration 104 #station(4945-4992) done
+---> Done. Been running for 0.8 mins
+iteration 105 #station(4993-5040) done
+---> Done. Been running for 0.8 mins
+iteration 106 #station(5041-5088) done
+---> Done. Been running for 0.8 mins
+iteration 107 #station(5089-5136) done
+---> Done. Been running for 0.8 mins
+iteration 108 #station(5137-5184) done
+---> Done. Been running for 0.8 mins
+iteration 109 #station(5185-5232) done
+---> Done. Been running for 0.8 mins
+iteration 110 #station(5233-5280) done
+---> Done. Been running for 0.8 mins
+iteration 111 #station(5281-5328) done
+---> Done. Been running for 0.8 mins
+iteration 112 #station(5329-5376) done
+---> Done. Been running for 0.8 mins
+iteration 113 #station(5377-5424) done
+---> Done. Been running for 0.8 mins
+iteration 114 #station(5425-5472) done
+---> Done. Been running for 0.8 mins
+iteration 115 #station(5473-5520) done
+---> Done. Been running for 0.8 mins
+iteration 116 #station(5521-5568) done
+---> Done. Been running for 0.8 mins
+iteration 117 #station(5569-5616) done
+---> Done. Been running for 0.9 mins
+iteration 118 #station(5617-5664) done
+---> Done. Been running for 0.9 mins
+iteration 119 #station(5665-5712) done
+---> Done. Been running for 0.9 mins
+iteration 120 #station(5713-5760) done
+---> Done. Been running for 0.9 mins
+iteration 121 #station(5761-5808) done
+---> Done. Been running for 0.9 mins
+iteration 122 #station(5809-5856) done
+---> Done. Been running for 0.9 mins
+iteration 123 #station(5857-5904) done
+---> Done. Been running for 0.9 mins
+iteration 124 #station(5905-5952) done
+---> Done. Been running for 0.9 mins
+iteration 125 #station(5953-6000) done
+---> Done. Been running for 0.9 mins
+iteration 126 #station(6001-6048) done
+---> Done. Been running for 0.9 mins
+iteration 127 #station(6049-6096) done
+---> Done. Been running for 0.9 mins
+iteration 128 #station(6097-6144) done
+---> Done. Been running for 0.9 mins
+iteration 129 #station(6145-6192) done
+---> Done. Been running for 0.9 mins
+iteration 130 #station(6193-6240) done
+---> Done. Been running for 0.9 mins
+iteration 131 #station(6241-6288) done
+---> Done. Been running for 0.9 mins
+iteration 132 #station(6289-6336) done
+---> Done. Been running for 0.9 mins
+iteration 133 #station(6337-6384) done
+---> Done. Been running for 0.9 mins
+iteration 134 #station(6385-6432) done
+---> Done. Been running for 0.9 mins
+iteration 135 #station(6433-6480) done
+---> Done. Been running for 0.9 mins
+iteration 136 #station(6481-6528) done
+---> Done. Been running for 0.9 mins
+iteration 137 #station(6529-6576) done
+---> Done. Been running for 0.9 mins
+iteration 138 #station(6577-6624) done
+---> Done. Been running for 0.9 mins
+iteration 139 #station(6625-6672) done
+---> Done. Been running for 0.9 mins
+iteration 140 #station(6673-6720) done
+---> Done. Been running for 0.9 mins
+iteration 141 #station(6721-6768) done
+---> Done. Been running for 0.9 mins
+iteration 142 #station(6769-6816) done
+---> Done. Been running for 0.9 mins
+iteration 143 #station(6817-6864) done
+---> Done. Been running for 0.9 mins
+iteration 144 #station(6865-6912) done
+---> Done. Been running for 0.9 mins
+iteration 145 #station(6913-6960) done
+---> Done. Been running for 0.9 mins
+iteration 146 #station(6961-7008) done
+---> Done. Been running for 0.9 mins
+iteration 147 #station(7009-7056) done
+---> Done. Been running for 0.9 mins
+iteration 148 #station(7057-7104) done
+---> Done. Been running for 0.9 mins
+iteration 149 #station(7105-7152) done
+---> Done. Been running for 0.9 mins
+iteration 150 #station(7153-7200) done
+---> Done. Been running for 0.9 mins
+iteration 151 #station(7201-7248) done
+---> Done. Been running for 0.9 mins
+iteration 152 #station(7249-7296) done
+---> Done. Been running for 0.9 mins
+iteration 153 #station(7297-7344) done
+---> Done. Been running for 0.9 mins
+iteration 154 #station(7345-7392) done
+---> Done. Been running for 0.9 mins
+iteration 155 #station(7393-7440) done
+---> Done. Been running for 0.9 mins
+iteration 156 #station(7441-7488) done
+---> Done. Been running for 0.9 mins
+iteration 157 #station(7489-7536) done
+---> Done. Been running for 0.9 mins
+iteration 158 #station(7537-7584) done
+---> Done. Been running for 0.9 mins
+iteration 159 #station(7585-7632) done
+---> Done. Been running for 0.9 mins
+iteration 160 #station(7633-7680) done
+---> Done. Been running for 0.9 mins
+iteration 161 #station(7681-7728) done
+---> Done. Been running for 0.9 mins
+iteration 162 #station(7729-7776) done
+---> Done. Been running for 0.9 mins
+iteration 163 #station(7777-7824) done
+---> Done. Been running for 0.9 mins
+iteration 164 #station(7825-7872) done
+---> Done. Been running for 0.9 mins
+iteration 165 #station(7873-7920) done
+---> Done. Been running for 0.9 mins
+iteration 166 #station(7921-7968) done
+---> Done. Been running for 0.9 mins
+iteration 167 #station(7969-8016) done
+---> Done. Been running for 0.9 mins
+iteration 168 #station(8017-8064) done
+---> Done. Been running for 0.9 mins
+iteration 169 #station(8065-8112) done
+---> Done. Been running for 0.9 mins
+iteration 170 #station(8113-8160) done
+---> Done. Been running for 0.9 mins
+iteration 171 #station(8161-8208) done
+---> Done. Been running for 0.9 mins
+iteration 172 #station(8209-8256) done
+---> Done. Been running for 0.9 mins
+iteration 173 #station(8257-8304) done
+---> Done. Been running for 0.9 mins
+iteration 174 #station(8305-8352) done
+---> Done. Been running for 0.9 mins
+iteration 175 #station(8353-8400) done
+---> Done. Been running for 0.9 mins
+iteration 176 #station(8401-8448) done
+---> Done. Been running for 0.9 mins
+iteration 177 #station(8449-8496) done
+---> Done. Been running for 0.9 mins
+iteration 178 #station(8497-8544) done
+---> Done. Been running for 0.9 mins
+iteration 179 #station(8545-8592) done
+---> Done. Been running for 0.9 mins
+iteration 180 #station(8593-8640) done
+---> Done. Been running for 0.9 mins
+iteration 181 #station(8641-8688) done
+---> Done. Been running for 0.9 mins
+iteration 182 #station(8689-8736) done
+---> Done. Been running for 0.9 mins
+iteration 183 #station(8737-8784) done
+---> Done. Been running for 0.9 mins
+iteration 184 #station(8785-8832) done
+---> Done. Been running for 0.9 mins
+iteration 185 #station(8833-8880) done
+---> Done. Been running for 0.9 mins
+iteration 186 #station(8881-8928) done
+---> Done. Been running for 0.9 mins
+iteration 187 #station(8929-8976) done
+---> Done. Been running for 0.9 mins
+iteration 188 #station(8977-9024) done
+---> Done. Been running for 0.9 mins
+iteration 189 #station(9025-9072) done
+---> Done. Been running for 0.9 mins
+iteration 190 #station(9073-9120) done
+---> Done. Been running for 0.9 mins
+iteration 191 #station(9121-9168) done
+---> Done. Been running for 0.9 mins
+iteration 192 #station(9169-9216) done
+---> Done. Been running for 0.9 mins
+iteration 193 #station(9217-9264) done
+---> Done. Been running for 0.9 mins
+iteration 194 #station(9265-9312) done
+---> Done. Been running for 0.9 mins
+iteration 195 #station(9313-9360) done
+---> Done. Been running for 0.9 mins
+iteration 196 #station(9361-9408) done
+---> Done. Been running for 0.9 mins
+iteration 197 #station(9409-9456) done
+---> Done. Been running for 0.9 mins
+iteration 198 #station(9457-9504) done
+---> Done. Been running for 0.9 mins
+iteration 199 #station(9505-9552) done
+---> Done. Been running for 0.9 mins
+iteration 200 #station(9553-9600) done
+---> Done. Been running for 0.9 mins
+iteration 201 #station(9601-9648) done
+---> Done. Been running for 0.9 mins
+iteration 202 #station(9649-9696) done
+---> Done. Been running for 0.9 mins
+iteration 203 #station(9697-9744) done
+---> Done. Been running for 0.9 mins
+iteration 204 #station(9745-9792) done
+---> Done. Been running for 0.9 mins
+iteration 205 #station(9793-9840) done
+---> Done. Been running for 0.9 mins
+iteration 206 #station(9841-9888) done
+---> Done. Been running for 1 mins
+iteration 207 #station(9889-9936) done
+---> Done. Been running for 1 mins
+iteration 208 #station(9937-9984) done
+---> Done. Been running for 1 mins
+iteration 209 #station(9985-10032) done
+---> Done. Been running for 1 mins
+iteration 210 #station(10033-10080) done
+---> Done. Been running for 1 mins
+iteration 211 #station(10081-10128) done
+---> Done. Been running for 1 mins
+iteration 212 #station(10129-10176) done
+---> Done. Been running for 1 mins
+iteration 213 #station(10177-10224) done
+---> Done. Been running for 1 mins
+iteration 214 #station(10225-10272) done
+---> Done. Been running for 1 mins
+iteration 215 #station(10273-10320) done
+---> Done. Been running for 1 mins
+iteration 216 #station(10321-10368) done
+---> Done. Been running for 1 mins
+iteration 217 #station(10369-10416) done
+---> Done. Been running for 1 mins
+iteration 218 #station(10417-10464) done
+---> Done. Been running for 1 mins
+iteration 219 #station(10465-10512) done
+---> Done. Been running for 1 mins
+iteration 220 #station(10513-10560) done
+---> Done. Been running for 1 mins
+iteration 221 #station(10561-10608) done
+---> Done. Been running for 1 mins
+iteration 222 #station(10609-10656) done
+---> Done. Been running for 1 mins
+iteration 223 #station(10657-10704) done
+---> Done. Been running for 1 mins
+iteration 224 #station(10705-10752) done
+---> Done. Been running for 1 mins
+iteration 225 #station(10753-10800) done
+---> Done. Been running for 1 mins
+iteration 226 #station(10801-10848) done
+---> Done. Been running for 1 mins
+iteration 227 #station(10849-10896) done
+---> Done. Been running for 1 mins
+iteration 228 #station(10897-10944) done
+---> Done. Been running for 1 mins
+iteration 229 #station(10945-10992) done
+---> Done. Been running for 1 mins
+iteration 230 #station(10993-11040) done
+---> Done. Been running for 1 mins
+iteration 231 #station(11041-11088) done
+---> Done. Been running for 1 mins
+iteration 232 #station(11089-11136) done
+---> Done. Been running for 1 mins
+iteration 233 #station(11137-11184) done
+---> Done. Been running for 1 mins
+iteration 234 #station(11185-11232) done
+---> Done. Been running for 1 mins
+iteration 235 #station(11233-11280) done
+---> Done. Been running for 1 mins
+iteration 236 #station(11281-11328) done
+---> Done. Been running for 1 mins
+iteration 237 #station(11329-11376) done
+---> Done. Been running for 1 mins
+iteration 238 #station(11377-11424) done
+---> Done. Been running for 1 mins
+iteration 239 #station(11425-11472) done
+---> Done. Been running for 1 mins
+iteration 240 #station(11473-11520) done
+---> Done. Been running for 1 mins
+iteration 241 #station(11521-11546) done
+---> Done. Been running for 1 mins
+transform back ARMA residuals through SEM
+Done in 892.8 mins
+converting output to single float and reshape variables
+finished
+IdleTimeout has been reached.
+Parallel pool using the 'Processes' profile is shutting down.

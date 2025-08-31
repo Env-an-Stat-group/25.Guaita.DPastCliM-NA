@@ -14,7 +14,7 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(path_main,'matlab_code_git'));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'tas'; % variable name
+name_var = 'pr'; % variable name
 name_experiment = 'past2k';
 % starting and ending year for the PMIP expeirment considered.
 % weird enough, but the past experiments start counting years from 7000 CE
