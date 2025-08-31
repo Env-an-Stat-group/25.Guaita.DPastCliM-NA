@@ -87,5 +87,5 @@ function plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_t
 
     % --- Save the figure ---
     name_figuresave = fullfile(path_fig, [name_var '_timeline_' suffix]);
-    print(f, name_figuresave, '-dtiff', res_plot);
+    print(f, [name_figuresave '.png'], '-dpng', res_plot);
 end

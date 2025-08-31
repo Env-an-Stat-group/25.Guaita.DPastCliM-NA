@@ -8,12 +8,12 @@ rng(812)
 
 % paths and settings
 path_main = '/data/pguaita/downscaling/';
-addpath(genpath(fullfile(path_main,'matlab_code')));
+addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR';
 suffix = '_NA_020';
 path_fig = fullfile(path_main, ['downscaling_output_' name_model], 'figures_PCR');
 path_file = fullfile(path_main, ['downscaling_output_' name_model]);
-path_shp_file = fullfile(path_main, 'matlab_code/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
+path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
 
 %% load grid and define limits
 load(fullfile(path_main, ['static_maps/downscaling_grid' suffix '.mat']));

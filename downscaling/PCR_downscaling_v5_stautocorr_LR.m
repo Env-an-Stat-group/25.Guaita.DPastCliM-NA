@@ -13,7 +13,7 @@ rng(812)
 
 % parameters
 path_main = '/data/pguaita/downscaling/';
-addpath(genpath(fullfile(path_main,'matlab_code')));
+addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'pr'; % variable name
 name_experiment = 'past2k';
@@ -31,7 +31,7 @@ path_ESM = fullfile(path_main,'CMIP_data');
 path_output = fullfile(path_main, ['downscaling_output_' name_model]);
 path_fig = fullfile(path_main,['downscaling_models_' name_model],'figures_PCR');
 path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
-path_shp_file = fullfile(path_main,'/matlab_code/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
+path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
 suffix = '_NA_020';
 
 %% parameters that you most likely should not change
@@ -197,7 +197,7 @@ switch name_var
                 sigma2_tmp = sum((obsTable_tmp.Y-obsTable_tmp.dsESY).^2)/height(obsTable_tmp);
                 residual_tmp = ...
                     log((obsTable_tmp.Value + obsTable_tmp.Y_t)./(obsTable_tmp.dsEValue+obsTable_tmp.Y_t))...
-                    +exp((sigma2_tmp)/2);
+                    +(sigma2_tmp)/2;
                 residual_mat(i_ID,idx_time)=residual_tmp;
             end
         end

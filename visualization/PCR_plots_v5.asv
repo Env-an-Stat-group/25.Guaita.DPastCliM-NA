@@ -11,7 +11,7 @@ disp('setting initial parameters...')
 rng(812)
 
 % parameters
-path_main = '/data/pguaita/downscaling/';
+path_main = 'C:\Users\guait\OneDrive - Università Cattolica del Sacro Cuore\PALEON\downscaling';%'/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'pr'; % variable name
@@ -654,7 +654,7 @@ for i_season = 1:length(ind_season)
     save_name_PCR = fullfile(path_fig, [text_title '_PCR' suffix]);
     
     geosurfm_meansdlabel(PCR_plot, flag_land, lat, lon, bias_limit, ...
-        save_name_PCR, unit_var, [text_title ' (PCR)'], ...
+        save_name_PCR, unit_var, [text_title '(PCR)'], ...
         lim_lat, lim_lon, bias_step, palette_bias(n_color_bias), path_shp_file, res_fig);
 
     % --- ESM ---
@@ -662,7 +662,7 @@ for i_season = 1:length(ind_season)
     save_name_ESM = fullfile(path_fig, [text_title '_ESM' suffix]);
     
     geosurfm_meansdlabel(ESM_plot, flag_land, lat, lon, bias_limit, ...
-        save_name_ESM, unit_var, [text_title ' (ESM)'], ...
+        save_name_ESM, unit_var, [text_title '(ESM)'], ...
         lim_lat, lim_lon, bias_step, palette_bias(n_color_bias), path_shp_file, res_fig);
 end
 
@@ -688,7 +688,7 @@ for i_season = 1:length(ind_season)
     save_name_PCR = fullfile(path_fig, [text_title '_PCR' suffix]);
     
     geosurfm_meansdlabel(PCR_plot, flag_land, lat, lon, bias_limit, ...
-        save_name_PCR, unit_var, [text_title ' (PCR)'], ...
+        save_name_PCR, unit_var, [text_title '(PCR)'], ...
         lim_lat, lim_lon, bias_step, palette_bias(n_color_bias), path_shp_file, res_fig);
 
     % --- ESM ---
@@ -696,7 +696,7 @@ for i_season = 1:length(ind_season)
     save_name_ESM = fullfile(path_fig, [text_title '_ESM' suffix]);
     
     geosurfm_meansdlabel(ESM_plot, flag_land, lat, lon, bias_limit, ...
-        save_name_ESM, unit_var, [text_title ' (ESM)'], ...
+        save_name_ESM, unit_var, [text_title '(ESM)'], ...
         lim_lat, lim_lon, bias_step, palette_bias(n_color_bias), path_shp_file, res_fig);
 
     %90th percentile
@@ -706,7 +706,7 @@ for i_season = 1:length(ind_season)
     save_name_PCR = fullfile(path_fig, [text_title '_PCR' suffix]);
     
     geosurfm_meansdlabel(PCR_plot, flag_land, lat, lon, bias_limit, ...
-        save_name_PCR, unit_var, [text_title ' (PCR)'], ...
+        save_name_PCR, unit_var, [text_title '(PCR)'], ...
         lim_lat, lim_lon, bias_step, palette_bias(n_color_bias), path_shp_file, res_fig);
 
     % --- ESM ---
@@ -714,7 +714,7 @@ for i_season = 1:length(ind_season)
     save_name_ESM = fullfile(path_fig, [text_title '_ESM' suffix]);
     
     geosurfm_meansdlabel(ESM_plot, flag_land, lat, lon, bias_limit, ...
-        save_name_ESM, unit_var, [text_title ' (ESM)'], ...
+        save_name_ESM, unit_var, [text_title '(ESM)'], ...
         lim_lat, lim_lon, bias_step, palette_bias(n_color_bias), path_shp_file, res_fig);
     
 end    
