@@ -12,7 +12,7 @@ disp('Starting downscaling...')
 rng(812)
 
 % parameters
-path_main = '/data/pguaita/downscaling/';
+path_main = 'C:\Users\guait\OneDrive - Università Cattolica del Sacro Cuore\PALEON\downscaling';%'/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'pr'; % variable name
@@ -32,7 +32,7 @@ path_output = fullfile(path_main, ['downscaling_output_' name_model]);
 path_fig = fullfile(path_main,['downscaling_models_' name_model],'figures_PCR');
 path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
-suffix = '_NA_020';
+suffix = '_Hartfordtest';
 
 %% parameters that you most likely should not change
 
@@ -496,8 +496,7 @@ for i_var = 1:length(var_save)
                     else
                         if size(var_data,1)>1 && size(var_data,2)>1
                             varid = netcdf.defVar(ncid, var_name, NC_CLASS, [dim_site,dim_time]);
-                            netcdf.defVarDeflate(ncid, varid, 1, 1, 3);
-                            netcdf.defVarDeflate(ncid, varid, true, true, 9);
+                            netcdf.defVarDeflate(ncid, varid, true, true, 4);
                             netcdf.putVar(ncid, varid, var_data);
                             netcdf.putAtt(ncid, varid, 'description', var_desc{i_var});
                             netcdf.putAtt(ncid, varid, 'unit', unit_text);
@@ -523,8 +522,7 @@ for i_var = 1:length(var_save)
                     end
                 case 3
                     varid = netcdf.defVar(ncid, var_name, NC_CLASS, [dim_site,dim_time,dim_bound]);
-                    netcdf.defVarDeflate(ncid, varid, 1, 1, 5);
-                    netcdf.defVarDeflate(ncid, varid, true, true, 9);
+                    netcdf.defVarDeflate(ncid, varid, true, true, 4);
                     netcdf.putVar(ncid, varid, var_data);
                     netcdf.putAtt(ncid, varid, 'description', var_desc{i_var});
                     netcdf.putAtt(ncid, varid, 'unit', unit_text);
