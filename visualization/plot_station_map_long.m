@@ -24,7 +24,7 @@ function plot_station_map_long(meta, lim_lat, lim_lon, path_shp_file, fig_path, 
 
     % Plot stations with smaller markers using new colors
     plot(meta.lon, meta.lat, 'o', ...
-         'MarkerFaceColor', color_cal, 'MarkerEdgeColor', color_cal, 'MarkerSize', 2);
+         'MarkerFaceColor', color_cal, 'MarkerEdgeColor', color_cal, 'MarkerSize', 3.5);
 
     % Add total number of stations in the bottom-left corner
     text(lim_lon(1)+0.03*range(lim_lon), lim_lat(1)+0.04*range(lim_lat), ...

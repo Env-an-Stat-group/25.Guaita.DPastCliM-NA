@@ -11,4 +11,4 @@ cd /data/pguaita/downscaling/matlab_code/visualization/
 
 module load matlab
 
-matlab -nodisplay -nosplash -r "plot_station; exit;"
+matlab -nodisplay -nosplash -r "point_timeline; exit;"
