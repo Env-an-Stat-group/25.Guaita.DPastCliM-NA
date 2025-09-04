@@ -12,7 +12,7 @@ rng(812)
 
 % parameters
 path_main = '/data/pguaita/downscaling/';
-addpath(genpath(path_main,'matlab_code_git'));
+addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'pr'; % variable name
 name_experiment = 'past2k';
