@@ -23,7 +23,7 @@ ax = worldmap(latlim_map, lonlim_map);
 setm(ax);
 
 % turn off latitude and longitude labels
-setm(ax, 'MeridianLabel', 'off', 'ParallelLabel', 'off');
+setm(ax, 'MeridianLabel', 'off', 'ParallelLabel', 'off', 'MapProjection', 'eckert4');
 
 hold on
 
