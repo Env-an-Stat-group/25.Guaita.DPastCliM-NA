@@ -37,8 +37,8 @@ c.Ticks = (round(c_lim(1)/cstep)*cstep):cstep:(round(c_lim(2)/cstep)*cstep);
 title(title_text)
 
 % fix view options
-setm(gca,'fontsize',18,'fontweight','bold','glinewidth',1);
-set(gca,'FontWeight','bold','FontSize',22,'Tickdir','out','linewidth',1.5,'box','on')
+setm(gca,'fontsize',24,'fontweight','bold','glinewidth',1);
+set(gca,'FontWeight','bold','FontSize',28,'Tickdir','out','linewidth',1.5,'box','on')
 
 % map shp file
 if exist('shp_file_path','var')
@@ -50,9 +50,9 @@ mean_val = mean(matrix_map(filter), 'omitnan');
 std_val  = std(matrix_map(filter), 'omitnan');
 
 % Place text in normalized figure coordinates (bottom-left)
-text(0.03, 0.08, sprintf('%.2f ± %.2f', mean_val, std_val), ...
+text(0.05, 0.11, sprintf('%.2f ± %.2f', mean_val, std_val), ...
     'Units', 'normalized', 'HorizontalAlignment', 'left', ...
-    'VerticalAlignment', 'bottom', 'FontSize', 22, 'FontWeight', 'bold', 'Color', 'k');
+    'VerticalAlignment', 'bottom', 'FontSize', 28, 'FontWeight', 'bold', 'Color', 'k');
 
 if ~isempty(save_name)
     print(f, [save_name '.png'], '-dpng', res);
