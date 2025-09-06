@@ -67,19 +67,19 @@ function plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_t
     
     % --- Title and labels ---
     title([name_var ' timeline in ' suffix ' ' int2str(x_limits(1)) '-' int2str(x_limits(2))], 'FontSize', 16, 'FontWeight', 'bold');
-    xlabel('Year', 'FontSize', 14);
-    ylabel(unit_var, 'FontSize', 14);
+    xlabel('Year', 'FontSize', 16);
+    ylabel(unit_var, 'FontSize', 16);
 
     % --- Grid and axis formatting ---
     grid on;
-    set(gca, 'FontSize', 12);
+    set(gca, 'FontSize', 16);
 
     % Define ticks every 100 years
     %maxYear = max([max(years_obs), max(years_esm)]);  % full span
     %yearTicks = 0:100:maxYear;
     xticks(x_limits(1):5:x_limits(2));
     %xticklabels(yearTicks);
-    xlim([x_limits(1)-0.15 x_limits(2)+0.15]);
+    xlim([x_limits(1)-0.2 x_limits(2)+0.2]);
 
     % --- Variable-specific y-limits ---
     switch name_var
