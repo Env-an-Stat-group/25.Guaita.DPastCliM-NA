@@ -36,7 +36,7 @@ ax = worldmap(latlim_map, lonlim_map);
 surfacem(lat_mat, lon_mat, matrix_map);
 clim(c_lim)
 colormap(palette)
-title(title_text, 'fontsize', 14, 'fontweight', 'bold')
+title(title_text, 'fontsize', 16, 'fontweight', 'bold')
 
 % Remove all latitude and longitude labels and gridlines
 setm(ax, 'MLabelLocation', NaN, 'PLabelLocation', NaN, 'MLineLocation', NaN, 'PLineLocation', NaN, 'MapProjection', 'eckert4');

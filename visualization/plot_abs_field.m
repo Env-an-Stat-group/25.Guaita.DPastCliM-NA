@@ -42,13 +42,13 @@ function plot_abs_field(dsValue_map, time_bound, year_start, flag_land, ...
         std_val = std(plot_map(:), 'omitnan');
         
         % Place text in normalized figure coordinates (bottom-left)
-        text(0.02, 0.06, sprintf('%.2f ± %.2f', mean_val, std_val), ...
+        text(0.02, 0.08, sprintf('%.2f ± %.2f', mean_val, std_val), ...
             'Units', 'normalized', 'HorizontalAlignment', 'left', ...
-            'VerticalAlignment', 'bottom', 'FontSize', 14, 'FontWeight', 'bold', 'Color', 'k');
+            'VerticalAlignment', 'bottom', 'FontSize', 15, 'FontWeight', 'bold', 'Color', 'k');
     end
 
     % Set the overall title for the figure
-    sgtitle([i_mth_txt ' mean PCR-downscaled ' name_var], 'FontSize', 15, 'FontWeight', 'bold');
+    sgtitle([i_mth_txt ' mean PCR-downscaled ' name_var], 'FontSize', 18, 'FontWeight', 'bold');
 
     % Add a shared colorbar at the bottom
     cb = colorbar('Location', 'southoutside');
@@ -66,7 +66,7 @@ function plot_abs_field(dsValue_map, time_bound, year_start, flag_land, ...
     cb.Limits = c_lim;
     
     % Position colorbar nicely below all subplots
-    cb.Position = [0.25, 0.15, 0.6, 0.03];  % [x, y, width, height]
+    cb.Position = [0.25, 0.2, 0.6, 0.03];  % [x, y, width, height]
         
     % Define figure save path
     name_figuresave = fullfile(path_fig, [name_var '_abs field_' i_mth_txt suffix]);
