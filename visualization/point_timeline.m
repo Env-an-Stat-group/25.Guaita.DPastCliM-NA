@@ -11,7 +11,7 @@ disp('setting initial parameters...')
 rng(812)
 
 % parameters
-path_main = 'C:\Users\guait\OneDrive - Università Cattolica del Sacro Cuore\PALEON\downscaling\';% '/data/pguaita/downscaling/';
+path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'pr'; % variable name
@@ -22,7 +22,7 @@ path_file = fullfile(path_main,['downscaling_output_' name_model]);
 path_obs = fullfile(path_main,'obs_data');
 path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
-suffix = '_Hartfordtest';
+suffix = '_NA_020';
 
 %% load grid and define limits
 load(fullfile(path_main, ['static_maps/downscaling_grid' suffix '.mat']));
