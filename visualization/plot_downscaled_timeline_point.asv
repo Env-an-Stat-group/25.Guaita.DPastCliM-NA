@@ -14,7 +14,7 @@ function plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_t
     %   y_sup        - upper PI bound (monthly)
 
     % --- Create figure ---
-    f = figure('Position', [50, 100, 700, 300]);
+    f = figure('Position', [50, 100, 1500, 300]);
     hold on;
 
     % --- Improved colorblind-friendly palette ---
@@ -22,7 +22,6 @@ function plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_t
         0.2, 0.2, 0.2;    % Dark Gray for observations
         0.90, 0.45, 0.30; % Vermilion for downscaled PCR
         0.35, 0.70, 0.90; % Sky Blue for ESM
-        0.7, 0.7, 0.7; % Sky Blue for ESM
     ];
 
     % --- Convert months to years ---
@@ -56,17 +55,17 @@ function plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_t
     %year_esm_axis = (0:length(y_esm)-1)';
 
     % --- Shaded PI area (same color as downscaled PCR, transparent) ---
-    fill([years_esm; flipud(years_esm)], ...
-        [y_inf'; flipud(y_sup')], colors(4,:), ...
-         'FaceAlpha', 0.2, 'EdgeColor', 'none', 'HandleVisibility', 'off');
+    fill([years_esm'; fliplr(years_esm')], ...
+        [y_inf; fliplr(y_sup)], colors(3,:), ...
+         'FaceAlpha', 0.17, 'EdgeColor', 'none', 'HandleVisibility', 'on');
 
     % --- Plot lines ---
-    plot(years_esm, y_esm, 'LineWidth', 0.8, 'Color', colors(2,:), 'DisplayName', name_model);
-    plot(years_obs, y_obs, 'LineWidth', 0.8, 'Color', colors(1,:), 'DisplayName', 'GHCN-m');
+    plot(years_esm, y_esm, 'LineWidth', 0.7, 'Color', colors(2,:), 'DisplayName', name_model);
+    plot(years_obs, y_obs, 'LineWidth', 1.3, 'Color', colors(1,:), 'DisplayName', 'GHCN-m');
     plot(years_esm, y_ds,  'LineWidth', 1, 'Color', colors(3,:), 'DisplayName', 'PCR downscaled');
     
     % --- Title and labels ---
-    title([name_var ' timeline in ' suffix ' ' int2str(x_limits(1)) '-' int2str(x_limits(2))], 'FontSize', 16, 'FontWeight', 'bold');
+    title([name_var ' timeline in ' suffix], 'FontSize', 16, 'FontWeight', 'bold');
     xlabel('Year', 'FontSize', 14);
     ylabel(unit_var, 'FontSize', 14);
 
@@ -75,24 +74,24 @@ function plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_t
     set(gca, 'FontSize', 12);
 
     % Define ticks every 100 years
-    %maxYear = max([max(years_obs), max(years_esm)]);  % full span
-    %yearTicks = 0:100:maxYear;
+    maxYear = max([max(years_obs), max(years_esm)]);  % full span
+    yearTicks = 0:100:maxYear;
     xticks(x_limits(1):5:x_limits(2));
-    %xticklabels(yearTicks);
-    xlim([x_limits(1)-0.15 x_limits(2)+0.15]);
+    xticklabels(yearTicks);
+    xlim([x_limits(1) x_limits(2)]);
 
     % --- Variable-specific y-limits ---
     switch name_var
         case 'pr'
             ylim([0 ceil(prctile(y_sup,99.5,'all'))])
         case 'tas'
-            ylim([floor(min([y_inf'; y_ds'; y_esm; y_obs])) ceil(max([y_sup'; y_ds'; y_esm; y_obs]))])
+            ylim([floor(prctile(y_inf,0.5,'all')) ceil(prctile(y_sup,99.5,'all'))])
     end
 
     % --- Legend ---
-    %legend('show', 'Location', 'northeastoutside', 'FontSize', 12);
+    legend('show', 'Location', 'northeastoutside', 'FontSize', 12);
 
     % --- Save the figure ---
-    name_figuresave = fullfile(path_fig, [name_var '_timeline_' suffix '_' int2str(x_limits(1)) '-' int2str(x_limits(2))]);
+    name_figuresave = fullfile(path_fig, [name_var '_timeline_' suffix]);
     print(f, [name_figuresave '.png'], '-dpng', res_plot);
 end
