@@ -190,7 +190,6 @@ for i_station = 1:length(list_point)
     dsVal_tmp       = dsValue(flag_ID_meta, :);
     dsPIinf_tmp     = PI_mat(flag_ID_meta, :, 1);
     dsPIsup_tmp     = PI_mat(flag_ID_meta, :, 2);
-    obsTable_tmp = obsTable(flag_ID_obsTable, :);
     obs_value_tmp = obsTable_tmp.Value;
     time_obs_tmp = obsTable_tmp.month_since_0CE; 
     [time_obs_tmp, idx_sort] = sort(time_obs_tmp);

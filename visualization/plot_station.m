@@ -7,7 +7,7 @@ disp('setting initial parameters...')
 rng(812)
 
 % paths and settings
-path_main = 'C:\Users\guait\OneDrive - Università Cattolica del Sacro Cuore\PALEON\downscaling\'; %'/data/pguaita/downscaling/';
+path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR';
 suffix = '_NA_020';
@@ -34,9 +34,7 @@ end
 %% plot temperature stations
 close all
 
-        star_list = {'CA001100120', 'USC00026796', ...
-            'USC00047738', 'USW00023188', 'USW00024216','USC00053005',...
-            'USC00198367','USC00200146','USC00351862','USW00014742', 'USW00023234'};
+star_list = {'USC00351862','USW00014742'};
 
 plot_station_map_with_density(meta_tas, lim_lat, lim_lon, path_shp_file, ...
     fullfile(path_fig, 'temperature_station_locations.png'), 'tas GHCN-m stations', ...
@@ -46,11 +44,7 @@ plot_station_map_with_density(meta_tas, lim_lat, lim_lon, path_shp_file, ...
 
 close all
 
-        star_list = {'USC00043747','USC00353827','USC00456096','USC00456678',...
-            'USC00252205','USC00096335','USC00200032','USC00200230','USC00080478',...
-            'USC00176430'
-        };
-
+star_list = {'USC00043747','USC00200032'};
 
 plot_station_map_with_density(meta_pr, lim_lat, lim_lon, path_shp_file, ...
     fullfile(path_fig, 'precipitation_station_locations.png'), 'pr GHCN-m Stations',...
