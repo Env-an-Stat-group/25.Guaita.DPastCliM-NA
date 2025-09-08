@@ -385,6 +385,12 @@ disp('transform back ARMA residuals through SEM')
 %[epsilon] = inverse_SEM(eps_ARMA, W, lambda);
 [u_mat_lr] = inverse_SEM_season(eps_ARMA, W_mam, W_jja, W_son, W_djf, lambda);
 
+% correct precipitation residuals when dsEValue + u_mat is negative
+if strcmp(name_var,'pr')
+    flag_negative = dsEValue_mat_lr + u_mat_lr<0;
+    u_mat_lr(flag_negative) = -dsEValue_mat_lr(flag_negative);
+end
+
 disp(['Done in ' num2str(round(toc/60,1)) ' mins'])
 
 %% convert output variables to single float

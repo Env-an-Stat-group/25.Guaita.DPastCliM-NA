@@ -15,7 +15,7 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'tas'; % variable name
+name_var = 'pr'; % variable name
 name_experiment = 'past2k';
 % starting and ending year for the PMIP expeirment considered.
 % weird enough, but the past experiments start counting years from 7000 CE
@@ -32,7 +32,7 @@ path_output = fullfile(path_main, ['downscaling_output_' name_model]);
 path_fig = fullfile(path_main,['downscaling_models_' name_model],'figures_PCR');
 path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
-suffix = '_Hartfordtest';
+suffix = '_NA_020';
 
 %% parameters that you most likely should not change
 
@@ -384,6 +384,12 @@ disp('transform back ARMA residuals through SEM')
 
 %[epsilon] = inverse_SEM(eps_ARMA, W, lambda);
 [u_mat] = inverse_SEM_season(eps_ARMA, W_mam, W_jja, W_son, W_djf, lambda);
+
+% correct precipitation residuals when dsEValue + u_mat is negative
+if strcmp(name_var,'pr')
+    flag_negative = dsEValue_mat + u_mat<0;
+    u_mat(flag_negative) = -dsEValue_mat(flag_negative);
+end
 
 disp(['Done in ' num2str(round(toc/60,1)) ' mins'])
 
