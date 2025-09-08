@@ -1,0 +1,58 @@
+/opt/sge/crc/spool/d32cepyc103/job_scripts/2029741: line 10: cd: /data/pguaita/downscaling/matlab_code/downscaling/: No such file or directory
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2023 The MathWorks, Inc.
+                  R2023b (23.2.0.2365128) 64-bit (glnxa64)
+                              August 23, 2023
+
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code/downscaling] 
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+Starting downscaling...
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/downscaling/C] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In PCR_downscaling_gridding_v1_obs (line 15)] 
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/downscaling/\Users\guait\OneDrive -
+Università Cattolica del Sacro Cuore\PALEON\downscaling] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In PCR_downscaling_gridding_v1_obs (line 15)] 
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/downscaling/C] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In PCR_downscaling_gridding_v1_obs (line 15)] 
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/downscaling/\Users\guait\OneDrive -
+Università Cattolica del Sacro
+Cuore\PALEON\downscaling/downscaling_models_MPI-ESM1-2-LR] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In PCR_downscaling_gridding_v1_obs (line 15)] 
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/downscaling/C] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In PCR_downscaling_gridding_v1_obs (line 15)] 
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/downscaling/\Users\guait\OneDrive -
+Università Cattolica del Sacro
+Cuore\PALEON\downscaling/downscaling_models_MPI-ESM1-2-LR/figures_PCR] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In PCR_downscaling_gridding_v1_obs (line 15)] 
+Setting up variables...
+load and stack ESM data for the specified model
+/opt/sge/crc/spool/d32cepyc103/job_scripts/2029741: line 14: 3770393 Killed                  matlab -nodisplay -nosplash -r "PCR_downscaling_gridding_v1_obs; exit;"

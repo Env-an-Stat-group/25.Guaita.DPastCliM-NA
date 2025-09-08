@@ -1,4 +1,4 @@
-/opt/sge/crc/spool/d32cepyc105/job_scripts/2041457: line 10: cd: /data/pguaita/downscaling/matlab_code/visualization/: No such file or directory
+/opt/sge/crc/spool/d32cepyc105/job_scripts/2041465: line 10: cd: /data/pguaita/downscaling/matlab_code/visualization/: No such file or directory
 
                             < M A T L A B (R) >
                   Copyright 1984-2023 The MathWorks, Inc.
@@ -12,10 +12,4 @@ To get started, type doc.
 For product information, visit www.mathworks.com.
  
 setting initial parameters...
-     Done.
-load observation table and downscaled station data (including PI)
-     Done.
-filter stations for sufficient data coverage
-removing 6643/6889 timeseries shorter than 120 years.
-     Done.
 Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
