@@ -84,7 +84,7 @@ function plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_t
     % --- Variable-specific y-limits ---
     switch name_var
         case 'pr'
-            ylim([0 ceil(prctile(y_sup,99.5,'all'))])
+            ylim([0 ceil(prctile([y_sup'; y_ds'; y_esm; y_obs],99.5,'all'))])
         case 'tas'
             ylim([floor(min([y_inf'; y_ds'; y_esm; y_obs])) ceil(max([y_sup'; y_ds'; y_esm; y_obs]))])
     end

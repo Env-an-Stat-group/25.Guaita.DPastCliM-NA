@@ -38,7 +38,7 @@ function plot_station_map_with_density(meta, lim_lat, lim_lon, path_shp_file, fi
     idx_star = ismember(meta.ID,star_list);
 
     plot(meta.lon(idx_star), meta.lat(idx_star), 'pentagram', ...
-         'MarkerFaceColor', 'k', 'MarkerEdgeColor', 'k', 'MarkerSize', 6);
+         'MarkerFaceColor', 'k', 'MarkerEdgeColor', 'k', 'MarkerSize', 8);
     
     % Add total number of stations in the bottom-left corner
     text(lim_lon(1)+0.03*range(lim_lon), lim_lat(1)+0.04*range(lim_lat), ...
