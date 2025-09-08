@@ -161,14 +161,9 @@ close all
 
 switch name_var
     case 'pr'
-        list_point = {'USC00043747','USC00353827','USC00456096','USC00456678',...
-                    'USC00252205','USC00096335','USC00200032','USC00200230','USC00080478',...
-                    'USC00176430'
-                };
+        list_point = {'USC00043747','USC00200032'};
     case 'tas'
-        list_point = {'CA001100120', 'USC00026796', ...
-            'USC00047738', 'USW00023188', 'USW00024216','USC00053005',...
-            'USC00198367','USC00200146','USC00351862','USW00014742', 'USW00023234'};
+        list_point = {'USC00351862','USW00014742'};
 end
 
 % Loop over points
