@@ -14,7 +14,7 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'pr'; % variable name
+name_var = 'tas'; % variable name
 name_experiment = 'past2k';
 n_min_yr = 120; % minimum number of years for stations
 path_fig = fullfile(path_main,['downscaling_output_' name_model],'figures_PCR');
