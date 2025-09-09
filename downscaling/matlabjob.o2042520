@@ -1,0 +1,176 @@
+/opt/sge/crc/spool/d32cepyc105/job_scripts/2042520: line 10: cd: /data/pguaita/downscaling/matlab_code/downscaling/: No such file or directory
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2023 The MathWorks, Inc.
+                  R2023b (23.2.0.2365128) 64-bit (glnxa64)
+                              August 23, 2023
+
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code/downscaling] 
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+Starting downscaling...
+Setting up variables...
+load and stack ESM data for the specified model
+Done in 2.6 mins
+Aggregating obs table
+doing month 1-1
+doing month 2-2
+doing month 3-3
+doing month 4-4
+doing month 5-5
+doing month 6-6
+doing month 7-7
+doing month 8-8
+doing month 9-9
+doing month 10-10
+doing month 11-11
+doing month 12-12
+Done in 2 mins
+get the residuals...
+station number 100
+station number 200
+station number 300
+station number 400
+station number 500
+station number 600
+station number 700
+station number 800
+station number 900
+station number 1000
+station number 1100
+station number 1200
+station number 1300
+station number 1400
+station number 1500
+station number 1600
+station number 1700
+station number 1800
+station number 1900
+station number 2000
+station number 2100
+station number 2200
+station number 2300
+station number 2400
+station number 2500
+station number 2600
+station number 2700
+station number 2800
+station number 2900
+station number 3000
+station number 3100
+station number 3200
+station number 3300
+station number 3400
+station number 3500
+station number 3600
+station number 3700
+station number 3800
+station number 3900
+station number 4000
+station number 4100
+station number 4200
+station number 4300
+station number 4400
+station number 4500
+station number 4600
+station number 4700
+station number 4800
+station number 4900
+station number 5000
+station number 5100
+station number 5200
+station number 5300
+station number 5400
+station number 5500
+station number 5600
+station number 5700
+station number 5800
+station number 5900
+station number 6000
+station number 6100
+station number 6200
+station number 6300
+station number 6400
+station number 6500
+station number 6600
+station number 6700
+station number 6800
+station number 6900
+station number 7000
+station number 7100
+station number 7200
+station number 7300
+station number 7400
+station number 7500
+station number 7600
+station number 7700
+station number 7800
+station number 7900
+station number 8000
+station number 8100
+station number 8200
+station number 8300
+station number 8400
+station number 8500
+station number 8600
+station number 8700
+station number 8800
+station number 8900
+station number 9000
+station number 9100
+station number 9200
+station number 9300
+station number 9400
+station number 9500
+station number 9600
+station number 9700
+station number 9800
+station number 9900
+station number 10000
+station number 10100
+station number 10200
+station number 10300
+station number 10400
+station number 10500
+station number 10600
+station number 10700
+station number 10800
+station number 10900
+station number 11000
+station number 11100
+station number 11200
+station number 11300
+station number 11400
+station number 11500
+timestep 100
+Been running for 33.7 mins
+timestep 200
+Been running for 39.4 mins
+timestep 300
+Been running for 47.3 mins
+timestep 400
+Been running for 59.4 mins
+timestep 500
+Been running for 79.7 mins
+timestep 600
+Been running for 103.1 mins
+timestep 700
+Been running for 125.3 mins
+timestep 800
+Been running for 145.3 mins
+timestep 900
+Been running for 162.7 mins
+timestep 1000
+Been running for 178.3 mins
+timestep 1100
+Been running for 191.8 mins
+timestep 1200
+Been running for 200.6 mins
+Done in 200.6 mins
+calibrating arma model
+transforming the residuals through Spatial Error Model
+MAM - Lambda = 0.9; thresh = 5 km
+JJA - Lambda = 0.9; thresh = 5 km
