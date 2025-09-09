@@ -11,9 +11,9 @@ rng(812)
 
 % parameters
 path_main = '/data/pguaita/downscaling/';
-addpath(genpath(path_main,'matlab_code_git'));
+addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'tas'; % variable name
+name_var = 'pr'; % variable name
 path_ESM = fullfile(path_main,'CMIP_data');
 path_fig = fullfile(path_main,['downscaling_models_' name_model],'figures_PCR');
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
@@ -183,13 +183,13 @@ for i_time = 1:length(time_ESM)
     % interpolate coarse_map on the target grid and on the station
     % coordinates
     f_int = griddedInterpolant(tgt_longrid,tgt_latgrid,tgt_ESM(:,:,i_time),'nearest','nearest');
-    obsTable.ValueESM(flag_time) = f_int(obsTable_tmp.lon,obsTable_tmp.lat);
+    obsTable.M(flag_time) = f_int(obsTable_tmp.lon,obsTable_tmp.lat);
 end
 
 % correct values lower than 0 for precipitation, in case there are any
 switch name_var
     case 'pr'
-        obsTable.ValueESM = max(0,obsTable.ValueESM);
+        obsTable.M = max(0,obsTable.M);
 end
 
 %% filter and separate for training and validation/model selection
@@ -205,7 +205,7 @@ tgt_ESM_val = tgt_ESM(:,:,:,flag_val);
 flag_cal = not(flag_val | flag_test);
 tgt_ESM_cal = tgt_ESM(:,:,:,flag_cal);
 
-%% transform observations to Y, calculate mu_Y and mu_ESM
+%% transform observations to Y, calculate mu_gO and mu_M
 
 for i_mth_interval = 1:size(mth_interval,1)
     % filter by specified months
@@ -218,35 +218,35 @@ for i_mth_interval = 1:size(mth_interval,1)
     % transform observed variable
     switch name_var
         case 'tas'
-            Y_t = 0;
-            obsTable_tmp.Y_t(:) = Y_t;
-            obsTable_tmp.Y = obsTable_tmp.Value+Y_t;
+            O_t = 0;
+            obsTable_tmp.O_t(:) = O_t;
+            obsTable_tmp.gO = obsTable_tmp.Value+O_t;
         case 'pr'
             for i_ID = 1:height(metaTable)
                 flag_ID = ismember(obsTable_tmp.ID,metaTable.ID(i_ID));
                 obsTable_tmp_single = obsTable_tmp(flag_ID,:);
-                Y_t = 1.1+min(obsTable_tmp_single.Value);
-                obsTable_tmp.Y_t(flag_ID) = Y_t;
-                obsTable_tmp.Y(flag_ID) = log(obsTable_tmp_single.Value+Y_t);
+                O_t = 0.5+min(obsTable_tmp_single.Value);
+                obsTable_tmp.O_t(flag_ID) = O_t;
+                obsTable_tmp.gO(flag_ID) = log(obsTable_tmp_single.Value+O_t);
             end
     end    
     
-    mu_ESM = mean(tgt_ESM_cal(:,:,i_mth,:),[3 4],'omitnan');
-    f_int = griddedInterpolant(tgt_longrid,tgt_latgrid,reshape(mu_ESM,tgt_size),'nearest','nearest');
+    mu_M = mean(tgt_ESM_cal(:,:,i_mth,:),[3 4],'omitnan');
+    f_int = griddedInterpolant(tgt_longrid,tgt_latgrid,reshape(mu_M,tgt_size),'nearest','nearest');
     
-    % calculate mu_Y
+    % calculate mu_gO
     for i_ID = 1:height(metaTable)
         flag_ID = ismember(obsTable_tmp.ID,metaTable.ID(i_ID));
-        obsTable_tmp.mu_Y(flag_ID) = mean(obsTable_tmp.Y(flag_ID),'omitnan');
-        % calculate mu_ESM with interpolation
-        obsTable_tmp.mu_ESM(flag_ID) = reshape(f_int(metaTable.lon(i_ID),metaTable.lat(i_ID)),[],1);
+        obsTable_tmp.mu_gO(flag_ID) = mean(obsTable_tmp.gO(flag_ID),'omitnan');
+        % calculate mu_M with interpolation
+        obsTable_tmp.mu_M(flag_ID) = reshape(f_int(metaTable.lon(i_ID),metaTable.lat(i_ID)),[],1);
     end
 
-    % add the transformed variable and mu_Y to the main table
-    obsTable.Y(flag_mth) = obsTable_tmp.Y; % Y is the transformed variable
-    obsTable.Y_t(flag_mth) = obsTable_tmp.Y_t; 
-    obsTable.mu_Y(flag_mth) = obsTable_tmp.mu_Y;
-    obsTable.mu_ESM(flag_mth) = obsTable_tmp.mu_ESM;
+    % add the transformed variable and mu_gO to the main table
+    obsTable.gO(flag_mth) = obsTable_tmp.gO; % gO is the transformed variable
+    obsTable.O_t(flag_mth) = obsTable_tmp.O_t; 
+    obsTable.mu_gO(flag_mth) = obsTable_tmp.mu_gO;
+    obsTable.mu_M(flag_mth) = obsTable_tmp.mu_M;
 end
 
 clear obsTable_tmp
@@ -337,9 +337,9 @@ for i_mth_interval = 1:size(mth_interval,1)
 
     % PCA
     disp('PCA...')
-    [eof_all, pc_all, pc_var_all, tsquared_all, frac_var_pc_all, mu_ESM] = ...
+    [eof_all, pc_all, pc_var_all, tsquared_all, frac_var_pc_all, mu_M] = ...
         pca(tgt_ESM_cal_mth');
-    mu_ESM = mu_ESM';
+    mu_M = mu_M';
     n_pc = size(eof_all,2);
 
     %filter dataset on considered months
@@ -374,7 +374,7 @@ for i_mth_interval = 1:size(mth_interval,1)
     % during the model selection process)
     [obsTable_tmpbest,rmse_array,r2_array,lm_list_tmpbest] =  ...
         recal_predval_v2(n_pc_array,pc_all,eof_all,...
-            tgt_ESM_mth, mu_ESM, ...
+            tgt_ESM_mth, mu_M, ...
             obsTable_mth,metaTable,time_mthcal,time_mth,name_var,true,false,n_err_iter_selection);
     
     %calculate the RMSE and store it for starting model selection
@@ -411,7 +411,7 @@ for i_mth_interval = 1:size(mth_interval,1)
             % regress on the test period
             [obsTable_tmp,rmse_array,r2_array,lm_list_tmpbest] =  ...
                 recal_predval_v2(n_pc_array_new,pc_all,eof_all,...
-                    tgt_ESM_mth, mu_ESM, ...
+                    tgt_ESM_mth, mu_M, ...
                     obsTable_mth,metaTable,time_mthcal,time_mth,name_var,false,false,n_err_iter_selection);
 
             RMSE_new = mean(rmse_array);
@@ -452,7 +452,7 @@ for i_mth_interval = 1:size(mth_interval,1)
     n_pc_array = n_pc_array_best;
     [obsTable_mth,rmse_array,r2_array,lm_list] =  ...
         recal_predval_v2(n_pc_array,pc_all,eof_all,...
-            tgt_ESM_mth, mu_ESM, ...
+            tgt_ESM_mth, mu_M, ...
             obsTable_mth,metaTable,time_mthcal,time_mth,name_var,true,true,n_err_iter_final);
 
     RMSE_tmpbest = mean(rmse_array);
@@ -461,12 +461,12 @@ for i_mth_interval = 1:size(mth_interval,1)
     disp(['final R2adj ' num2str(R2adj_tmpbest)])
 
     % calculate averages in every station
-    mu_Y_local = varfun(@mean, obsTable_mth, 'InputVariables', 'mu_Y', 'GroupingVariables', 'ID');
-    Y_t_local = varfun(@mean, obsTable_mth, 'InputVariables', 'Y_t', 'GroupingVariables', 'ID');
-    mu_Y_local = mu_Y_local(:,[1 3]);
-    Y_t_local = Y_t_local(:,[1 3]);
-    mu_Y_local.Properties.VariableNames(2) = "mu_Y";
-    Y_t_local.Properties.VariableNames(2) = "Y_t";
+    mu_gO_local = varfun(@mean, obsTable_mth, 'InputVariables', 'mu_gO', 'GroupingVariables', 'ID');
+    O_t_local = varfun(@mean, obsTable_mth, 'InputVariables', 'O_t', 'GroupingVariables', 'ID');
+    mu_gO_local = mu_gO_local(:,[1 3]);
+    O_t_local = O_t_local(:,[1 3]);
+    mu_gO_local.Properties.VariableNames(2) = "mu_gO";
+    O_t_local.Properties.VariableNames(2) = "O_t";
       
     %% EOFs
 
@@ -483,7 +483,7 @@ for i_mth_interval = 1:size(mth_interval,1)
     lat = tgt_lat;
     lon = tgt_lon;
     var_save = {'eof_all','frac_threshold','i_mth','flag_cal','flag_test','flag_val'...
-        'lm_list','lm_list_lr','lat','lon','mu_Y_local','Y_t_local',...
+        'lm_list','lm_list_lr','lat','lon','mu_gO_local','O_t_local',...
         'n_pc_array','pc_all','r2_array','r2_array_lr','rmse_array','rmse_array_lr','rmse_list'};
     var_desc = {
         'Array of EOFs (empirical orthogonal functions for projection).', ...

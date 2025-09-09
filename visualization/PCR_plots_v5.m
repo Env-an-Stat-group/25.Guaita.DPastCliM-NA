@@ -11,7 +11,7 @@ disp('setting initial parameters...')
 rng(812)
 
 % parameters
-path_main = '/data/pguaita/downscaling/';
+path_main = 'C:\Users\guait\OneDrive - Università Cattolica del Sacro Cuore\PALEON\downscaling\';%'/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'pr'; % variable name
@@ -25,7 +25,7 @@ path_fig = fullfile(path_main,['downscaling_output_' name_model],'figures_PCR');
 path_file = fullfile(path_main,['downscaling_output_' name_model]);
 path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
-suffix = '_NA_020';
+suffix = '_Hartfordtest';
 
 %% parameters that you most likely should not change
 
@@ -145,8 +145,17 @@ load(fullfile(path_file,[name_var '_' name_model '_' name_experiment '_raw_LRdow
 
 clear PI_mat PI_mat_lr
 
-dsValue_mat = dsEValue_mat + u_mat;
-dsValue_mat_lr = dsEValue_mat_lr + u_mat_lr;
+% get the predicted values by adding u_mat to the predicted average
+switch name_var
+    case 'tas'
+        dsValue_mat = dsEValue_mat + u_mat;
+        dsValue_mat_lr = dsEValue_mat_lr + u_mat_lr;
+    case 'pr'
+        dsValue_mat = pr_realizations(dsEValue_mat,u_mat,...
+            path_main,name_var,suffix,name_model);
+        dsValue_mat_lr = pr_realizations(dsEValue_mat_lr,u_mat_lr,...
+            path_main,name_var,suffix,name_model);
+end
 
 clear dsEValue_mat dsEValue_mat_lr epsilon epsilon
 
@@ -350,7 +359,7 @@ linear_idx = sub2ind(size(dsValue_mat), row_idx, col_idx);
 
 % Fill in matrices
 obsTable_mat(linear_idx) = obsTable.Value;
-ESM_mat(linear_idx)      = obsTable.ValueESM;
+ESM_mat(linear_idx)      = obsTable.M;
 
 % Filter test entries only
 test_mask     = obsTable.flag_test;
@@ -359,7 +368,7 @@ col_idx_test  = col_idx(test_mask);
 linear_idx_test = sub2ind(size(dsValue_mat), row_idx_test, col_idx_test);
 
 obsTable_mat_test(linear_idx_test) = obsTable.Value(test_mask);
-ESM_mat_test(linear_idx_test)      = obsTable.ValueESM(test_mask);
+ESM_mat_test(linear_idx_test)      = obsTable.M(test_mask);
 
 clear obsTable metaTable
 

@@ -22,11 +22,11 @@ parfor i_ID = 1:height(metaTable)
         obsTable_tmp = sortrows(obsTable_tmp, "month_since_0CE", "ascend");  % Sort data by time
 
         % Calculate anomalies for the predictor (ESM data) and the response (observations)
-        SX = obsTable_tmp.ValueESM - obsTable_tmp.mu_ESM;  % Anomalies of ESM data
-        SY = obsTable_tmp.Y - obsTable_tmp.mu_Y;  % Anomalies of observed data
+        X = obsTable_tmp.M;  % ESM data
+        Y = obsTable_tmp.gO - obsTable_tmp.mu_gO;  % Anomalies of observed transformed data
 
         % Fit a linear model to the data (no intercept)
-        lm_list{i_ID} = fitlm(SX, SY, 'Intercept', false);  % Fit the linear regression model for each station
+        lm_list{i_ID} = fitlm(X, Y, 'Intercept', false);  % Fit the linear regression model for each station
     end
 end
 
@@ -34,7 +34,7 @@ end
 % After calibration, use the linear models to make predictions for all time steps
 
 % Initialize the downscaled values column with NaN (for anomaly predictions)
-obsTable_mth.dsESY_lr(:) = nan;   
+obsTable_mth.ESgOds_hat_lr(:) = nan;   
 
 % Precompute indices for each station (for efficient lookups)
 flag_indices = cell(height(metaTable), 1);
@@ -47,7 +47,7 @@ flag_calstat = ismember(obsTable_mth.ID, metaTable.ID(metaTable.flag_cal));
 
 % Calculate RMSE and R2 adjusted distributions for model validation
 Value = obsTable_mth.Value;
-Value_val = Value(obsTable_mth.flag_val & flag_calstat);  % Values for validation (excluding calibration stations)
+Value_val = Value(obsTable_mth.flag_val & flag_calstat);  % Values for model selection (validation + calibration)
 
 rmse_array_lr = nan(1, n_err_iter);  % Initialize array for RMSE values
 r2_array_lr = nan(1, n_err_iter);  % Initialize array for R2 values
@@ -57,7 +57,7 @@ obsTable_mth_const = parallel.pool.Constant(obsTable_mth);
 lm_list_const = parallel.pool.Constant(lm_list);
 parfor i_erriter = 1:n_err_iter
     % Temporary storage for predictions
-    dsSY_lr_tmp = nan(height(obsTable_mth_const.Value), 1);
+    SgOhat_lr_tmp = nan(height(obsTable_mth_const.Value), 1);
 
     % Inner loop over each station in metaTable
     for i_ID = 1:height(metaTable)
@@ -67,20 +67,20 @@ parfor i_erriter = 1:n_err_iter
 
             % Project ESM data anomalies (SX) onto the linear model
             obsTable_tmp = obsTable_mth_const.Value(idx, :);
-            SX = obsTable_tmp.ValueESM - obsTable_tmp.mu_ESM;  % Anomalies of ESM data
+            X = obsTable_tmp.M;  % Anomalies of ESM data
 
-            % Make predictions using the linear model
-            dsSY_lr_tmp(idx) = random(lm_tmp, SX);  % Get predicted anomalies for the station
+            % Make predictions (realizations) using the linear model
+            SgOhat_lr_tmp(idx) = random(lm_tmp, X);  % Get predicted anomalies for the station
         end
     end
 
     % Perform inverse transform to convert anomalies back to original scale
-    dsValue = inversetransform(dsSY_lr_tmp, obsTable_mth_const.Value.mu_Y, obsTable_mth_const.Value.Y_t, name_var);
-    dsValue_val = dsValue(obsTable_mth_const.Value.flag_val & flag_calstat);  % Predicted values for validation
+    Ods_hat_lr = inversetransform(SgOhat_lr_tmp, obsTable_mth_const.Value.mu_gO, obsTable_mth_const.Value.O_t, name_var);
+    Ods_hat_val = Ods_hat_lr(obsTable_mth_const.Value.flag_val & flag_calstat);  % Predicted values for validation
 
     % Calculate RMSE and R2 adjusted for this error iteration
-    rmse_array_lr(i_erriter) = rmse(dsValue_val, Value_val,'omitnan');  % RMSE calculation
-    SSE = sum((Value_val - dsValue_val).^2,'omitnan');  % Sum of squared errors
+    rmse_array_lr(i_erriter) = rmse(Ods_hat_val, Value_val,'omitnan');  % RMSE calculation
+    SSE = sum((Value_val - Ods_hat_val).^2,'omitnan');  % Sum of squared errors
     SST = sum((Value_val - mean(Value_val,'omitnan')).^2,'omitnan');  % Total sum of squares
     r2_array_lr(i_erriter) = 1 - SSE / SST;  % R2 calculation
 end
@@ -94,22 +94,22 @@ for i_ID = 1:height(metaTable)
         % Project ESM data anomalies (SX) onto the model to get predictions
         flag_ID = ismember(obsTable_mth.ID, metaTable.ID(i_ID));  % Find rows for the current station
         obsTable_tmp = obsTable_mth(flag_ID, :);
-        SX = obsTable_tmp.ValueESM - obsTable_tmp.mu_ESM;  % Anomalies of ESM data
+        X = obsTable_tmp.M;  % ESM predictor
 
         % Make predictions
-        ESY_hat = predict(lm_tmp, SX);  % Mean predicted anomalies
-        SY_hat = random(lm_tmp, SX);  % Realization of the predicted anomalies
+        ESgOds_hat = predict(lm_tmp, X);  % Mean predicted anomalies
+        SgOds_hat  = random(lm_tmp, X);  % Realization of the predicted anomalies
 
         % Update the observation table with the predicted values
-        obsTable_mth.dsESY_lr(flag_ID) = ESY_hat;  % Store mean anomaly predictions
-        obsTable_mth.dsSY_lr(flag_ID) = SY_hat;  % Store realization anomaly predictions
+        obsTable_mth.ESgOds_hat_lr(flag_ID) = ESgOds_hat;  % Store mean anomaly predictions
+        obsTable_mth.SgOds_hat_lr(flag_ID) = SgOds_hat;  % Store realization anomaly predictions
     end
 end
 
 %%
 % Transform back the downscaled anomalies to the original scale (both mean prediction and realizations)
-obsTable_mth.dsEValue_lr    = inversetransform(obsTable_mth.dsESY_lr, obsTable_mth.mu_Y, obsTable_mth.Y_t, name_var);
-obsTable_mth.dsValue_lr     = inversetransform(obsTable_mth.dsSY_lr, obsTable_mth.mu_Y, obsTable_mth.Y_t, name_var);
+obsTable_mth.EOds_hat_lr    = inversetransform(obsTable_mth.ESgOds_hat_lr, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
+obsTable_mth.Ods_hat_lr     = inversetransform(obsTable_mth.SgOds_hat_lr, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
 
 %%
 % Interpolate NaN values for non-calibration stations using Gaussian Process Regression (GPR)
@@ -124,12 +124,12 @@ parfor i_time = 1:length(time_mth)
     flag_time = ismember(obsTable_mth_const.Value.month_since_0CE, time_mth(i_time));  % Find rows for the current time step
     obsTable_tmp = obsTable_mth_const.Value(flag_time, :);
 
-    % Filter out rows with missing values in `dsEValue_lr`
-    flag_sample = not(isnan(obsTable_tmp.dsEValue_lr));  % Find rows with valid predictions
+    % Filter out rows with missing values in `EOds_hat_lr`
+    flag_sample = not(isnan(obsTable_tmp.EOds_hat_lr));  % Find rows with valid predictions
     x = obsTable_tmp.lat(flag_sample);  % Latitude of stations with valid predictions
     y = obsTable_tmp.lon(flag_sample);  % Longitude of stations with valid predictions
-    z1 = obsTable_tmp.dsEValue_lr(flag_sample);  % Mean predicted values
-    z2 = obsTable_tmp.dsValue_lr(flag_sample);  % Realization values
+    z1 = obsTable_tmp.EOds_hat_lr(flag_sample);  % Mean predicted values
+    z2 = obsTable_tmp.Ods_hat_lr(flag_sample);  % Realization values
 
     % get unique points
     [coords,ia,~] = unique([x y],'stable','rows');
@@ -146,8 +146,8 @@ parfor i_time = 1:length(time_mth)
     missing_y = obsTable_tmp.lon(not(flag_sample));  % Longitude for missing stations
 
     % Predict values for missing stations
-    obsTable_tmp.dsEValue_lr(not(flag_sample)) = single(F1([missing_x missing_y]));
-    obsTable_tmp.dsValue_lr(not(flag_sample)) = single(F2([missing_x missing_y]));
+    obsTable_tmp.EOds_hat_lr(not(flag_sample)) = single(F1([missing_x missing_y]));
+    obsTable_tmp.Ods_hat_lr(not(flag_sample)) = single(F2([missing_x missing_y]));
 
     % Store the result for this iteration
     obsTable_results{i_time} = obsTable_tmp;
@@ -159,6 +159,20 @@ for i_time = 1:length(time_mth)
     obsTable_mth(flag_time, :) = obsTable_results{i_time};  % Update the main table with the interpolated data
 end
 
+%% Residuals: Compute differences between observations and predictions
+obsTable_mth.u_lr(:) = nan;   % residuals from ESgOds_hat (deterministic fit)
+
+for i_ID = 1:height(metaTable)
+    if metaTable.flag_cal(i_ID)
+        % Indices for this station
+        flag_ID = ismember(obsTable_mth.ID, metaTable.ID(i_ID));
+        
+        % Observed anomalies (SY)
+        SgO = obsTable_mth.gO(flag_ID) - obsTable_mth.mu_gO(flag_ID);
+        
+        obsTable_mth.u_lr(flag_ID) = SgO - obsTable_mth.ESgOds_hat_lr(flag_ID);
+    end
+end
 toc
 
 end

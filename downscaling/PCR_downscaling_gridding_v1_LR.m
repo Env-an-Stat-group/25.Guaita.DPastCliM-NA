@@ -145,8 +145,13 @@ load(save_name)
 disp('Loaded raw (ungridded) downscaled data')
 
 % get the predicted values by adding u_mat to the predicted average
-dsValue_mat_lr = dsEValue_mat_lr + u_mat_lr;
-
+switch name_var
+    case 'tas'
+        dsValue_mat_lr = dsEValue_mat_lr + u_mat_lr;
+    case 'pr'
+        dsValue_mat_lr = pr_realizations(dsEValue_mat_lr,u_mat_lr,...
+            path_main,name_var,suffix,name_model);
+end
 % number of iteration per cycle (for the parfor loop) - every loop saves
 % one file
 n_iter = 1200;

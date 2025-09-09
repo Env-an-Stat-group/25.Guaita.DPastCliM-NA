@@ -11,7 +11,7 @@ disp('setting initial parameters...')
 rng(812)
 
 % parameters
-path_main = '/data/pguaita/downscaling/';
+path_main = 'C:\Users\guait\OneDrive - Università Cattolica del Sacro Cuore\PALEON\downscaling';% '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'tas'; % variable name
@@ -22,7 +22,7 @@ path_file = fullfile(path_main,['downscaling_output_' name_model]);
 path_obs = fullfile(path_main,'obs_data');
 path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
-suffix = '_NA_020';
+suffix = '_Hartfordtest';
 
 %% load grid and define limits
 load(fullfile(path_main, ['static_maps/downscaling_grid' suffix '.mat']));
@@ -110,7 +110,14 @@ metaTable = readtable(fullfile(path_file,[name_var '_metadata_table' suffix '.cs
 
 disp('     Done.')
 
-dsValue = dsEValue_mat + u_mat;
+% get the predicted values by adding u_mat to the predicted average
+switch name_var
+    case 'tas'
+        dsValue_mat = dsEValue_mat + u_mat;
+    case 'pr'
+        dsValue_mat = pr_realizations(dsEValue_mat,u_mat,...
+            path_main,name_var,suffix,name_model);
+end
 
 clear dsEValue_mat u_mat
 
@@ -143,7 +150,7 @@ obsTable = obsTable(~ismember(obsTable.ID, metaTable.ID(idx_remove)), :);
 
 % Remove from tables and matrices in one shot
 metaTable(idx_remove,:) = [];
-dsValue(idx_remove,:) = [];
+dsValue_mat(idx_remove,:) = [];
 PI_mat(idx_remove,:,:) = [];
 
 disp('     Done.')
@@ -161,9 +168,9 @@ close all
 
 switch name_var
     case 'pr'
-        list_point = {'USC00043747','USC00200032'};
+        list_point = metaTable.ID;%{'USC00043747','USC00200032'};
     case 'tas'
-        list_point = {'USC00351862','USW00014742'};
+        list_point = metaTable.ID;%{'USC00351862','USW00014742'};
 end
 
 % Loop over points
@@ -182,7 +189,7 @@ for i_station = 1:length(list_point)
     node_id = sub2ind([length(lat), length(lon)], lat_id, lon_id);
         
     % Apply region mask: keep only rows (grid cells) inside the region
-    dsVal_tmp       = dsValue(flag_ID_meta, :);
+    dsVal_tmp       = dsValue_mat(flag_ID_meta, :);
     dsPIinf_tmp     = PI_mat(flag_ID_meta, :, 1);
     dsPIsup_tmp     = PI_mat(flag_ID_meta, :, 2);
     obs_value_tmp = obsTable_tmp.Value;
@@ -202,26 +209,10 @@ for i_station = 1:length(list_point)
 
     plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_tmp, ...
         obs_value_tmp, ESM_tmp, dsVal_tmp, dsPIinf_tmp, dsPIsup_tmp, ...
-        path_fig, suffix_region, name_model, res_plot, [800 805])
-
-    plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_tmp, ...
-        obs_value_tmp, ESM_tmp, dsVal_tmp, dsPIinf_tmp, dsPIsup_tmp, ...
         path_fig, suffix_region, name_model, res_plot, [1295 1300])
 
     plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_tmp, ...
         obs_value_tmp, ESM_tmp, dsVal_tmp, dsPIinf_tmp, dsPIsup_tmp, ...
-        path_fig, suffix_region, name_model, res_plot, [1750 1755])
-
-    plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_tmp, ...
-        obs_value_tmp, ESM_tmp, dsVal_tmp, dsPIinf_tmp, dsPIsup_tmp, ...
-        path_fig, suffix_region, name_model, res_plot, [1945 1950])
-
-    plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_tmp, ...
-        obs_value_tmp, ESM_tmp, dsVal_tmp, dsPIinf_tmp, dsPIsup_tmp, ...
         path_fig, suffix_region, name_model, res_plot, [1995 2000])
-
-    plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_tmp, ...
-        obs_value_tmp, ESM_tmp, dsVal_tmp, dsPIinf_tmp, dsPIsup_tmp, ...
-        path_fig, suffix_region, name_model, res_plot, [2000 2005])
     
 end
