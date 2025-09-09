@@ -1,32 +1,28 @@
-function Y_hat = inversetransform(SY, mu_Y, Y_t, name_var)
-% This function performs the inverse transformation of the downscaled data.
-% Depending on the variable name (specified by 'name_var'), it reverses the
-% scaling and transformation applied during the preprocessing step.
+function Ods_hat = inversetransform(SgOhat, mu_gO, O_t, name_var)
+%INVERSETRANSFORM Inverse transformation of downscaled data
+%
+% This function reverses the preprocessing transformations applied during
+% downscaling for temperature ('tas') or precipitation ('pr').
 %
 % Inputs:
-%   - SY: Downscaled value(s) that need to be transformed back to the original scale
-%   - mu_Y: Mean of the original data used for centering
-%   - Y_t: Scaling factor used for the original data
-%   - name_var: The name of the variable being processed ('tas' or 'pr'), 
-%     which determines the specific inverse transformation to apply
+%   - SgOhat  : Downscaled anomaly values (after PCR, on transformed data)
+%   - mu_gO   : Temporal mean of the transformed original observations used for centering
+%   - O_t     : Translation term applied to avoid log(0) for precipitation
+%   - name_var: Variable name ('tas' for temperature, 'pr' for precipitation)
 %
 % Outputs:
-%   - Y_hat: The transformed value(s) back to the original scale based on 'name_var'
+%   - Ods_hat : Downscaled data transformed back to the original scale
 
 switch name_var
     case 'tas'
-        % If the variable is 'tas' (temperature), apply the inverse transformation
-        % Temperature data is centered using mu_Y and scaled by Y_t (which would be 0 anyway), so:
-        % Y_hat = Downscaled value (SY) + Mean value (mu_Y) - Scaling factor (Y_t)
-        Y_hat = SY + mu_Y - Y_t;
+        % Temperature ('tas') was centered by subtracting mu_gO.
+        % Inverse transform simply adds back the mean and subtracts O_t (usually 0).
+        Ods_hat = SgOhat + mu_gO - O_t;
         
     case 'pr'
-        % If the variable is 'pr' (precipitation), the data was log-transformed 
-        % before scaling. To reverse this, we first take the exponential of SY
-        % and then apply the scaling and shifting:
-        % Y_hat = exp(Downscaled value (SY) + Mean value (mu_Y)) - Scaling factor (Y_t)
-        Y_hat = exp(SY + mu_Y) - Y_t;
-        
+        % Precipitation ('pr') was log-transformed with a translation O_t to avoid zeros.
+        % Inverse transform exponentiates the anomaly, adds the mean, and subtracts the translation.
+        Ods_hat = exp(SgOhat + mu_gO) - O_t;
 end
 
 end

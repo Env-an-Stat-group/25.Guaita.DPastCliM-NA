@@ -14,7 +14,7 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'pr'; % variable name
+name_var = 'tas'; % variable name
 name_experiment = 'past2k';
 % starting and ending year for the PMIP expeirment considered.
 % weird enough, but the past experiments start counting years from 7000 CE
@@ -145,8 +145,14 @@ load(save_name)
 disp('Loaded raw (ungridded) downscaled data')
 
 % get the predicted values by adding u_mat to the predicted average
-dsValue_mat = dsEValue_mat + u_mat;
-
+switch name_var
+    case 'tas'
+        dsValue_mat = dsEValue_mat + u_mat;
+    case 'pr'
+        dsValue_mat = pr_realizations(dsEValue_mat,u_mat,...
+            path_main,name_var,suffix,name_model);
+end
+        
 % number of iteration per cycle (for the parfor loop) - every loop saves
 % one file
 n_iter = 1200;

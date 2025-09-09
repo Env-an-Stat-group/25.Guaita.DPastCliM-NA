@@ -65,33 +65,34 @@ parfor i_ID = 1:nStations
         flag_time_tmp = ismember(time_mthcal, obsTable_tmp.month_since_0CE);
     
         % Define the response variable as the anomaly in observations (SY)
-        SY = obsTable_tmp.Y - obsTable_tmp.mu_Y;
-    
+        Y = obsTable_tmp.gO - obsTable_tmp.mu_gO;
+        X = pc_subset(flag_time_tmp, :);
+
         % Fit a linear regression model without intercept (downscaling model)
-        lm_list{i_ID} = fitlm(pc_subset(flag_time_tmp, :), SY, 'Intercept', false);
+        lm_list{i_ID} = fitlm(X, Y, 'Intercept', false);
     end
 end
 
 %% Predictions: Apply Models to All Time Steps
 tic
 % Initialize column to store downscaled anomalies (predictions)
-obsTable_mth.dsESY(:) = nan;
-obsTable_mth.dsSY(:) = nan;
+obsTable_mth.ESgOds_hat(:) = nan;
+obsTable_mth.SgOds_hat(:) = nan;
 
 % Flag for calibration stations (those included in the calibration phase)
 flag_calstat = ismember(obsTable_mth.ID, metaTable.ID(metaTable.flag_cal));
 
 % Calculate RMSE and R2 for model validation
 Value = obsTable_mth.Value;
-Value_val = Value(obsTable_mth.flag_val & flag_calstat);  % Validation data (excluding calibration stations)
+Value_val = Value(obsTable_mth.flag_val & flag_calstat);  % Model selection data (validation + calibration)
 
 % Initialize arrays for RMSE and R2 values across error iterations
 rmse_array = nan(1, n_err_iter);
 r2_array = nan(1, n_err_iter);
 
 % Project the ESM data onto the EOFs to generate the predictor matrix (X)
-SX = tgt_ESM_mth - mu_ESM;  % ESM anomalies (centered)
-X = (SX' * eof_subset);  % Project the ESM anomalies onto the EOF space
+SM = tgt_ESM_mth - mu_ESM;  % ESM anomalies (centered)
+X = (SM' * eof_subset);  % Project the ESM anomalies onto the EOF space
 
 %% Error Iterations: Generate Downscaled Predictions
 
@@ -109,17 +110,17 @@ end
 ind_mth_const = parallel.pool.Constant(ind_mth_all);
 
 % Precompute reusable constants
-flag_val_combined = obsTable_mth.flag_val & flag_calstat;
-n_val = sum(flag_val_combined);
-mu_Y = obsTable_mth.mu_Y;
-Y_t = obsTable_mth.Y_t;
+flag_ms = obsTable_mth.flag_val & flag_calstat;
+n_val = sum(flag_ms);
+mu_gO = obsTable_mth.mu_gO;
+O_t = obsTable_mth.O_t;
 
 % Preallocate outputs
 rmse_array = nan(n_err_iter, 1);
 r2_array = nan(n_err_iter, 1);
 
 parfor i_erriter = 1:n_err_iter
-    dsSY_tmp = nan(nObs, 1);  % Preallocate once per iteration
+    SgOds_hat = nan(nObs, 1);  % Preallocate once per iteration
 
     % Loop over calibration stations
     for i_ID = 1:nStations
@@ -130,23 +131,23 @@ parfor i_erriter = 1:n_err_iter
                 ind_mth = ind_mth_const.Value{i_ID};
 
                 % Predict anomalies
-                SY_hat = random(lm_tmp, X);  % Realization
-                dsSY_tmp(idx) = SY_hat(ind_mth);
+                SgOds_hat_tmp = random(lm_tmp, X);  % Realization
+                SgOds_hat(idx) = SgOds_hat_tmp(ind_mth);
             end
         end
     end
 
     % Inverse transform to original scale
-    dsValue = inversetransform(dsSY_tmp, mu_Y, Y_t, name_var);
+    Ods_hat = inversetransform(SgOds_hat, mu_gO, O_t, name_var);
 
     % Extract validation data only once
-    dsValue_val = dsValue(flag_val_combined);
+    Ods_hat_val = Ods_hat(flag_ms);
 
     % RMSE
-    rmse_array(i_erriter) = rmse(dsValue_val, Value_val, 'omitnan');
+    rmse_array(i_erriter) = rmse(Ods_hat_val, Value_val, 'omitnan');
 
     % R² and adjusted R²
-    SSE = sum((Value_val - dsValue_val).^2, 'omitnan');
+    SSE = sum((Value_val - Ods_hat_val).^2, 'omitnan');
     SST = sum((Value_val - mean(Value_val, 'omitnan')).^2, 'omitnan');
     R2_val = 1 - SSE / SST;
 
@@ -162,21 +163,21 @@ for i_ID = 1:nStations
 
         if not(isempty(lm_tmp))
             % Generate mean predictions and confidence intervals
-            SY_hat = random(lm_tmp, X);  % Realized anomalies for the station
+            SgOds_hat_tmp = random(lm_tmp, X);  % Realized anomalies for the station
     
             % Update obsTable_mth with the predictions and intervals
             flag_ID = ismember(obsTable_mth.ID, metaTable.ID(i_ID));
             [~, ind_mth] = ismember(obsTable_mth.month_since_0CE(flag_ID), time_mth);
-            obsTable_mth.dsSY(flag_ID) = SY_hat(ind_mth);  % Realized predictions
+            obsTable_mth.SgOds_hat(flag_ID) = SgOds_hat_tmp(ind_mth);  % Realized predictions
 
             if opt_ECIPI
-                [ESY_hat, SCI] = predict(lm_tmp, X);  % Mean prediction and confidence intervals (SCI)
-                [~, SPI] = predict(lm_tmp, X, 'prediction', 'observation');  % Prediction intervals (SPI)
-                obsTable_mth.dsESY(flag_ID) = ESY_hat(ind_mth);  % Mean prediction for the anomalies
-                obsTable_mth.CI_infSY(flag_ID) = SCI(ind_mth, 1);  % Lower bound of the confidence interval
-                obsTable_mth.CI_supSY(flag_ID) = SCI(ind_mth, 2);  % Upper bound of the confidence interval
-                obsTable_mth.PI_infSY(flag_ID) = SPI(ind_mth, 1);  % Lower bound of the prediction interval
-                obsTable_mth.PI_supSY(flag_ID) = SPI(ind_mth, 2);  % Upper bound of the prediction interval
+                [ESgOds_hat, ~] = predict(lm_tmp, X);%[ESgOds_hat, SCI] = predict(lm_tmp, X);  % Mean prediction and confidence intervals (SCI)
+                %[~, SPI] = predict(lm_tmp, X, 'prediction', 'observation');  % Prediction intervals (SPI)
+                obsTable_mth.ESgOds_hat(flag_ID) = ESgOds_hat(ind_mth);  % Mean prediction for the anomalies
+                %obsTable_mth.CI_infSY(flag_ID) = SCI(ind_mth, 1);  % Lower bound of the confidence interval
+                %obsTable_mth.CI_supSY(flag_ID) = SCI(ind_mth, 2);  % Upper bound of the confidence interval
+                %obsTable_mth.PI_infSY(flag_ID) = SPI(ind_mth, 1);  % Lower bound of the prediction interval
+                %obsTable_mth.PI_supSY(flag_ID) = SPI(ind_mth, 2);  % Upper bound of the prediction interval
             end
         end
     end
@@ -185,13 +186,13 @@ end
 %% Inverse Transform: Convert Anomalies Back to Original Values
 
 % Convert both the mean predictions and realizations back to the original scale
-obsTable_mth.dsValue = inversetransform(obsTable_mth.dsSY, obsTable_mth.mu_Y, obsTable_mth.Y_t, name_var);
+obsTable_mth.Ods_hat = inversetransform(obsTable_mth.SgOds_hat, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
 if opt_ECIPI
-    obsTable_mth.dsEValue = inversetransform(obsTable_mth.dsESY, obsTable_mth.mu_Y, obsTable_mth.Y_t, name_var);
-    obsTable_mth.CI_inf = inversetransform(obsTable_mth.CI_infSY, obsTable_mth.mu_Y, obsTable_mth.Y_t, name_var);
-    obsTable_mth.CI_sup = inversetransform(obsTable_mth.CI_supSY, obsTable_mth.mu_Y, obsTable_mth.Y_t, name_var);
-    obsTable_mth.PI_inf = inversetransform(obsTable_mth.PI_infSY, obsTable_mth.mu_Y, obsTable_mth.Y_t, name_var);
-    obsTable_mth.PI_sup = inversetransform(obsTable_mth.PI_supSY, obsTable_mth.mu_Y, obsTable_mth.Y_t, name_var);
+    obsTable_mth.EOds_hat = inversetransform(obsTable_mth.ESgOds_hat, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
+    %obsTable_mth.CI_inf = inversetransform(obsTable_mth.CI_infSY, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
+    %obsTable_mth.CI_sup = inversetransform(obsTable_mth.CI_supSY, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
+    %obsTable_mth.PI_inf = inversetransform(obsTable_mth.PI_infSY, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
+    %obsTable_mth.PI_sup = inversetransform(obsTable_mth.PI_supSY, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
 end
 
 %% Interpolation: Use GPR to Fill Missing Values for Non-Calibration Stations
@@ -208,13 +209,13 @@ if opt_spatial
         flag_time = (time_groups == i_time);
         obsTable_tmp = obsTable_mth_const.Value(flag_time, :);
 
-        % Filter out rows with missing values in `dsEValue`
-        flag_sample = not(isnan(obsTable_tmp.dsValue));
+        % Filter out rows with missing values in `EOds_hat`
+        flag_sample = not(isnan(obsTable_tmp.Ods_hat));
         if sum(not(flag_sample))
             % fill missing data
             x = obsTable_tmp.lat(flag_sample);  
             y = obsTable_tmp.lon(flag_sample);  
-            z1 = obsTable_tmp.dsValue(flag_sample);  
+            z1 = obsTable_tmp.Ods_hat(flag_sample);  
 
             % get unique points
             [coords,ia,~] = unique([x y],'stable','rows');
@@ -228,34 +229,34 @@ if opt_spatial
             missing_x = obsTable_tmp.lat(not(flag_sample));  % Latitude of stations with missing data
             missing_y = obsTable_tmp.lon(not(flag_sample));  % Longitude of stations with missing data
             
-            obsTable_tmp.dsValue(not(flag_sample)) = single(F1([missing_x, missing_y]));
+            obsTable_tmp.Ods_hat(not(flag_sample)) = single(F1([missing_x, missing_y]));
             
             % If ECIPI option is enabled, calculate confidence and prediction intervals using GPR
             if opt_ECIPI
-                z2 = obsTable_tmp.dsEValue(flag_sample);  % Mean predicted values
-                z2_CIinf = obsTable_tmp.CI_inf(flag_sample);  % Confidence interval lower bound
-                z2_CIsup = obsTable_tmp.CI_sup(flag_sample);  % Confidence interval upper bound
-                z_PIinf = obsTable_tmp.PI_inf(flag_sample);  % Prediction interval lower bound
-                z_PIsup = obsTable_tmp.PI_sup(flag_sample);  % Prediction interval upper bound
+                z2 = obsTable_tmp.EOds_hat(flag_sample);  % Mean predicted values
+                %z2_CIinf = obsTable_tmp.CI_inf(flag_sample);  % Confidence interval lower bound
+                %z2_CIsup = obsTable_tmp.CI_sup(flag_sample);  % Confidence interval upper bound
+                %z_PIinf = obsTable_tmp.PI_inf(flag_sample);  % Prediction interval lower bound
+                %z_PIsup = obsTable_tmp.PI_sup(flag_sample);  % Prediction interval upper bound
 
                 z2 = z2(ia);
-                z2_CIinf = z2_CIinf(ia);
-                z2_CIsup = z2_CIsup(ia);
-                z_PIinf = z_PIinf(ia);
-                z_PIsup = z_PIsup(ia);
+                %z2_CIinf = z2_CIinf(ia);
+                %z2_CIsup = z2_CIsup(ia);
+                %z_PIinf = z_PIinf(ia);
+                %z_PIsup = z_PIsup(ia);
 
                 F2 = scatteredInterpolant(x, y, double(z2), 'natural', 'nearest'); 
-                F2_CIinf = scatteredInterpolant(x, y, double(z2_CIinf), 'natural', 'nearest');
-                F2_CIsup = scatteredInterpolant(x, y, double(z2_CIsup), 'natural', 'nearest'); 
-                F1_PIinf = scatteredInterpolant(x, y, double(z_PIinf), 'natural', 'nearest'); 
-                F1_PIsup = scatteredInterpolant(x, y, double(z_PIsup), 'natural', 'nearest'); 
+                %F2_CIinf = scatteredInterpolant(x, y, double(z2_CIinf), 'natural', 'nearest');
+                %F2_CIsup = scatteredInterpolant(x, y, double(z2_CIsup), 'natural', 'nearest'); 
+                %F1_PIinf = scatteredInterpolant(x, y, double(z_PIinf), 'natural', 'nearest'); 
+                %F1_PIsup = scatteredInterpolant(x, y, double(z_PIsup), 'natural', 'nearest'); 
 
                 % Predict missing values for confidence and prediction intervals
-                obsTable_tmp.dsEValue(not(flag_sample)) = single(F2([missing_x, missing_y]));
-                obsTable_tmp.CI_inf(not(flag_sample)) = single(F2_CIinf([missing_x, missing_y]));
-                obsTable_tmp.CI_sup(not(flag_sample)) = single(F2_CIsup([missing_x, missing_y]));
-                obsTable_tmp.PI_inf(not(flag_sample)) = single(F1_PIinf([missing_x, missing_y]));
-                obsTable_tmp.PI_sup(not(flag_sample)) = single(F1_PIsup([missing_x, missing_y]));
+                obsTable_tmp.EOds_hat(not(flag_sample)) = single(F2([missing_x, missing_y]));
+                %obsTable_tmp.CI_inf(not(flag_sample)) = single(F2_CIinf([missing_x, missing_y]));
+                %obsTable_tmp.CI_sup(not(flag_sample)) = single(F2_CIsup([missing_x, missing_y]));
+                %obsTable_tmp.PI_inf(not(flag_sample)) = single(F1_PIinf([missing_x, missing_y]));
+                %obsTable_tmp.PI_sup(not(flag_sample)) = single(F1_PIsup([missing_x, missing_y]));
             end
         end
         % Store the updated data for this time step
@@ -264,6 +265,21 @@ if opt_spatial
 
     % Combine results
     obsTable_mth = vertcat(obsTable_results{:});
+end
+
+%% Residuals: Compute differences between observations and predictions
+obsTable_mth.u(:) = nan;   % residuals from ESgOds_hat (deterministic fit)
+
+for i_ID = 1:nStations
+    if metaTable.flag_cal(i_ID)
+        % Indices for this station
+        flag_ID = ismember(obsTable_mth.ID, metaTable.ID(i_ID));
+        
+        % Observed anomalies (SY)
+        SgO = obsTable_mth.gO(flag_ID) - obsTable_mth.mu_gO(flag_ID);
+        
+        obsTable_mth.u(flag_ID) = SgO - obsTable_mth.ESgOds_hat(flag_ID);
+    end
 end
 
 toc

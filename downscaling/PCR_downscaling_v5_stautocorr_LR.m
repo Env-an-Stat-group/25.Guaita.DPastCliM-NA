@@ -15,7 +15,7 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'pr'; % variable name
+name_var = 'tas'; % variable name
 name_experiment = 'past2k';
 % starting and ending year for the PMIP expeirment considered.
 % weird enough, but the past experiments start counting years from 7000 CE
@@ -180,8 +180,7 @@ switch name_var
                 flag_ID = ismember(obsTable.ID,metaTable.ID(i_ID));
                 obsTable_tmp = obsTable(flag_ID,:);
                 [flag_time,idx_time] = ismember(obsTable_tmp.month_since_0CE,time_ESM_array);
-                residual_tmp = obsTable_tmp.Value - obsTable_tmp.dsEValue;
-                residual_mat(i_ID,idx_time)=residual_tmp;
+                residual_mat(i_ID,idx_time)=obsTable_tmp.u_lr;
             end
         end
     case 'pr'
@@ -193,12 +192,7 @@ switch name_var
                 flag_ID = ismember(obsTable.ID,metaTable.ID(i_ID));
                 obsTable_tmp = obsTable(flag_ID,:);
                 [flag_time,idx_time] = ismember(obsTable_tmp.month_since_0CE,time_ESM_array);
-
-                sigma2_tmp = sum((obsTable_tmp.Y-obsTable_tmp.dsESY).^2)/height(obsTable_tmp);
-                residual_tmp = ...
-                    log((obsTable_tmp.Value + obsTable_tmp.Y_t)./(obsTable_tmp.dsEValue+obsTable_tmp.Y_t))...
-                    +(sigma2_tmp)/2;
-                residual_mat(i_ID,idx_time)=residual_tmp;
+                residual_mat(i_ID,idx_time)=obsTable_tmp.u_lr;
             end
         end
 end
@@ -334,16 +328,16 @@ for i_mth_interval = 1:size(mth_interval,1)
     % downscale ESM maps
 
     % calculate averages in every station
-    mu_Y_local = varfun(@mean, obsTable_mth, 'InputVariables', 'mu_Y', 'GroupingVariables', 'ID');
-    Y_t_local = varfun(@mean, obsTable_mth, 'InputVariables', 'Y_t', 'GroupingVariables', 'ID');
-    mu_Y_local = mu_Y_local(:,[1 3]);
-    Y_t_local = Y_t_local(:,[1 3]);
-    mu_Y_local.Properties.VariableNames(2) = "mu_Y";
-    Y_t_local.Properties.VariableNames(2) = "Y_t";
+    mu_gO_local = varfun(@mean, obsTable_mth, 'InputVariables', 'mu_gO', 'GroupingVariables', 'ID');
+    O_t_local = varfun(@mean, obsTable_mth, 'InputVariables', 'O_t', 'GroupingVariables', 'ID');
+    mu_gO_local = mu_gO_local(:,[1 3]);
+    O_t_local = O_t_local(:,[1 3]);
+    mu_gO_local.Properties.VariableNames(2) = "mu_gO";
+    O_t_local.Properties.VariableNames(2) = "O_t";
 
     % from LR
     [dsEValue_mat_mth_lr, PI_mat_mth_lr] = ...
-        ds_ESM_mat_lr_v1(tgt_ESM_mth, tgt_lon, tgt_lat, time_ESM_mth, lm_list_lr, mu_Y_local, Y_t_local, flag_cal,...
+        ds_ESM_mat_lr_v1(tgt_ESM_mth, tgt_lon, tgt_lat, time_ESM_mth, lm_list_lr, mu_gO_local, O_t_local, flag_cal,...
         metaTable, name_var);
 
     % aggregate in same matrix
@@ -384,12 +378,6 @@ disp('transform back ARMA residuals through SEM')
 
 %[epsilon] = inverse_SEM(eps_ARMA, W, lambda);
 [u_mat_lr] = inverse_SEM_season(eps_ARMA, W_mam, W_jja, W_son, W_djf, lambda);
-
-% correct precipitation residuals when dsEValue + u_mat is negative
-if strcmp(name_var,'pr')
-    flag_negative = dsEValue_mat_lr + u_mat_lr<0;
-    u_mat_lr(flag_negative) = -dsEValue_mat_lr(flag_negative);
-end
 
 disp(['Done in ' num2str(round(toc/60,1)) ' mins'])
 

@@ -1,5 +1,5 @@
 function [dsEValue_mat_lr, PI_mat_lr] = ...
-    ds_ESM_mat_lr_v1(tgt_ESM_mth, tgt_lon, tgt_lat, time_ESM_mth, lm_list_lr, mu_Y_local, Y_t_local, flag_cal,...
+    ds_ESM_mat_lr_v1(tgt_ESM_mth, tgt_lon, tgt_lat, time_ESM_mth, lm_list_lr, mu_gO_local, O_t_local, flag_cal,...
     metaTable, name_var)
 % This function performs local downscaling of ESM data to station-level data
 % using linear regression models. It produces both the predicted values and
@@ -12,8 +12,8 @@ function [dsEValue_mat_lr, PI_mat_lr] = ...
 %   - tgt_lat: Vector of latitudes corresponding to ESM grid points
 %   - time_mth: Vector of time steps (months)
 %   - lm_list_lr: Cell array of linear regression models for each station
-%   - mu_Y_local: Table of mean values for each station (for inverse transformation)
-%   - Y_t_local: Table of scaling factors (for inverse transformation)
+%   - mu_gO_local: Table of mean values for each station (for inverse transformation)
+%   - O_t_local: Table of scaling factors (for inverse transformation)
 %   - metaTable: Metadata table containing station info (IDs, locations, calibration flags)
 %   - sigmanoise: Noise level used in GPR to regularize the model
 %   - opt_gpr: Options for the Gaussian Process Regression model (e.g., kernel function)
@@ -28,21 +28,21 @@ function [dsEValue_mat_lr, PI_mat_lr] = ...
 %   - dsEValue_mat_lr: Expected downscaled values at stations (stations x timesteps)
 
 %% Data Preprocessing: Prepare metadata and projection
-% Join mu_Y_local and Y_t_local data to metaTable for inverse transformations
-metaTable = innerjoin(metaTable, mu_Y_local, 'Keys', 'ID');  % Add mean values for each station
-metaTable = innerjoin(metaTable, Y_t_local, 'Keys', 'ID');  % Add scaling factors for each station
+% Join mu_gO_local and O_t_local data to metaTable for inverse transformations
+metaTable = innerjoin(metaTable, mu_gO_local, 'Keys', 'ID');  % Add mean values for each station
+metaTable = innerjoin(metaTable, O_t_local, 'Keys', 'ID');  % Add scaling factors for each station
 
 %% calculate the moving average to tranfer the trend given by the ESM to the downscaled Y
-[mu_Y_trend_local,mu_mov_ESM_trend] = compute_mu_Y_trend_local_v1(tgt_ESM_mth, tgt_lon, tgt_lat, time_ESM_mth, flag_cal, name_var, metaTable);
+[mu_gO_trend_local,mu_mov_ESM_trend] = compute_mu_gO_trend_local_v1(tgt_ESM_mth, tgt_lon, tgt_lat, time_ESM_mth, flag_cal, name_var, metaTable);
 
 %% Data Preprocessing: Prepare predictand
 
 % Normalize the target ESM data by subtracting the mean (to focus on anomalies)
-SX = tgt_ESM_mth - mu_mov_ESM_trend;  % ESM anomalies (centered data)
+X = tgt_ESM_mth;  % ESM anomalies (centered data)
 
 % Initialize output matrices for downscaled values, prediction intervals, and confidence intervals
-dsEValue_mat_lr = nan(height(metaTable), size(SX, 2));  % Stores expected downscaled values at stations
-PI_mat_lr = nan(height(metaTable), size(SX, 2),2);  % Stores expected downscaled values at stations
+dsEValue_mat_lr = nan(height(metaTable), size(X, 2));  % Stores expected downscaled values at stations
+PI_mat_lr = nan(height(metaTable), size(X, 2),2);  % Stores expected downscaled values at stations
 
 %% Downscale ESM at each station using linear regression models
 
@@ -64,13 +64,44 @@ for i_ID = 1:height(metaTable)
             
             % Perform predictions using the linear regression model
             % The SX(min_idx,:) is the subset of ESM data corresponding to the closest grid point
-            [ESY_hat, ~] = predict(lm_tmp, SX(min_idx,:)');  % Predict the expected value and confidence intervals
-            [~, SPI] = predict(lm_tmp, SX(min_idx,:)', 'prediction', 'observation');  % Predict prediction intervals (SPI)
+            [ESY_hat, ~] = predict(lm_tmp, X(min_idx,:)');  % Predict the expected value and confidence intervals
+            [~, SPI] = predict(lm_tmp, X(min_idx,:)', 'prediction', 'observation');  % Predict prediction intervals (SPI)
                 
             % Inverse transformation of predicted values to match the original variable scale
-            dsEValue_mat_lr(i_ID,:) = inversetransform(ESY_hat, mu_Y_trend_local(i_ID,:)', metaTable.Y_t(i_ID), name_var);  % Expected downscaled values
-            PI_mat_lr(i_ID, :, 1) = inversetransform(SPI(:, 1), mu_Y_trend_local(i_ID,:)', metaTable.Y_t(i_ID), name_var);  % Lower bound of prediction interval
-            PI_mat_lr(i_ID, :, 2) = inversetransform(SPI(:, 2), mu_Y_trend_local(i_ID,:)', metaTable.Y_t(i_ID), name_var);  % Upper bound of prediction interval
+            dsEValue_mat_lr(i_ID,:) = inversetransform(ESY_hat, mu_gO_trend_local(i_ID,:)', metaTable.O_t(i_ID), name_var);  % Expected downscaled values
+            % --- Prediction intervals ---
+            switch name_var
+                case 'tas'
+                    % Linear: use regression PI directly
+                    [~, SPI] = predict(lm_tmp, X(min_idx,:)', 'prediction', 'observation');  
+                    PI_mat_lr(i_ID, :, 1) = inversetransform(SPI(:,1), mu_gO_trend_local(i_ID,:)', metaTable.O_t(i_ID), name_var);  
+                    PI_mat_lr(i_ID, :, 2) = inversetransform(SPI(:,2), mu_gO_trend_local(i_ID,:)', metaTable.O_t(i_ID), name_var);  
+
+                case 'pr'
+                    % Nonlinear: Montecarlo
+                    nSim=1000;
+                    sigma_hat = sqrt(lm_tmp.MSE);  % regression standard deviation
+                    nTime = size(X,2);
+
+                    % Create simulated noise
+                    U_sim = sigma_hat * randn(nTime, nSim);
+
+                    % Replicate expected value across simulations
+                    ESY_rep = repmat(ESY_hat, 1, nSim);
+
+                    % Add noise
+                    Y_sim = ESY_rep + U_sim;
+
+                    % Apply inverse transform (vectorized)
+                    mu_rep = repmat(mu_gO_trend_local(i_ID,:)', 1, nSim);
+                    Y_sim_transformed = exp(Y_sim + mu_rep) - metaTable.O_t(i_ID);
+
+                    % Compute PI quantiles along the simulation dimension
+                    PI_mat_lr(i_ID, :, 1) = quantile(Y_sim_transformed', 0.025)';  % lower 2.5%
+                    PI_mat_lr(i_ID, :, 2) = quantile(Y_sim_transformed', 0.975)';  % upper 97.5%
+            end
+            PI_mat_lr(i_ID, :, 1) = inversetransform(SPI(:, 1), mu_gO_trend_local(i_ID,:)', metaTable.O_t(i_ID), name_var);  % Lower bound of prediction interval
+            PI_mat_lr(i_ID, :, 2) = inversetransform(SPI(:, 2), mu_gO_trend_local(i_ID,:)', metaTable.O_t(i_ID), name_var);  % Upper bound of prediction interval
         end
     end
 end
