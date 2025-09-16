@@ -13,7 +13,7 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'pr'; % variable name
+name_var = 'tas'; % variable name
 path_ESM = fullfile(path_main,'CMIP_data');
 path_fig = fullfile(path_main,['downscaling_models_' name_model],'figures_PCR');
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
