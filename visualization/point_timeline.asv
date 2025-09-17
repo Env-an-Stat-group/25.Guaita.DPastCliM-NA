@@ -16,7 +16,7 @@ addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'pr'; % variable name
 name_experiment = 'past2k';
-n_min_yr = 100; % minimum number of years for stations
+n_min_yr = 120; % minimum number of years for stations
 path_fig = fullfile(path_main,['downscaling_output_' name_model],'figures_PCR');
 path_file = fullfile(path_main,['downscaling_output_' name_model]);
 path_obs = fullfile(path_main,'obs_data');
@@ -24,10 +24,9 @@ path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
 suffix = '_NA_020';
 
-% define subdomain for station selection (each row is a different
-% subdomain)
-lon_subdom = [-73.1 -71.1; -94.8 -92.8; -96.2 -94.2; -116.8 -114.8];
-lat_subdom = [41.5 43.5; 43.7 45.7; 46.2 48.2; 31.9 33.9];
+% define subdomain for station selection
+lon_subdom = [-75 -73; -72.5 -70];
+lat_subdom = [40 45;];
 
 %% load grid and define limits
 load(fullfile(path_main, ['static_maps/downscaling_grid' suffix '.mat']));
@@ -163,6 +162,11 @@ disp('     Done.')
 %% load observations
 load(fullfile(path_file,[name_var '_observations' suffix '.mat']),'tgt_ESM')
 
+%% plot map with stations
+
+plot_station_map_long(metaTable, lim_lat, lim_lon, path_shp_file, ...
+    fullfile(path_fig, ['longstations_' name_var '.png']), [name_var ' GHCN-m stations >' int2str(n_min_yr) ' years' ]);
+
 %% select stations to plot
 close all
 
@@ -180,7 +184,7 @@ end
 metaTable_filtered = metaTable(flag_subdom,:);
 
 disp(['left with ' int2str(height(metaTable_filtered)) '/' int2str(nStations) ...
-    ' after selecting subdomain(s).']);
+    ' after selecting subdomain.']);
 
 switch name_var
     case 'pr'
@@ -189,12 +193,7 @@ switch name_var
         list_point = metaTable_filtered.ID; %{'USC00351862','USW00014742'};
 end
 
-%% plot map with stations
-
-plot_station_map_long(metaTable_filtered, lim_lat, lim_lon, path_shp_file, ...
-    fullfile(path_fig, ['longstations_' name_var '.png']), [name_var ' GHCN-m stations >' int2str(n_min_yr) ' years' ]);
-
-%% Loop over points
+% Loop over points
 for i_station = 1:length(list_point)
     ID_stat = list_point{i_station};    
     flag_ID_meta = ismember(metaTable_filtered.ID, ID_stat);
