@@ -11,7 +11,7 @@ disp('setting initial parameters...')
 rng(812)
 
 % parameters
-path_main = 'C:\Users\guait\OneDrive - Università Cattolica del Sacro Cuore\PALEON\downscaling\';%'/data/pguaita/downscaling/';
+path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'pr'; % variable name

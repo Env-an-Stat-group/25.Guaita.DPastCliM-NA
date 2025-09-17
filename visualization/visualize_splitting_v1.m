@@ -54,9 +54,13 @@ function visualize_splitting_v1(obsTable, metaTable, year_start, n_year_data, pa
     % Adjust axes limits to fit the data perfectly
     axis tight; % Ensures the axes fit tightly to the data
 
-    % Set axis labels
-    xlabel('Station');
-    ylabel('Year');
+    % Increase tick label font size
+    ax = gca; % get current axes
+    ax.FontSize = 14; % set tick label font size
+
+    % Set axis labels with larger font size
+    xlabel('Station', 'FontSize', 16, 'FontWeight', 'bold');
+    ylabel('Year', 'FontSize', 16, 'FontWeight', 'bold');
 
     % Determine total years and define tick step
     years = year_start:(year_start + size(split_mat, 1)/12 - 1);
@@ -141,9 +145,13 @@ function visualize_splitting_v1(obsTable, metaTable, year_start, n_year_data, pa
     % Adjust axes limits to fit the data perfectly
     axis tight; % Ensures the axes fit tightly to the data
 
-    % Set axis labels
-    xlabel('Station');
-    ylabel('Year');
+    % Increase tick label font size
+    ax = gca; % get current axes
+    ax.FontSize = 14; % set tick label font size
+
+    % Set axis labels with larger font size
+    xlabel('Station', 'FontSize', 16, 'FontWeight', 'bold');
+    ylabel('Year', 'FontSize', 16, 'FontWeight', 'bold');
 
     % Determine total years and define tick step
     years = year_start:(year_start + size(split_mat, 1)/12 - 1);
@@ -180,8 +188,8 @@ function visualize_splitting_v1(obsTable, metaTable, year_start, n_year_data, pa
     legend(legend_patches, label_text, 'Location', 'northeastoutside');
 
     % Generate the output filename
-    name_figure_save = fullfile(path_fig, [name_var '_split_dataset_100_PCR' suffix]);
+    name_figure_save = fullfile(path_fig, [name_var '_split_dataset_100_PCR' suffix '.png']);
 
     % Save the figure
-    print(f, name_figure_save, '-dtiff', res);
+    print(f, name_figure_save, '-dpng', res);
 end
