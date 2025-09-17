@@ -4,7 +4,7 @@
 
 path_main = '/data/pguaita/downscaling/';
 
-name_var = 'pr';
+name_var = 'tas';
 
 year_start = 1875;
 n_year_data = 140;
@@ -13,6 +13,8 @@ name_model = 'MPI-ESM1-2-LR';
 path_modeldata = fullfile(path_main,['downscaling_models_' name_model]);
 path_fig = fullfile(path_modeldata,'figures_PCR');
 suffix = '_NA_020';
+
+disp('defined parameters')
 
 %% load metaTable and observations (monthly) and aggregate them
 
@@ -27,7 +29,10 @@ for i_mth = 1:12
     end
 end
 
+disp('loaded data')
 
 %% plot splitting
 visualize_splitting_v1(obsTable, metaTable, year_start, ...
     n_year_data, path_fig, name_var, suffix, '-r500')
+
+disp('done')
