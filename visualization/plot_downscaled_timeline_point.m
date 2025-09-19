@@ -20,9 +20,9 @@ function plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_t
     % --- Improved colorblind-friendly palette ---
     colors = [
         0.2, 0.2, 0.2;    % Dark Gray for observations
-        0.90, 0.45, 0.30; % Vermilion for downscaled PCR
-        0.35, 0.70, 0.90; % Sky Blue for ESM
-        0.7, 0.7, 0.7; % Sky Blue for ESM
+        0.90, 0.45, 0.30; % Vermilion for ESM
+        0.35, 0.70, 0.90; % Sky Blue for downscaled PCR
+        0.7, 0.7, 0.7; % Grey for PI
     ];
 
     % --- Convert months to years ---

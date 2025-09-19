@@ -14,7 +14,7 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'tas'; % variable name
+name_var = 'pr'; % variable name
 name_experiment = 'past2k';
 % starting and ending year for plotting
 year_start = 0;
@@ -64,6 +64,12 @@ switch name_var
             n_color_eof = 10;
             palette_eof = @(m) Tol_div_BuRd(m);
 
+            % range parameters
+            range_limit = [0 10];
+            range_step = 2;
+            n_color_range = 10;
+            palette_range = @(m) Tol_seq_smoothrainbow(m);
+
         case 'tas'
             var_title = 'tas';
             % absolute value parameters
@@ -77,6 +83,12 @@ switch name_var
             bias_step = 2;
             n_color_bias = 10;
             palette_bias = @(m) Tol_div_BuRd(m);
+
+            % range parameters
+            range_limit = [0 10];
+            range_step = 2;
+            n_color_range = 10;
+            palette_range = @(m) Tol_seq_smoothrainbow(m);
 
             % eof parameters
             eof_limit = [-0.05 0.05];
@@ -176,12 +188,12 @@ for i_file = 1:length(list_dir_PCR)
     if i_file==1
         dsValue_map_tmp = dsValue_map;
         dsValue_map_lr_tmp = dsValue_map_lr;
-%        PI_map_tmp = PI_map;
+        PI_map_tmp = PI_map;
         time_array_tmp = time_array;
     else
         dsValue_map_tmp = cat(3,dsValue_map_tmp,dsValue_map);
         dsValue_map_lr_tmp = cat(3,dsValue_map_lr_tmp,dsValue_map_lr);
-%        PI_map_tmp = cat(3,PI_map_tmp,PI_map);
+        PI_map_tmp = cat(3,PI_map_tmp,PI_map);
         time_array_tmp = cat(1,time_array_tmp, time_array);
     end
 end
@@ -189,15 +201,15 @@ end
 % finalize variables
 dsValue_map = dsValue_map_tmp;
 dsValue_map_lr = dsValue_map_lr_tmp;
-%PI_map = PI_map_tmp;
+PI_map = PI_map_tmp;
 time_array = time_array_tmp;
 
-clear *_tmp PI_map
+clear *_tmp
 
 % sort them according to time
 [time_array,idx_time] = sort(time_array);
 dsValue_map = dsValue_map(:,:,idx_time);
-%PI_map = PI_map(:,:,idx_time,:);
+PI_map = PI_map(:,:,idx_time,:);
 
 disp('     Done.')
 
@@ -217,57 +229,15 @@ flag_djf([12:12:end 1:12:end 2:12:end]) = true;
 
 disp('     Done.')
 
-%% compute SSIM
+%% Compute SSIM of mean fields (only over valid timesteps)
 
-disp('Compute SSIM timeline...')
+disp('Compute SSIM of mean fields...')
 
 % Preallocate SSIM arrays
 n_time = size(dsValue_map, 3);
 ssim_pcr     = nan(n_time, 1);
 ssim_lr     = nan(n_time, 1);
 ssim_esm      = nan(n_time, 1);
-
-for t = 1:n_time
-    if mod(t,1000)==0
-        disp(['timestep ' int2str(t)])
-    end
-    % Extract 2D slices at time t
-    A = dsValue_map(:,:,t);
-    B = dsValue_map_lr(:,:,t);
-    C = tgt_ESM(:,:,t);
-    D = obsValue_test_map(:,:,t);
-
-    % Create common mask to ignore NaNs
-    valid_mask = ~isnan(A) & ~isnan(B) & ~isnan(C) & ~isnan(D);
-
-    if sum(valid_mask,'all')>50
-        dr = max(D(valid_mask)) - min(D(valid_mask));
-    
-        % Compute SSIMs — only if valid data exists
-        ssim_pcr(t) = ssim(A(valid_mask), D(valid_mask), 'DynamicRange', dr);
-        ssim_lr(t) = ssim(B(valid_mask), D(valid_mask), 'DynamicRange', dr);
-        ssim_esm(t)  = ssim(C(valid_mask), D(valid_mask), 'DynamicRange', dr);
-    end
-end
-
-disp('Plotting SSIM density distributions by season...');
-
-for i_season = 1:length(ind_season)
-    % Retrieve season flag and month label
-    i_mth_txt   = i_mth_txt_loop{i_season};
-    flag_season = eval(flag_loop{i_season});
-    
-    plot_ssim_density_PCR_vs_LR(ssim_pcr, ssim_lr, ssim_esm, ...
-        flag_season, name_var, i_mth_txt, suffix, path_fig, res_plot);
-end
-
-disp('Plotted SSIM density distribution');
-
-disp('     Done.')
-
-%% Compute SSIM of mean fields (only over valid timesteps)
-
-disp('Compute SSIM of mean fields...')
 
 % Identify valid time steps (e.g. those with at least 50 valid pixels)
 valid_times = false(n_time,1);
@@ -592,40 +562,14 @@ clear y_* valid_mask *_tmp dsValue_map_lr
 
 disp('    Done.')
 
-%% squared errors
-
-disp('calculate square errors and plot distribution')
-
-se_PCR_mat = (obsTable_mat_test-dsValue_mat).^2;
-se_LR_mat = (obsTable_mat_test-dsValue_mat_lr).^2;
-se_ESM_mat = (obsTable_mat_test-ESM_mat_test).^2;
-flag_nan_se = isnan(se_PCR_mat);
-se_ESM_mat(flag_nan_se) = nan;
-
-rmse_timeline_PCR = rmse(obsTable_mat_test,dsValue_mat,1,'omitmissing');
-rmse_timeline_LR  = rmse(obsTable_mat_test,dsValue_mat_lr,1,'omitmissing');
-rmse_timeline_ESM = rmse(obsTable_mat_test,ESM_mat_test,1,'omitmissing');
-
-% histogram of SE for linear regression vs PCR over the testing period
-
-for i_season = 1:length(ind_season)
-    % flag for years without any observation maps
-    i_mth_txt = i_mth_txt_loop{i_season};
-    flag_season = eval(flag_loop{i_season});
-    plot_se_density_PCR_vs_LR(se_PCR_mat, se_LR_mat, se_ESM_mat, flag_season, ...
-    name_var, i_mth_txt, suffix, path_fig, res_plot)
-end
-
-close all
-
-disp ('plotted squared error distribution')
-
 %% plots
 
 disp('preparing large variables for plotting...')
 
 dsValue_4d     = single(reshape(dsValue_map,length(lon),length(lat),12,[]));
 clear dsValue_map 
+PI_map_5d     = single(reshape(PI_map,length(lon),length(lat),12,2015,2));
+clear PI_map
 obsValue_test_4d    = single(reshape(obsValue_test_map,length(lon),length(lat),12,[]));
 clear obsValue_test_map 
 ESM_4d    = single(reshape(tgt_ESM,length(lon),length(lat),12,[]));
@@ -640,6 +584,11 @@ obsValue_test_4d(not(flag_land_4d)) = nan;
 ESM_4d(not(flag_land_4d)) = nan;
 
 clear flag_land_4d
+
+flag_land_5d = repmat(flag_land,1,1,12,size(dsValue_4d,4),2);
+PI_map_5d(not(flag_land_5d)) = nan;
+
+clear flag_land_5d
 
 close all
 
@@ -660,10 +609,10 @@ for i_season = 1:length(ind_season)
     
     % --- PCR ---
     PCR_plot = mean(dsVal_tmp - obsVal_test_tmp,[3 4],'omitnan');
-    save_name_PCR = fullfile(path_fig, [text_title '_PCR' suffix]);
+    save_name = fullfile(path_fig, [text_title '_PCR' suffix]);
     
     geosurfm_meansdlabel(PCR_plot, flag_land, lat, lon, bias_limit, ...
-        save_name_PCR, unit_var, [text_title ' (PCR)'], ...
+        save_name, unit_var, [text_title ' (PCR)'], ...
         lim_lat, lim_lon, bias_step, palette_bias(n_color_bias), path_shp_file, res_fig);
 
     % --- ESM ---
@@ -694,10 +643,10 @@ for i_season = 1:length(ind_season)
     text_title = [i_mth_txt ' ' name_var ' 10th p. diff.'];    
     % --- PCR ---
     PCR_plot = prctile(dsVal_tmp,10,[3 4]) - prctile(obsVal_test_tmp,10,[3 4]);
-    save_name_PCR = fullfile(path_fig, [text_title '_PCR' suffix]);
+    save_name = fullfile(path_fig, [text_title '_PCR' suffix]);
     
     geosurfm_meansdlabel(PCR_plot, flag_land, lat, lon, bias_limit, ...
-        save_name_PCR, unit_var, [text_title ' (PCR)'], ...
+        save_name, unit_var, [text_title ' (PCR)'], ...
         lim_lat, lim_lon, bias_step, palette_bias(n_color_bias), path_shp_file, res_fig);
 
     % --- ESM ---
@@ -712,10 +661,10 @@ for i_season = 1:length(ind_season)
     text_title = [i_mth_txt ' ' name_var ' 90th p. diff.'];    
     % --- PCR ---
     PCR_plot = prctile(dsVal_tmp,90,[3 4]) - prctile(obsVal_test_tmp,90,[3 4]);
-    save_name_PCR = fullfile(path_fig, [text_title '_PCR' suffix]);
+    save_name = fullfile(path_fig, [text_title '_PCR' suffix]);
     
     geosurfm_meansdlabel(PCR_plot, flag_land, lat, lon, bias_limit, ...
-        save_name_PCR, unit_var, [text_title ' (PCR)'], ...
+        save_name, unit_var, [text_title ' (PCR)'], ...
         lim_lat, lim_lon, bias_step, palette_bias(n_color_bias), path_shp_file, res_fig);
 
     % --- ESM ---
@@ -734,16 +683,32 @@ close all
 
 disp ('bias of extremes')
 
-%% absolute field
+%% absolute field and anomalies
 
 for i_season = 1:length(ind_season)
     i_mth_txt = i_mth_txt_loop{i_season};
     ind_season_tmp = ind_season{i_season};
     flag_season = eval(flag_loop{i_season});
     dsVal_tmp       = squeeze(dsValue_4d(:,:,ind_season_tmp,:));
-    plot_abs_field(dsVal_tmp, time_bound, year_start, flag_land, ...
-        lat, lon, abs_limit, abs_step, palette_abs, path_shp_file, res_fig, ...
-        name_var, i_mth_txt, unit_var, lim_lat, lim_lon, n_color_abs, path_fig, suffix)
+    dsVal_longterm = mean(dsVal_tmp,[3 4]);
+    PI_range_tmp     = squeeze(PI_map_5d(:,:,ind_season_tmp,:,2)-PI_map_5d(:,:,ind_season_tmp,:,1));
+    PI_range_longerm     = mean(PI_map_5d(:,:,ind_season_tmp,:,2)-PI_map_5d(:,:,ind_season_tmp,:,1),[3 4]);
+
+    % Define figure save path
+    save_name = fullfile(path_fig, [name_var '_abs field_' i_mth_txt suffix]);
+    geosurfm_meansdlabel(dsVal_longterm, flag_land, lat, lon, abs_limit, ...
+        save_name, unit_var, [i_mth_txt ' mean PCR-downscaled ' name_var ' (2k years)'], ...
+        lim_lat, lim_lon, abs_step, palette_abs(n_color_abs), path_shp_file, res_fig);
+    plot_anomaly(dsVal_tmp-dsVal_longterm, time_bound, year_start, flag_land, ...
+        lat, lon, bias_limit/2, bias_step/2, palette_bias, path_shp_file, res_fig, ...
+        name_var, i_mth_txt, unit_var, lim_lat, lim_lon, n_color_bias, path_fig, suffix)
+    save_name = fullfile(path_fig, [name_var '_PI field_' i_mth_txt suffix]);
+    geosurfm_meansdlabel(PI_range_longerm, flag_land, lat, lon, abs_limit*2, ...
+        save_name, unit_var, [i_mth_txt ' mean PCR-downscaled 95% PI for ' name_var ' (2k years)'], ...
+        lim_lat, lim_lon, abs_step*2, palette_abs(n_color_abs), path_shp_file, res_fig);
+    plot_range_anomaly_PI(PI_range_tmp-PI_range_longerm, time_bound, year_start, flag_land, ...
+        lat, lon, bias_limit/2, bias_step/2, palette_bias, path_shp_file, res_fig, ...
+        name_var, i_mth_txt, unit_var, lim_lat, lim_lon, n_color_bias, path_fig, suffix)
 end
 
 close all

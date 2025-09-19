@@ -17,38 +17,29 @@ function plot_abs_field(dsValue_map, time_bound, year_start, flag_land, ...
     % Initialize a variable to collect all subplot axes
     %axes_handles = gobjects(size(time_bound,1), 1);
     
-    % Loop through panels
-    for i_panel = 1:size(time_bound,1)
-        % Determine the indices for the current time window
-        i_panel_mod = mod(i_panel - 1, size(time_bound,1)) + 1;
-        plot_map = mean(dsValue_map(:, (time_bound(i_panel_mod,1) - year_start + 1):(time_bound(i_panel_mod,2) - year_start  + 1)), 2, 'omitnan');
-        plot_map = reshape(plot_map, tgt_size);
+    % Determine the indices for the current time window
+    plot_map = mean(dsValue_map, 2, 'omitnan');
+    plot_map = reshape(plot_map, tgt_size);
         
-        % Set title for the subplot
-        title_text = [int2str(time_bound(i_panel_mod,1)) '-' int2str(time_bound(i_panel_mod,2))];
+    % Set title for the subplot
+    title_text = [i_mth_txt ' mean PCR-downscaled ' name_var ' (2k years)'];
         
-        % Create subplot 
-        ax = subplot(1, size(time_bound,1), i_panel); % Assign to ax for customization    
-
-        % Plot using the geosurfm function
-        geosurfm_sub(plot_map, flag_land & not(isnan(plot_map)), ...
+    % Plot using the geosurfm function
+    geosurfm_sub(plot_map, flag_land & not(isnan(plot_map)), ...
             lat, lon, abs_limit, ...
             [], [], title_text, ...
             lim_lat, lim_lon, ...
             abs_step, palette_abs(n_color_abs), path_shp_file, res_fig);
 
-        % Compute mean and standard deviation
-        mean_val = mean(plot_map(:), 'omitnan');
-        std_val = std(plot_map(:), 'omitnan');
+    % Compute mean and standard deviation
+    mean_val = mean(plot_map(:), 'omitnan');
+    std_val = std(plot_map(:), 'omitnan');
         
-        % Place text in normalized figure coordinates (bottom-left)
-        text(0.02, 0.08, sprintf('%.2f ± %.2f', mean_val, std_val), ...
-            'Units', 'normalized', 'HorizontalAlignment', 'left', ...
-            'VerticalAlignment', 'bottom', 'FontSize', 15, 'FontWeight', 'bold', 'Color', 'k');
-    end
+    % Place text in normalized figure coordinates (bottom-left)
+    text(0.02, 0.08, sprintf('%.2f ± %.2f', mean_val, std_val), ...
+        'Units', 'normalized', 'HorizontalAlignment', 'left', ...
+        'VerticalAlignment', 'bottom', 'FontSize', 15, 'FontWeight', 'bold', 'Color', 'k');
 
-    % Set the overall title for the figure
-    sgtitle([i_mth_txt ' mean PCR-downscaled ' name_var], 'FontSize', 18, 'FontWeight', 'bold');
 
     % Add a shared colorbar at the bottom
     cb = colorbar('Location', 'southoutside');
@@ -64,10 +55,7 @@ function plot_abs_field(dsValue_map, time_bound, year_start, flag_land, ...
     ticks = tick_min:cstep:tick_max;
     cb.Ticks = ticks;
     cb.Limits = c_lim;
-    
-    % Position colorbar nicely below all subplots
-    cb.Position = [0.25, 0.2, 0.6, 0.03];  % [x, y, width, height]
-        
+            
     % Define figure save path
     name_figuresave = fullfile(path_fig, [name_var '_abs field_' i_mth_txt suffix]);
     
