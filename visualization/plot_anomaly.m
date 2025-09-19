@@ -69,7 +69,7 @@ function plot_anomaly(dsValue_anom_map, time_bound, year_start, flag_land, ...
     cb.Position = [0.25, 0.2, 0.6, 0.03];  % [x, y, width, height]
         
     % Define figure save path
-    name_figuresave = fullfile(path_fig, [name_var '_abs field_' i_mth_txt suffix]);
+    name_figuresave = fullfile(path_fig, [name_var '_anomaly field_' i_mth_txt suffix]);
     
     % Save the figure
     print(f, name_figuresave, '-dtiff', res_fig);
