@@ -1,0 +1,230 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2023 The MathWorks, Inc.
+                  R2023b (23.2.0.2365128) 64-bit (glnxa64)
+                              August 23, 2023
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+setting initial parameters...
+     Done.
+Defining initial variables...
+     Done.
+loading downscaled data and observed data (gridded)...
+     Done.
+define season flags
+     Done.
+Compute SSIM timeline...
+timestep 1000
+timestep 2000
+timestep 3000
+timestep 4000
+timestep 5000
+timestep 6000
+timestep 7000
+timestep 8000
+timestep 9000
+timestep 10000
+timestep 11000
+timestep 12000
+timestep 13000
+timestep 14000
+timestep 15000
+timestep 16000
+timestep 17000
+timestep 18000
+timestep 19000
+timestep 20000
+timestep 21000
+timestep 22000
+timestep 23000
+timestep 24000
+Plotting SSIM density distributions by season...
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+Plotted SSIM density distribution
+     Done.
+Compute SSIM of mean fields...
+Mean field SSIMs:
+  PCR vs OBS: 0.9112
+  LR  vs OBS: 0.8419
+  ESM vs OBS: 0.7860
+Aggregating obs table
+doing month 1-1
+doing month 2-2
+doing month 3-3
+doing month 4-4
+doing month 5-5
+doing month 6-6
+doing month 7-7
+doing month 8-8
+doing month 9-9
+doing month 10-10
+doing month 11-11
+doing month 12-12
+create observation matrix (which is used for comparison with the final downscaled product) - this is taking only the non-spatialized testing values
+     Done.
+calculate performance metrics and compile table
+                                     PCR          LR         ESM   
+                                   ________    ________    ________
+
+    MeanBias_Yearly                 0.12733      0.1073     -1.0877
+    StdBias_Yearly                   5.5067      5.6445      3.6319
+    RMSE_Yearly                      5.5082      5.6455      3.7912
+    R2_Yearly                       0.73803     0.72481      0.8759
+    MAE_Yearly                       3.6993      3.7724      2.9339
+    KGE_Yearly                      0.84664      0.8361     0.87551
+    SSIM_avg_time_Yearly            0.62489     0.61192     0.73178
+    SSIM_mean_field_Yearly          0.91115     0.84186     0.78596
+    MeanBias_MAM                    0.27961     0.27088     -1.3158
+    StdBias_MAM                      5.5556      5.6566      3.3895
+    RMSE_MAM                         5.5626       5.663      3.6359
+    R2_MAM                          0.52328     0.50591     0.79633
+    MAE_MAM                          3.7491        3.79      2.8297
+    KGE_MAM                         0.75801     0.75044     0.83372
+    SSIM_avg_time_MAM               0.58274     0.57068     0.65869
+    SSIM_mean_field_MAM             0.90374     0.88657     0.78221
+    MeanBias_JJA                    0.17028     0.26404    -0.82459
+    StdBias_JJA                      5.2048      5.4071      3.0953
+    RMSE_JJA                         5.2076      5.4135      3.2032
+    R2_JJA                         -0.26739    -0.36961     0.52049
+    MAE_JJA                          3.3873      3.5037       2.456
+    KGE_JJA                         0.41744     0.38327      0.7661
+    SSIM_avg_time_JJA               0.64735      0.6294     0.83052
+    SSIM_mean_field_JJA             0.84633     0.83048     0.87497
+    MeanBias_SON                    0.25651     0.30109    -0.47843
+    StdBias_SON                      5.3975      5.5571      3.3885
+    RMSE_SON                         5.4036      5.5652      3.4221
+    R2_SON                          0.51185     0.48221     0.80421
+    MAE_SON                          3.5949      3.6839      2.6804
+    KGE_SON                         0.72908     0.71887     0.86197
+    SSIM_avg_time_SON               0.55282     0.53378     0.65306
+    SSIM_mean_field_SON             0.87236     0.80188     0.74693
+    MeanBias_DJF                   -0.19979    -0.41128      -1.738
+    StdBias_DJF                      5.8393      5.9161      4.3993
+    RMSE_DJF                         5.8427      5.9304      4.7301
+    R2_DJF                           0.5244     0.51002     0.68828
+    MAE_DJF                          4.0695      4.1154      3.7774
+    KGE_DJF                         0.65503     0.44454     -1.0824
+    SSIM_avg_time_DJF               0.71726     0.71452     0.78532
+    SSIM_mean_field_DJF             0.90544     0.90259     0.88927
+    ClimDiff                        0.28881      0.3698       1.098
+    TrendSlopeRatio_(model/obs)      1.4515      1.2873      1.7472
+    TrendSlopeRatio_(ds/esm)        0.83076     0.73677           1
+
+    Done.
+calculate square errors and plot distribution
+plotted squared error distribution
+preparing large variables for plotting...
+     Done.
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
