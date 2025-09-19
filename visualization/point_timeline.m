@@ -14,9 +14,9 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'tas'; % variable name
+name_var = 'pr'; % variable name
 name_experiment = 'past2k';
-n_min_yr = 100; % minimum number of years for stations
+n_min_yr = 75; % minimum number of years for stations
 path_fig = fullfile(path_main,['downscaling_output_' name_model],'figures_PCR');
 path_file = fullfile(path_main,['downscaling_output_' name_model]);
 path_obs = fullfile(path_main,'obs_data');
@@ -26,8 +26,8 @@ suffix = '_NA_020';
 
 % define subdomain for station selection (each row is a different
 % subdomain)
-lon_subdom = [-73.1 -71.1; -94.8 -92.8; -96.2 -94.2; -117.8 -113.8];
-lat_subdom = [41.5 43.5; 43.7 45.7; 46.2 48.2; 30.9 36.9];
+lon_subdom = [-73.1 -71.1; -94.8 -92.8; -96.2 -94.2; -120.8 -110.8];
+lat_subdom = [41.5 43.5; 43.7 45.7; 46.2 48.2; 29.9 37.9];
 
 %% load grid and define limits
 load(fullfile(path_main, ['static_maps/downscaling_grid' suffix '.mat']));
