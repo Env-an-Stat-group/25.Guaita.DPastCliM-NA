@@ -11,7 +11,7 @@ disp('setting initial parameters...')
 rng(812)
 
 % parameters
-path_main = '/data/pguaita/downscaling/';
+path_main = 'C:\Users\guait\Università Cattolica del Sacro Cuore\FIS-AMB-ECOFIS - Documenti\GUAITA\PALEON\downscaling\';% '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'pr'; % variable name
@@ -25,7 +25,7 @@ path_fig = fullfile(path_main,['downscaling_output_' name_model],'figures_PCR');
 path_file = fullfile(path_main,['downscaling_output_' name_model]);
 path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
-suffix = '_NA_020';
+suffix = '_Hartfordtest';
 
 %% parameters that you most likely should not change
 
@@ -160,16 +160,16 @@ clear PI_mat PI_mat_lr
 % get the predicted values by adding u_mat to the predicted average
 switch name_var
     case 'tas'
-        dsValue_mat = dsEValue_mat + u_mat;
-        dsValue_mat_lr = dsEValue_mat_lr + u_mat_lr;
+        Ods_hat_mat = EOds_hat_mat + u_mat;
+        Ods_hat_mat_lr = EOds_hat_mat_lr + u_mat_lr;
     case 'pr'
-        dsValue_mat = pr_realizations(dsEValue_mat,u_mat,...
+        Ods_hat_mat = pr_realizations(EOds_hat_mat,u_mat,...
             path_main,name_var,suffix,name_model);
-        dsValue_mat_lr = pr_realizations(dsEValue_mat_lr,u_mat_lr,...
+        Ods_hat_mat_lr = pr_realizations(EOds_hat_mat_lr,u_mat_lr,...
             path_main,name_var,suffix,name_model);
 end
 
-clear dsEValue_mat dsEValue_mat_lr epsilon epsilon
+clear EOds_hat_mat EOds_hat_mat_lr epsilon 
 
 % load observations
 load(fullfile(path_file,[name_var '_observations' suffix]))
@@ -186,21 +186,21 @@ for i_file = 1:length(list_dir_PCR)
     load(fullfile(list_dir_LR(i_file).folder,list_dir_LR(i_file).name));
     load(fullfile(list_dir_PI_PCR(i_file).folder,list_dir_PI_PCR(i_file).name));
     if i_file==1
-        dsValue_map_tmp = dsValue_map;
-        dsValue_map_lr_tmp = dsValue_map_lr;
+        Ods_hat_map_tmp = Ods_hat_map;
+        Ods_hat_map_lr_tmp = Ods_hat_map_lr;
         PI_map_tmp = PI_map;
         time_array_tmp = time_array;
     else
-        dsValue_map_tmp = cat(3,dsValue_map_tmp,dsValue_map);
-        dsValue_map_lr_tmp = cat(3,dsValue_map_lr_tmp,dsValue_map_lr);
+        Ods_hat_map_tmp = cat(3,Ods_hat_map_tmp,Ods_hat_map);
+        Ods_hat_map_lr_tmp = cat(3,Ods_hat_map_lr_tmp,Ods_hat_map_lr);
         PI_map_tmp = cat(3,PI_map_tmp,PI_map);
         time_array_tmp = cat(1,time_array_tmp, time_array);
     end
 end
 
 % finalize variables
-dsValue_map = dsValue_map_tmp;
-dsValue_map_lr = dsValue_map_lr_tmp;
+Ods_hat_map = Ods_hat_map_tmp;
+Ods_hat_map_lr = Ods_hat_map_lr_tmp;
 PI_map = PI_map_tmp;
 time_array = time_array_tmp;
 
@@ -208,7 +208,7 @@ clear *_tmp
 
 % sort them according to time
 [time_array,idx_time] = sort(time_array);
-dsValue_map = dsValue_map(:,:,idx_time);
+Ods_hat_map = Ods_hat_map(:,:,idx_time);
 PI_map = PI_map(:,:,idx_time,:);
 
 disp('     Done.')
@@ -234,7 +234,7 @@ disp('     Done.')
 disp('Compute SSIM of mean fields...')
 
 % Preallocate SSIM arrays
-n_time = size(dsValue_map, 3);
+n_time = size(Ods_hat_map, 3);
 ssim_pcr     = nan(n_time, 1);
 ssim_lr     = nan(n_time, 1);
 ssim_esm      = nan(n_time, 1);
@@ -249,8 +249,8 @@ for t = 1:n_time
 end
 
 % Compute mean fields only over valid time steps
-A_mean = mean(dsValue_map(:,:,valid_times), 3, 'omitnan');       % PCR
-B_mean = mean(dsValue_map_lr(:,:,valid_times), 3, 'omitnan');    % LR
+A_mean = mean(Ods_hat_map(:,:,valid_times), 3, 'omitnan');       % PCR
+B_mean = mean(Ods_hat_map_lr(:,:,valid_times), 3, 'omitnan');    % LR
 C_mean = mean(tgt_ESM(:,:,valid_times), 3, 'omitnan');           % ESM
 D_mean = mean(obsValue_test_map(:,:,valid_times), 3, 'omitnan');      % OBS
 
@@ -313,10 +313,10 @@ disp(['create observation matrix (which is used for comparison with the final do
     '- this is taking only the non-spatialized testing values'])
 
 % Preallocate
-obsTable_mat       = nan(size(dsValue_mat));
-ESM_mat            = nan(size(dsValue_mat));
-obsTable_mat_test  = nan(size(dsValue_mat));
-ESM_mat_test       = nan(size(dsValue_mat));
+obsTable_mat       = nan(size(Ods_hat_mat));
+ESM_mat            = nan(size(Ods_hat_mat));
+obsTable_mat_test  = nan(size(Ods_hat_mat));
+ESM_mat_test       = nan(size(Ods_hat_mat));
 
 % Map obsTable.ID to metaTable row indices
 [~, row_idx] = ismember(obsTable.ID, metaTable.ID);
@@ -325,7 +325,7 @@ ESM_mat_test       = nan(size(dsValue_mat));
 [~, col_idx] = ismember(obsTable.month_since_0CE, time_ESM);
 
 % Compute linear indices
-linear_idx = sub2ind(size(dsValue_mat), row_idx, col_idx);
+linear_idx = sub2ind(size(Ods_hat_mat), row_idx, col_idx);
 
 % Fill in matrices
 obsTable_mat(linear_idx) = obsTable.Value;
@@ -335,7 +335,7 @@ ESM_mat(linear_idx)      = obsTable.M;
 test_mask     = obsTable.flag_test;
 row_idx_test  = row_idx(test_mask);
 col_idx_test  = col_idx(test_mask);
-linear_idx_test = sub2ind(size(dsValue_mat), row_idx_test, col_idx_test);
+linear_idx_test = sub2ind(size(Ods_hat_mat), row_idx_test, col_idx_test);
 
 obsTable_mat_test(linear_idx_test) = obsTable.Value(test_mask);
 ESM_mat_test(linear_idx_test)      = obsTable.M(test_mask);
@@ -365,8 +365,8 @@ for i_season = 1:nSeasons
 
     % Apply mask to time dimension (assumes time is 2nd dim of input matrices)
     y_true = obsTable_mat_test(:, flag_season);
-    y_pcr  = dsValue_mat(:, flag_season);
-    y_lr   = dsValue_mat_lr(:, flag_season);
+    y_pcr  = Ods_hat_mat(:, flag_season);
+    y_lr   = Ods_hat_mat_lr(:, flag_season);
     y_esm  = ESM_mat_test(:, flag_season);
 
     % Flatten to vectors
@@ -399,8 +399,8 @@ for i_season = 1:nSeasons
         mean(ssim_esm(flag_season),'omitnan')];
 
     % Compute mean fields only over valid time steps
-    A_mean = mean(dsValue_map(:,:,valid_times & flag_season), 3, 'omitnan');       % PCR
-    B_mean = mean(dsValue_map_lr(:,:,valid_times & flag_season), 3, 'omitnan');    % LR
+    A_mean = mean(Ods_hat_map(:,:,valid_times & flag_season), 3, 'omitnan');       % PCR
+    B_mean = mean(Ods_hat_map_lr(:,:,valid_times & flag_season), 3, 'omitnan');    % LR
     C_mean = mean(tgt_ESM(:,:,valid_times & flag_season), 3, 'omitnan');           % ESM
     D_mean = mean(obsValue_test_map(:,:,valid_times & flag_season), 3, 'omitnan');      % OBS
     
@@ -455,8 +455,8 @@ for m = 1:12
     flag_month(m:12:end) = true; % select all times for month m
 
     y_t = obsTable_mat_test(:, flag_month);
-    y_p = dsValue_mat(:, flag_month);
-    y_l = dsValue_mat_lr(:, flag_month);
+    y_p = Ods_hat_mat(:, flag_month);
+    y_l = Ods_hat_mat_lr(:, flag_month);
     y_e = ESM_mat_test(:, flag_month);
 
     % Remove NaNs
@@ -482,20 +482,20 @@ time_idx = find(flag_year);
 time_vec = time_idx; % use time indices as x values
 
 obsTable_mat_tmp = squeeze(mean(reshape(obsTable_mat,size(obsTable_mat,1),12,[]),2,'omitnan'));
-dsValue_mat_tmp = squeeze(mean(reshape(dsValue_mat,size(dsValue_mat,1),12,[]),2,'omitnan'));
-dsValue_mat_lr_tmp = squeeze(mean(reshape(dsValue_mat_lr,size(dsValue_mat_lr,1),12,[]),2,'omitnan'));
+Ods_hat_mat_tmp = squeeze(mean(reshape(Ods_hat_mat,size(Ods_hat_mat,1),12,[]),2,'omitnan'));
+Ods_hat_mat_lr_tmp = squeeze(mean(reshape(Ods_hat_mat_lr,size(Ods_hat_mat_lr,1),12,[]),2,'omitnan'));
 ESM_mat_tmp = squeeze(mean(reshape(ESM_mat,size(ESM_mat,1),12,[]),2,'omitnan'));
 
 % homogenize Nans across datasets for trend calculation
-flag_nan_tmp = (isnan(obsTable_mat_tmp) | isnan(dsValue_mat_tmp) | isnan(dsValue_mat_lr_tmp) | isnan(ESM_mat_tmp));
+flag_nan_tmp = (isnan(obsTable_mat_tmp) | isnan(Ods_hat_mat_tmp) | isnan(Ods_hat_mat_lr_tmp) | isnan(ESM_mat_tmp));
 obsTable_mat_tmp(flag_nan_tmp) = nan;
-dsValue_mat_tmp(flag_nan_tmp) = nan;
-dsValue_mat_lr_tmp(flag_nan_tmp) = nan;
+Ods_hat_mat_tmp(flag_nan_tmp) = nan;
+Ods_hat_mat_lr_tmp(flag_nan_tmp) = nan;
 ESM_mat_tmp(flag_nan_tmp) = nan;
 
 mean_true = mean(obsTable_mat_tmp, 1,'omitnan')';
-mean_pcr = mean(dsValue_mat_tmp, 1,'omitnan')';
-mean_lr = mean(dsValue_mat_lr_tmp, 1,'omitnan')';
+mean_pcr = mean(Ods_hat_mat_tmp, 1,'omitnan')';
+mean_lr = mean(Ods_hat_mat_lr_tmp, 1,'omitnan')';
 mean_esm = mean(ESM_mat_tmp, 1,'omitnan')';
 
 % Remove NaNs for trend calculation
@@ -558,7 +558,7 @@ filename = fullfile(path_fig, ['performance_table_' name_var '.csv']);
 % Save table as CSV
 writetable(result_table_final, filename, 'WriteRowNames', true);
 
-clear y_* valid_mask *_tmp dsValue_map_lr
+clear y_* valid_mask *_tmp Ods_hat_map_lr
 
 disp('    Done.')
 
@@ -566,8 +566,8 @@ disp('    Done.')
 
 disp('preparing large variables for plotting...')
 
-dsValue_4d     = single(reshape(dsValue_map,length(lon),length(lat),12,[]));
-clear dsValue_map 
+Ods_hat_4d     = single(reshape(Ods_hat_map,length(lon),length(lat),12,[]));
+clear Ods_hat_map 
 PI_map_5d     = single(reshape(PI_map,length(lon),length(lat),12,2015,2));
 clear PI_map
 obsValue_test_4d    = single(reshape(obsValue_test_map,length(lon),length(lat),12,[]));
@@ -576,16 +576,16 @@ ESM_4d    = single(reshape(tgt_ESM,length(lon),length(lat),12,[]));
 clear tgt_ESM 
 
 % filter on land
-flag_land_4d = repmat(flag_land,1,1,12,size(dsValue_4d,4));
+flag_land_4d = repmat(flag_land,1,1,12,size(Ods_hat_4d,4));
 
 % mask out sea nodes
-dsValue_4d(not(flag_land_4d)) = nan;
+Ods_hat_4d(not(flag_land_4d)) = nan;
 obsValue_test_4d(not(flag_land_4d)) = nan;
 ESM_4d(not(flag_land_4d)) = nan;
 
 clear flag_land_4d
 
-flag_land_5d = repmat(flag_land,1,1,12,size(dsValue_4d,4),2);
+flag_land_5d = repmat(flag_land,1,1,12,size(Ods_hat_4d,4),2);
 PI_map_5d(not(flag_land_5d)) = nan;
 
 clear flag_land_5d
@@ -601,7 +601,7 @@ for i_season = 1:length(ind_season)
     ind_season_tmp = ind_season{i_season};
     
     % Compute seasonal averages
-    dsVal_tmp       = squeeze(dsValue_4d(:,:,ind_season_tmp,:));
+    dsVal_tmp       = squeeze(Ods_hat_4d(:,:,ind_season_tmp,:));
     obsVal_test_tmp = squeeze(obsValue_test_4d(:,:,ind_season_tmp,:));
     ESM_tmp         = squeeze(ESM_4d(:,:,ind_season_tmp,:));
     
@@ -635,7 +635,7 @@ disp ('mb for PCR')
 for i_season = 1:length(ind_season)
     i_mth_txt = i_mth_txt_loop{i_season};
     ind_season_tmp = ind_season{i_season};
-    dsVal_tmp       = squeeze(dsValue_4d(:,:,ind_season_tmp,:));
+    dsVal_tmp       = squeeze(Ods_hat_4d(:,:,ind_season_tmp,:));
     obsVal_test_tmp = squeeze(obsValue_test_4d(:,:,ind_season_tmp,:));
     ESM_tmp         = squeeze(ESM_4d(:,:,ind_season_tmp,:));
     
@@ -689,7 +689,7 @@ for i_season = 1:length(ind_season)
     i_mth_txt = i_mth_txt_loop{i_season};
     ind_season_tmp = ind_season{i_season};
     flag_season = eval(flag_loop{i_season});
-    dsVal_tmp       = squeeze(dsValue_4d(:,:,ind_season_tmp,:));
+    dsVal_tmp       = squeeze(Ods_hat_4d(:,:,ind_season_tmp,:));
     dsVal_longterm = mean(dsVal_tmp,[3 4]);
     PI_range_tmp     = squeeze(PI_map_5d(:,:,ind_season_tmp,:,2)-PI_map_5d(:,:,ind_season_tmp,:,1));
     PI_range_longerm     = mean(PI_map_5d(:,:,ind_season_tmp,:,2)-PI_map_5d(:,:,ind_season_tmp,:,1),[3 4]);
