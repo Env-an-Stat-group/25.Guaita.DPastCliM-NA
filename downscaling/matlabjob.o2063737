@@ -452,3 +452,8 @@ iteration 143 #station(6817-6864) done
 iteration 144 #station(6865-6889) done
 ---> Done. Been running for 0.1 mins
 transform back ARMA residuals through SEM
+Done in 272.5 mins
+converting output to single float and reshape variables
+finished
+IdleTimeout has been reached.
+Parallel pool using the 'Processes' profile is shutting down.
