@@ -306,7 +306,7 @@ disp('downscale data for every month and aggregate in same matrix')
 tic
 
 % initialize matrix to store the predicted mean of the downscaled product
-dsEValue_mat_lr = nan(height(metaTable),12,size(time_ESM,2));
+EOds_hat_mat_lr = nan(height(metaTable),12,size(time_ESM,2));
 PI_mat_lr = nan(height(metaTable),12,size(time_ESM,2),2);
 
 for i_mth_interval = 1:size(mth_interval,1)
@@ -336,18 +336,18 @@ for i_mth_interval = 1:size(mth_interval,1)
     O_t_local.Properties.VariableNames(2) = "O_t";
 
     % from LR
-    [dsEValue_mat_mth_lr, PI_mat_mth_lr] = ...
+    [EOds_hat_mat_mth_lr, PI_mat_mth_lr] = ...
         ds_ESM_mat_lr_v1(tgt_ESM_mth, tgt_lon, tgt_lat, time_ESM_mth, lm_list_lr, mu_gO_local, O_t_local, flag_cal,...
         metaTable, name_var);
 
     % aggregate in same matrix
-    dsEValue_mat_lr(:,i_mth,:) = dsEValue_mat_mth_lr;
+    EOds_hat_mat_lr(:,i_mth,:) = EOds_hat_mat_mth_lr;
     PI_mat_lr(:,i_mth,:,:) = PI_mat_mth_lr;
     disp(['Been running for ' num2str(round(toc/60,1)) ' mins'])
 end
 
 % reshape matrix so that it's station x time
-dsEValue_mat_lr = reshape(dsEValue_mat_lr,size(dsEValue_mat_lr,1),[]);
+EOds_hat_mat_lr = reshape(EOds_hat_mat_lr,size(EOds_hat_mat_lr,1),[]);
 PI_mat_lr = reshape(PI_mat_lr,size(PI_mat_lr,1),[],2);
 
 disp(['Done in ' num2str(round(toc/60,1)) ' mins'])
@@ -357,7 +357,7 @@ disp(['Done in ' num2str(round(toc/60,1)) ' mins'])
 disp('generate residuals from ARMA and add them to the predicted average')
 tic
 
-eps_ARMA = zeros(size(dsEValue_mat_lr));
+eps_ARMA = zeros(size(EOds_hat_mat_lr));
 
 % Forecast one step ahead
 start_time = max(p,q)+1;
@@ -392,7 +392,7 @@ time_ESM = reshape(time_ESM,[],1);
 
 % save
 var_save = {'lat','lon','name_model','name_var','name_experiment',...
-    'dsEValue_mat_lr','u_mat_lr','PI_mat_lr',...
+    'EOds_hat_mat_lr','u_mat_lr','PI_mat_lr',...
     'time_ESM','unit_var'};
 var_desc = {
     'Latitude coordinates of the target grid for downscaling.', ...

@@ -147,9 +147,9 @@ disp('Loaded raw (ungridded) downscaled data')
 % get the predicted values by adding u_mat to the predicted average
 switch name_var
     case 'tas'
-        dsValue_mat = dsEValue_mat + u_mat;
+        Ods_hat_mat = EOds_hat_mat + u_mat;
     case 'pr'
-        dsValue_mat = pr_realizations(dsEValue_mat,u_mat,...
+        Ods_hat_mat = pr_realizations(EOds_hat_mat,u_mat,...
             path_main,name_var,suffix,name_model);
 end
         
@@ -159,7 +159,7 @@ n_iter = 1200;
 
 % filter on calibration and 
 flag_cal = metaTable.flag_cal;
-dsValue_mat = dsValue_mat(flag_cal,:);
+Ods_hat_mat = Ods_hat_mat(flag_cal,:);
 PI_mat = PI_mat(flag_cal,:,:);
 metaTable = metaTable(flag_cal,:);
 
@@ -188,7 +188,7 @@ unique_grid_idx = unique(assigned_grid_idx);
 
 % Preallocate outputs
 n_unique = numel(unique_grid_idx);
-dsValue_mat_filtered = nan(n_unique, size(dsValue_mat,2));
+Ods_hat_mat_filtered = nan(n_unique, size(Ods_hat_mat,2));
 PI_mat_filtered = nan(n_unique, size(PI_mat,2),2);
 lat_filtered = nan(n_unique,1);
 lon_filtered = nan(n_unique,1);
@@ -198,8 +198,8 @@ metaTable_filtered = table();
 for k = 1:n_unique
     idx = find(assigned_grid_idx == unique_grid_idx(k));
     
-    % Mean of dsValue_mat for all stations in this grid node
-    dsValue_mat_filtered(k,:) = mean(dsValue_mat(idx,:), 1, 'omitnan');
+    % Mean of Ods_hat_mat for all stations in this grid node
+    Ods_hat_mat_filtered(k,:) = mean(Ods_hat_mat(idx,:), 1, 'omitnan');
     PI_mat_filtered(k,:,1) = mean(PI_mat(idx,:,1), 1, 'omitnan');
     PI_mat_filtered(k,:,2) = mean(PI_mat(idx,:,2), 1, 'omitnan');
     
@@ -215,7 +215,7 @@ metaTable_filtered.lat = lat_filtered;
 metaTable_filtered.lon = lon_filtered;
 metaTable = metaTable_filtered;
 
-dsValue_mat = dsValue_mat_filtered;
+Ods_hat_mat = Ods_hat_mat_filtered;
 PI_mat = PI_mat_filtered;
 
 disp('Aggregated stations that were in the same grid (and filtered them through the calibration dataset)')
@@ -233,11 +233,11 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
     idx_ini = n_iter*(i_iter-1)+1;
     idx_fin = min(numel(time_ESM),n_iter*i_iter);
     idx_iter= idx_ini:idx_fin;
-    dsValue_mat_slice   = dsValue_mat(:,idx_iter);
+    Ods_hat_mat_slice   = Ods_hat_mat(:,idx_iter);
     PI_mat_slice        = PI_mat(:,idx_iter,:);
 
     % initialize variable to store final maps
-    dsValue_map         = nan(length(tgt_lon)*length(tgt_lat),numel(idx_iter));
+    Ods_hat_map         = nan(length(tgt_lon)*length(tgt_lat),numel(idx_iter));
     PI_map              = nan([length(tgt_lon)*length(tgt_lat),numel(idx_iter),2]);
     PI_map_inf          = nan([length(tgt_lon)*length(tgt_lat),numel(idx_iter)]);
     PI_map_sup          = nan([length(tgt_lon)*length(tgt_lat),numel(idx_iter)]);
@@ -245,13 +245,13 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
     parfor i_time = 1:length(idx_iter)
         subidx_time = i_time-idx_ini+1;
         % pick z value for the maps
-        z_pcr = dsValue_mat_slice(:,i_time);
+        z_pcr = Ods_hat_mat_slice(:,i_time);
         z_pcr_PI_inf = PI_mat_slice(:,i_time,1);
         z_pcr_PI_sup = PI_mat_slice(:,i_time,2);
                 
         % Interpolate using griddata with method 'v4'
         F = scatteredInterpolant(x_proj, y_proj, z_pcr, 'natural', 'nearest');
-        dsValue_map(:,i_time) = F(xgrid_proj, ygrid_proj);
+        Ods_hat_map(:,i_time) = F(xgrid_proj, ygrid_proj);
         
         F_inf = scatteredInterpolant(x_proj, y_proj, z_pcr_PI_inf, 'natural', 'nearest');
         PI_map_inf(:,i_time) = F_inf(xgrid_proj, ygrid_proj);
@@ -259,7 +259,7 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
         F_sup = scatteredInterpolant(x_proj, y_proj, z_pcr_PI_sup, 'natural', 'nearest');
         PI_map_sup(:,i_time) = F_sup(xgrid_proj, ygrid_proj);        
     end
-    dsValue_map(not(flag_land(:)),:)=nan;
+    Ods_hat_map(not(flag_land(:)),:)=nan;
     PI_map_inf(not(flag_land(:)),:)=nan;
     PI_map_sup(not(flag_land(:)),:)=nan;
     disp(['iteration ' int2str(i_iter) ' #timestep(' int2str(idx_ini) '-' int2str(idx_fin) ') done'])
@@ -272,7 +272,7 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
     % convert output variables to single float
     
     disp('converting to single float')
-    dsValue_map = single(round(dsValue_map,2));
+    Ods_hat_map = single(round(Ods_hat_map,2));
     PI_map = single(round(PI_map,2));
     
     %% Adjust the gridded product to match the scaling of the target ESM data
@@ -282,16 +282,16 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
     
     tgt_ESM = reshape(tgt_ESM,length(tgt_lon)*length(tgt_lat),[]);
     std_correction = movstd(tgt_ESM(:,idx_iter)-movmean(tgt_ESM(:,idx_iter), n_year_mov, 2, 'omitnan'), n_year_mov, 0, 2, 'omitnan') ./...
-        movstd(dsValue_map - movmean(dsValue_map, n_year_mov, 2, 'omitnan'), n_year_mov, 0, 2, 'omitnan');
-    dsValue_map = movmean(dsValue_map, n_year_mov, 2, 'omitnan') + ...
-        (dsValue_map - movmean(dsValue_map, n_year_mov, 2, 'omitnan')) .* std_correction ;
+        movstd(Ods_hat_map - movmean(Ods_hat_map, n_year_mov, 2, 'omitnan'), n_year_mov, 0, 2, 'omitnan');
+    Ods_hat_map = movmean(Ods_hat_map, n_year_mov, 2, 'omitnan') + ...
+        (Ods_hat_map - movmean(Ods_hat_map, n_year_mov, 2, 'omitnan')) .* std_correction ;
 
     %% convert output variables to single float
     
     disp('reshape variables')
     
     % reshape the variables
-    dsValue_map = reshape(dsValue_map,length(tgt_lon),length(tgt_lat),[]);
+    Ods_hat_map = reshape(Ods_hat_map,length(tgt_lon),length(tgt_lat),[]);
     PI_map = reshape(PI_map,length(tgt_lon),length(tgt_lat),[],2);
     time_ESM_array = reshape(time_ESM,[],1);
     time_array = time_ESM(idx_iter);
@@ -302,7 +302,7 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
     
     % save
     var_save = {'lat','lon','name_model','name_var','name_experiment'...
-        'dsValue_map',...
+        'Ods_hat_map',...
         'time_array','unit_var'};
     var_desc = {
         'Latitude coordinates of the target grid for downscaling.', ...
@@ -353,9 +353,9 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
         ['This file contains the ' name_model ' data for ' name_var ' downscaled with PCR.']);
     
     % Define dimensions
-    dim_lon = netcdf.defDim(ncid, 'lon', size(dsValue_map, 1));
-    dim_lat = netcdf.defDim(ncid, 'lat', size(dsValue_map, 2));
-    dim_time = netcdf.defDim(ncid, 'time', size(dsValue_map, 3));
+    dim_lon = netcdf.defDim(ncid, 'lon', size(Ods_hat_map, 1));
+    dim_lat = netcdf.defDim(ncid, 'lat', size(Ods_hat_map, 2));
+    dim_time = netcdf.defDim(ncid, 'time', size(Ods_hat_map, 3));
     dim_site = netcdf.defDim(ncid, 'site', height(metaTable));
     dim_bound = netcdf.defDim(ncid, 'bound', 2);
     dim_scalar = netcdf.defDim(ncid, 'scalar', 1);
@@ -494,9 +494,9 @@ for i_iter = 1:ceil(numel(time_ESM)/n_iter)
         ['This file contains the ' name_model ' data for ' name_var ' downscaled with PCR.']);
     
     % Define dimensions
-    dim_lon = netcdf.defDim(ncid, 'lon', size(dsValue_map, 1));
-    dim_lat = netcdf.defDim(ncid, 'lat', size(dsValue_map, 2));
-    dim_time = netcdf.defDim(ncid, 'time', size(dsValue_map, 3));
+    dim_lon = netcdf.defDim(ncid, 'lon', size(Ods_hat_map, 1));
+    dim_lat = netcdf.defDim(ncid, 'lat', size(Ods_hat_map, 2));
+    dim_time = netcdf.defDim(ncid, 'time', size(Ods_hat_map, 3));
     dim_site = netcdf.defDim(ncid, 'site', height(metaTable));
     dim_bound = netcdf.defDim(ncid, 'bound', 2);
     dim_scalar = netcdf.defDim(ncid, 'scalar', 1);

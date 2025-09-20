@@ -9,7 +9,7 @@ function Ods_hat = inversetransform(SgOhat, mu_gO, O_t, name_var)
 %   - mu_gO   : Temporal mean of the transformed original observations used for centering
 %   - O_t     : Translation term applied to avoid log(0) for precipitation
 %   - name_var: Variable name ('tas' for temperature, 'pr' for precipitation)
-%
+%   
 % Outputs:
 %   - Ods_hat : Downscaled data transformed back to the original scale
 

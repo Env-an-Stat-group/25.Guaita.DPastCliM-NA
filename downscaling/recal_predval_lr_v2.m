@@ -108,7 +108,7 @@ end
 
 %%
 % Transform back the downscaled anomalies to the original scale (both mean prediction and realizations)
-obsTable_mth.EOds_hat_lr    = inversetransform(obsTable_mth.ESgOds_hat_lr, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
+%obsTable_mth.EOds_hat_lr    = inversetransform(obsTable_mth.ESgOds_hat_lr, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
 obsTable_mth.Ods_hat_lr     = inversetransform(obsTable_mth.SgOds_hat_lr, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
 
 %%
@@ -125,20 +125,20 @@ parfor i_time = 1:length(time_mth)
     obsTable_tmp = obsTable_mth_const.Value(flag_time, :);
 
     % Filter out rows with missing values in `EOds_hat_lr`
-    flag_sample = not(isnan(obsTable_tmp.EOds_hat_lr));  % Find rows with valid predictions
+    flag_sample = not(isnan(obsTable_tmp.Ods_hat_lr));  % Find rows with valid predictions
     x = obsTable_tmp.lat(flag_sample);  % Latitude of stations with valid predictions
     y = obsTable_tmp.lon(flag_sample);  % Longitude of stations with valid predictions
-    z1 = obsTable_tmp.EOds_hat_lr(flag_sample);  % Mean predicted values
+    %z1 = obsTable_tmp.EOds_hat_lr(flag_sample);  % Mean predicted values
     z2 = obsTable_tmp.Ods_hat_lr(flag_sample);  % Realization values
 
     % get unique points
     [coords,ia,~] = unique([x y],'stable','rows');
     x = coords(:,1);
     y = coords(:,2);
-    z1 = z1(ia);
+    %z1 = z1(ia);
     z2 = z2(ia);
 
-    F1 = scatteredInterpolant(x, y, double(z1), 'natural', 'nearest'); 
+    %F1 = scatteredInterpolant(x, y, double(z1), 'natural', 'nearest'); 
     F2 = scatteredInterpolant(x, y, double(z2), 'natural', 'nearest'); 
 
     % Predict missing values using the GPR models
@@ -146,7 +146,7 @@ parfor i_time = 1:length(time_mth)
     missing_y = obsTable_tmp.lon(not(flag_sample));  % Longitude for missing stations
 
     % Predict values for missing stations
-    obsTable_tmp.EOds_hat_lr(not(flag_sample)) = single(F1([missing_x missing_y]));
+    %obsTable_tmp.EOds_hat_lr(not(flag_sample)) = single(F1([missing_x missing_y]));
     obsTable_tmp.Ods_hat_lr(not(flag_sample)) = single(F2([missing_x missing_y]));
 
     % Store the result for this iteration

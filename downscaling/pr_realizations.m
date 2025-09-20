@@ -3,8 +3,6 @@ function Ohat = pr_realizations(EOhat,u_mat,...
 
 Ohat = nan(size(EOhat));
 
-% infer sigma2 from u_mat
-sigma2 = var(u_mat,0,2);
 
 % Step 1: compute raw realizations ----------------------------
 for i_mth = 1:12
@@ -12,8 +10,10 @@ for i_mth = 1:12
     load(fullfile(path_main,['downscaling_models_' name_model],...
         [name_var '_PCR_models_mth=' int2str(i_mth) '-' int2str(i_mth) suffix '.mat']),'O_t_local')
     idx_mth = i_mth:12:size(EOhat,2);
+    % infer sigma2 from u_mat
+    sigma2 = var(u_mat(:,idx_mth),0,2);
     Ot = O_t_local.O_t;
-    Ohat(:,idx_mth) = exp(u_mat(:,idx_mth)-sigma2/2) .* (EOhat(:,idx_mth)+Ot) - Ot;
+    Ohat(:,idx_mth) = (EOhat(:,idx_mth)+Ot) .* exp(u_mat(:,idx_mth)-sigma2/2)  - Ot;
 end
 
 % Step 2: Hybrid Zero-Inflated Gamma post-processing (per station, per month) ----

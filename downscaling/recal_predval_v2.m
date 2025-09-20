@@ -188,7 +188,7 @@ end
 % Convert both the mean predictions and realizations back to the original scale
 obsTable_mth.Ods_hat = inversetransform(obsTable_mth.SgOds_hat, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
 if opt_ECIPI
-    obsTable_mth.EOds_hat = inversetransform(obsTable_mth.ESgOds_hat, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
+    %obsTable_mth.EOds_hat = inversetransform(obsTable_mth.ESgOds_hat, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
     %obsTable_mth.CI_inf = inversetransform(obsTable_mth.CI_infSY, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
     %obsTable_mth.CI_sup = inversetransform(obsTable_mth.CI_supSY, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
     %obsTable_mth.PI_inf = inversetransform(obsTable_mth.PI_infSY, obsTable_mth.mu_gO, obsTable_mth.O_t, name_var);
@@ -233,26 +233,26 @@ if opt_spatial
             
             % If ECIPI option is enabled, calculate confidence and prediction intervals using GPR
             if opt_ECIPI
-                z2 = obsTable_tmp.EOds_hat(flag_sample);  % Mean predicted values
+                %z2 = obsTable_tmp.EOds_hat(flag_sample);  % Mean predicted values
                 %z2_CIinf = obsTable_tmp.CI_inf(flag_sample);  % Confidence interval lower bound
                 %z2_CIsup = obsTable_tmp.CI_sup(flag_sample);  % Confidence interval upper bound
                 %z_PIinf = obsTable_tmp.PI_inf(flag_sample);  % Prediction interval lower bound
                 %z_PIsup = obsTable_tmp.PI_sup(flag_sample);  % Prediction interval upper bound
 
-                z2 = z2(ia);
+                %z2 = z2(ia);
                 %z2_CIinf = z2_CIinf(ia);
                 %z2_CIsup = z2_CIsup(ia);
                 %z_PIinf = z_PIinf(ia);
                 %z_PIsup = z_PIsup(ia);
 
-                F2 = scatteredInterpolant(x, y, double(z2), 'natural', 'nearest'); 
+                %F2 = scatteredInterpolant(x, y, double(z2), 'natural', 'nearest'); 
                 %F2_CIinf = scatteredInterpolant(x, y, double(z2_CIinf), 'natural', 'nearest');
                 %F2_CIsup = scatteredInterpolant(x, y, double(z2_CIsup), 'natural', 'nearest'); 
                 %F1_PIinf = scatteredInterpolant(x, y, double(z_PIinf), 'natural', 'nearest'); 
                 %F1_PIsup = scatteredInterpolant(x, y, double(z_PIsup), 'natural', 'nearest'); 
 
                 % Predict missing values for confidence and prediction intervals
-                obsTable_tmp.EOds_hat(not(flag_sample)) = single(F2([missing_x, missing_y]));
+                %obsTable_tmp.EOds_hat(not(flag_sample)) = single(F2([missing_x, missing_y]));
                 %obsTable_tmp.CI_inf(not(flag_sample)) = single(F2_CIinf([missing_x, missing_y]));
                 %obsTable_tmp.CI_sup(not(flag_sample)) = single(F2_CIsup([missing_x, missing_y]));
                 %obsTable_tmp.PI_inf(not(flag_sample)) = single(F1_PIinf([missing_x, missing_y]));
