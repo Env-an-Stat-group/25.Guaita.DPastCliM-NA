@@ -118,13 +118,13 @@ disp('     Done.')
 % get the predicted values by adding u_mat to the predicted average
 switch name_var
     case 'tas'
-        dsValue_mat = dsEValue_mat + u_mat;
+        Ods_hat_mat = EOds_hat_mat + u_mat;
     case 'pr'
-        dsValue_mat = pr_realizations(dsEValue_mat,u_mat,...
+        Ods_hat_mat = pr_realizations(EOds_hat_mat,u_mat,...
             path_main,name_var,suffix,name_model);
 end
 
-clear dsEValue_mat u_mat
+clear EOds_hat_mat u_mat
 
 %% filter stations for sufficient data coverage
 
@@ -159,7 +159,7 @@ obsTable = obsTable(~ismember(obsTable.ID, metaTable.ID(idx_remove)), :);
 
 % Remove from tables and matrices in one shot
 metaTable(idx_remove,:) = [];
-dsValue_mat(idx_remove,:) = [];
+Ods_hat_mat(idx_remove,:) = [];
 PI_mat(idx_remove,:,:) = [];
 
 disp('     Done.')
@@ -214,7 +214,7 @@ for i_station = 1:length(list_point)
     node_id = sub2ind([length(lat), length(lon)], lat_id, lon_id);
         
     % Apply region mask: keep only rows (grid cells) inside the region
-    dsVal_tmp       = dsValue_mat(flag_ID_meta, :);
+    dsVal_tmp       = Ods_hat_mat(flag_ID_meta, :);
     dsPIinf_tmp     = PI_mat(flag_ID_meta, :, 1);
     dsPIsup_tmp     = PI_mat(flag_ID_meta, :, 2);
     obs_value_tmp = obsTable_tmp.Value;
