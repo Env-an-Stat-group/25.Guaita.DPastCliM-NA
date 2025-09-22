@@ -115,7 +115,7 @@ function nLL = profileNegLogLik(lambda, residual_mat, W, validStations, nTime, a
     logLik = term1 + term2 + term3;
 
     % Ridge-like penalty for lambda near 1
-    %penalty = alpha * lambda^2 / (1 - lambda + eps);
+    % penalty = alpha * lambda^2 / (1 - lambda + eps);
     penalty = -alpha * log(1 - lambda + eps);
 
     nLL = -(logLik - penalty); % Penalized negative log-likelihood

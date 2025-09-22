@@ -14,7 +14,7 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'pr'; % variable name
+name_var = 'tas'; % variable name
 name_experiment = 'past2k';
 n_min_yr = 75; % minimum number of years for stations
 path_fig = fullfile(path_main,['downscaling_output_' name_model],'figures_PCR');
@@ -181,28 +181,30 @@ for i_sd = 1:size(lon_subdom,1)
     end
 end
 
-metaTable_filtered = metaTable(flag_subdom,:);
+metaTable = metaTable(flag_subdom,:);
+Ods_hat_mat = Ods_hat_mat(flag_subdom,:);
+PI_mat = PI_mat(flag_subdom,:,:);
 
-disp(['left with ' int2str(height(metaTable_filtered)) '/' int2str(nStations) ...
+disp(['left with ' int2str(height(metaTable)) '/' int2str(nStations) ...
     ' after selecting subdomain(s).']);
 
 switch name_var
     case 'pr'
-        list_point = metaTable_filtered.ID; %{'USC00043747','USC00200032'};
+        list_point = metaTable.ID; %{'USC00043747','USC00200032'};
     case 'tas'
-        list_point = metaTable_filtered.ID; %{'USC00351862','USW00014742'};
+        list_point = metaTable.ID; %{'USC00351862','USW00014742'};
 end
 
 %% plot map with stations
 
-plot_station_map_long(metaTable_filtered, lim_lat, lim_lon, path_shp_file, ...
+plot_station_map_long(metaTable, lim_lat, lim_lon, path_shp_file, ...
     fullfile(path_fig, ['longstations_' name_var '.png']), [name_var ' GHCN-m stations covering most of 1950-1955 or 1995-2000']); % >' int2str(n_min_yr) ' years' ]);
 
 %% Loop over points
 for i_station = 1:length(list_point)
     ID_stat = list_point{i_station};    
-    flag_ID_meta = ismember(metaTable_filtered.ID, ID_stat);
-    metaTable_tmp = metaTable_filtered(flag_ID_meta,:);
+    flag_ID_meta = ismember(metaTable.ID, ID_stat);
+    metaTable_tmp = metaTable(flag_ID_meta,:);
     flag_ID_obsTable = ismember(obsTable.ID, ID_stat);
     obsTable_tmp = obsTable(flag_ID_obsTable,:);
 

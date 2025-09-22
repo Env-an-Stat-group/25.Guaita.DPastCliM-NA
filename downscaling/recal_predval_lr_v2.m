@@ -116,48 +116,48 @@ obsTable_mth.Ods_hat_lr     = inversetransform(obsTable_mth.SgOds_hat_lr, obsTab
 % Some stations may have missing downscaled values; we use GPR to interpolate them
 
 % Preallocate a cell array to hold results for each time step
-obsTable_results = cell(1, length(time_mth));
+%obsTable_results = cell(1, length(time_mth));
 
-obsTable_mth_const = parallel.pool.Constant(obsTable_mth);
-parfor i_time = 1:length(time_mth)
+%obsTable_mth_const = parallel.pool.Constant(obsTable_mth);
+%parfor i_time = 1:length(time_mth)
     % Extract data for the current time step
-    flag_time = ismember(obsTable_mth_const.Value.month_since_0CE, time_mth(i_time));  % Find rows for the current time step
-    obsTable_tmp = obsTable_mth_const.Value(flag_time, :);
+%    flag_time = ismember(obsTable_mth_const.Value.month_since_0CE, time_mth(i_time));  % Find rows for the current time step
+%    obsTable_tmp = obsTable_mth_const.Value(flag_time, :);
 
     % Filter out rows with missing values in `EOds_hat_lr`
-    flag_sample = not(isnan(obsTable_tmp.Ods_hat_lr));  % Find rows with valid predictions
-    x = obsTable_tmp.lat(flag_sample);  % Latitude of stations with valid predictions
-    y = obsTable_tmp.lon(flag_sample);  % Longitude of stations with valid predictions
+%    flag_sample = not(isnan(obsTable_tmp.Ods_hat_lr));  % Find rows with valid predictions
+%    x = obsTable_tmp.lat(flag_sample);  % Latitude of stations with valid predictions
+%    y = obsTable_tmp.lon(flag_sample);  % Longitude of stations with valid predictions
     %z1 = obsTable_tmp.EOds_hat_lr(flag_sample);  % Mean predicted values
-    z2 = obsTable_tmp.Ods_hat_lr(flag_sample);  % Realization values
+%    z2 = obsTable_tmp.Ods_hat_lr(flag_sample);  % Realization values
 
     % get unique points
-    [coords,ia,~] = unique([x y],'stable','rows');
-    x = coords(:,1);
-    y = coords(:,2);
+%    [coords,ia,~] = unique([x y],'stable','rows');
+%    x = coords(:,1);
+%    y = coords(:,2);
     %z1 = z1(ia);
-    z2 = z2(ia);
+%    z2 = z2(ia);
 
     %F1 = scatteredInterpolant(x, y, double(z1), 'natural', 'nearest'); 
-    F2 = scatteredInterpolant(x, y, double(z2), 'natural', 'nearest'); 
+%    F2 = scatteredInterpolant(x, y, double(z2), 'natural', 'nearest'); 
 
     % Predict missing values using the GPR models
-    missing_x = obsTable_tmp.lat(not(flag_sample));  % Latitude for missing stations
-    missing_y = obsTable_tmp.lon(not(flag_sample));  % Longitude for missing stations
+%    missing_x = obsTable_tmp.lat(not(flag_sample));  % Latitude for missing stations
+%    missing_y = obsTable_tmp.lon(not(flag_sample));  % Longitude for missing stations
 
     % Predict values for missing stations
     %obsTable_tmp.EOds_hat_lr(not(flag_sample)) = single(F1([missing_x missing_y]));
-    obsTable_tmp.Ods_hat_lr(not(flag_sample)) = single(F2([missing_x missing_y]));
+%    obsTable_tmp.Ods_hat_lr(not(flag_sample)) = single(F2([missing_x missing_y]));
 
     % Store the result for this iteration
-    obsTable_results{i_time} = obsTable_tmp;
-end
+%    obsTable_results{i_time} = obsTable_tmp;
+%end
 
 % Combine the results back into `obsTable_mth` after interpolation
-for i_time = 1:length(time_mth)
-    flag_time = ismember(obsTable_mth.month_since_0CE, time_mth(i_time));  % Find rows for the current time step
-    obsTable_mth(flag_time, :) = obsTable_results{i_time};  % Update the main table with the interpolated data
-end
+%for i_time = 1:length(time_mth)
+%    flag_time = ismember(obsTable_mth.month_since_0CE, time_mth(i_time));  % Find rows for the current time step
+%    obsTable_mth(flag_time, :) = obsTable_results{i_time};  % Update the main table with the interpolated data
+%end
 
 %% Residuals: Compute differences between observations and predictions
 obsTable_mth.u_lr(:) = nan;   % residuals from ESgOds_hat (deterministic fit)

@@ -13,11 +13,13 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'tas'; % variable name
+name_var = 'pr'; % variable name
 path_ESM = fullfile(path_main,'CMIP_data');
 path_fig = fullfile(path_main,['downscaling_models_' name_model],'figures_PCR');
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
 suffix = '_NA_020';
+
+disp(name_var)
 
 %% parameters that you might or might not change
 
@@ -102,8 +104,6 @@ switch name_var
             palette_eof = @(m) Tol_div_BuRd(m);
 
 end
-% define time windows for maps
-time_bound = [1875 1910 1945 1980 2015];
 
 res_fig = '-r500';
 res_fig_low = '-r100';
@@ -225,7 +225,7 @@ for i_mth_interval = 1:size(mth_interval,1)
             for i_ID = 1:height(metaTable)
                 flag_ID = ismember(obsTable_tmp.ID,metaTable.ID(i_ID));
                 obsTable_tmp_single = obsTable_tmp(flag_ID,:);
-                O_t = 0.5+min(obsTable_tmp_single.Value);
+                O_t = 1+min(obsTable_tmp_single.Value);
                 obsTable_tmp.O_t(flag_ID) = O_t;
                 obsTable_tmp.gO(flag_ID) = log(obsTable_tmp_single.Value+O_t);
             end
@@ -281,9 +281,8 @@ obsTable.flag_test(flag_time_test) = true;
 flag_ID = ismember(metaTable.ID,obsTable.ID(obsTable.flag_test));
 metaTable.flag_test(flag_ID)=true;
 
-% screen calibration dataset for stations with less than either 10 years
-% (after 1925), or than 20 years (before 1925) or 30 years (after 1925) 
-% of observations in the calibration years.
+% screen calibration dataset and remove stations with less than 20 years.
+% Then, if less than 30 years, assign to testing.
 % they end up in the test datasets
 n_removed = 0;
 for i_ID = height(metaTable):-1:1
@@ -375,7 +374,7 @@ for i_mth_interval = 1:size(mth_interval,1)
     [obsTable_tmpbest,rmse_array,r2_array,lm_list_tmpbest] =  ...
         recal_predval_v2(n_pc_array,pc_all,eof_all,...
             tgt_ESM_mth, mu_M, ...
-            obsTable_mth,metaTable,time_mthcal,time_mth,name_var,true,false,n_err_iter_selection);
+            obsTable_mth,metaTable,time_mthcal,time_mth,name_var,true,true,n_err_iter_selection);
     
     %calculate the RMSE and store it for starting model selection
     rmse_list = [];
@@ -407,7 +406,6 @@ for i_mth_interval = 1:size(mth_interval,1)
             n_pc_array_new = [n_pc_array_best i_pc];
             frac_var_ESM_new = frac_var_pc_all(n_pc_array_new);
             if frac_var_ESM_new(end)>frac_threshold
-            disp(['PC #' int2str(i_pc)])
             % regress on the test period
             [obsTable_tmp,rmse_array,r2_array,lm_list_tmpbest] =  ...
                 recal_predval_v2(n_pc_array_new,pc_all,eof_all,...
@@ -421,16 +419,17 @@ for i_mth_interval = 1:size(mth_interval,1)
             % the list and update the RMSE
             switch name_var 
                 case 'tas'
-                    add_PC_flag = RMSE_new<0.999*RMSE_tmpbest;% ...
+                    add_PC_flag = RMSE_new<0.99*RMSE_tmpbest;% ...
                         %&& R2adj_new>R2adj_tmpbest;
                 case 'pr'
-                    add_PC_flag = RMSE_new<0.999*RMSE_tmpbest;
+                    add_PC_flag = RMSE_new<0.99*RMSE_tmpbest;
             end
             if add_PC_flag
                 RMSE_tmpbest = RMSE_new;
                 R2adj_tmpbest = R2adj_new;
                 n_pc_array_tmpbest = n_pc_array_new;
                 added_PC = true;
+                disp(['PC #' int2str(i_pc)])
                 disp('-> improvement')
             end
             end
