@@ -22,7 +22,7 @@ function [mu_gO_trend_local,mu_mov_ESM_trend] = compute_mu_gO_trend_local_v1(tgt
             mu_mov_ESM_trend = movmean(tgt_ESM_mth, n_year_mov, 2, 'omitnan');
             mu_adjtrend  = mu_mov_ESM_trend - mu_cal_ESM;
         case 'pr'
-            M_t = 0.5 + min(tgt_ESM_mth_cal, [], 2);
+            M_t = 1 + min(tgt_ESM_mth_cal, [], 2);
             mu_cal_ESM   = mean(log(tgt_ESM_mth_cal + M_t), 2, 'omitnan');
             mu_mov_ESM_trend = movmean(log(tgt_ESM_mth + M_t), n_year_mov, 2, 'omitnan');
             mu_adjtrend  = mu_mov_ESM_trend - mu_cal_ESM;
