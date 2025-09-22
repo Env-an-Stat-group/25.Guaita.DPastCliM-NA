@@ -11,7 +11,7 @@ disp('setting initial parameters...')
 rng(812)
 
 % parameters
-path_main = '/data/pguaita/downscaling/';
+path_main = 'C:\Users\guait\Università Cattolica del Sacro Cuore\FIS-AMB-ECOFIS - Documenti\GUAITA\PALEON\downscaling\';%/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'pr'; % variable name
@@ -22,7 +22,7 @@ path_file = fullfile(path_main,['downscaling_output_' name_model]);
 path_obs = fullfile(path_main,'obs_data');
 path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
-suffix = '_NA_020';
+suffix = '_Hartfordtest';
 
 % define subdomain for station selection (each row is a different
 % subdomain)
@@ -139,14 +139,13 @@ for i_ID = 1:nStations
     flag_ID = ismember(obsTable.ID, metaTable.ID(i_ID));
     obsTable_tmp = obsTable(flag_ID, :);
     % filter on months 1950-1955 and 1995-2000
-    flag_mth_1950 = obsTable_tmp.month_since_0CE>=23380 & obsTable_tmp.month_since_0CE<23460;  
-    flag_mth_2000 = obsTable_tmp.month_since_0CE>=23920 & obsTable_tmp.month_since_0CE<24000;  
-    obsTable_tmp = obsTable_tmp(flag_mth_1950 | flag_mth_2000,:);
+    flag_mth_1950 = obsTable_tmp.month_since_0CE>2
+    obsTable_tmp = obsTable_tmp
     length_year(i_ID) = floor(height(obsTable_tmp) / 12);
 end
 
 % Identify short stations
-idx_remove = (length_year < 12);%< n_min_yr);
+idx_remove = (length_year < n_min_yr);
 
 % Count removed
 n_removed = sum(idx_remove);
@@ -196,7 +195,7 @@ end
 %% plot map with stations
 
 plot_station_map_long(metaTable_filtered, lim_lat, lim_lon, path_shp_file, ...
-    fullfile(path_fig, ['longstations_' name_var '.png']), [name_var ' GHCN-m stations covering most of 1950-1955 or 1995-2000']); % >' int2str(n_min_yr) ' years' ]);
+    fullfile(path_fig, ['longstations_' name_var '.png']), [name_var ' GHCN-m stations >' int2str(n_min_yr) ' years' ]);
 
 %% Loop over points
 for i_station = 1:length(list_point)
@@ -235,10 +234,6 @@ for i_station = 1:length(list_point)
     plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_tmp, ...
         obs_value_tmp, ESM_tmp, dsVal_tmp, dsPIinf_tmp, dsPIsup_tmp, ...
         path_fig, suffix_region, name_model, res_plot, [1295 1300])
-
-    plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_tmp, ...
-        obs_value_tmp, ESM_tmp, dsVal_tmp, dsPIinf_tmp, dsPIsup_tmp, ...
-        path_fig, suffix_region, name_model, res_plot, [1950 1955])
 
     plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_tmp, ...
         obs_value_tmp, ESM_tmp, dsVal_tmp, dsPIinf_tmp, dsPIsup_tmp, ...
