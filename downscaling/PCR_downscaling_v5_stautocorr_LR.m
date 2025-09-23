@@ -15,7 +15,7 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'pr'; % variable name
+name_var = 'tas'; % variable name
 name_experiment = 'past2k';
 % starting and ending year for the PMIP expeirment considered.
 % weird enough, but the past experiments start counting years from 7000 CE
@@ -34,6 +34,9 @@ path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
 suffix = '_NA_020';
 
+disp('LR')
+disp(suffix)
+disp(name_var)
 %% parameters that you most likely should not change
 
 % define projection
@@ -235,28 +238,30 @@ tic
 disp('transforming the residuals through Spatial Error Model')
 
 % Define seasonal flags
-flag_mam = false(size(residual_mat,2),1);
-flag_jja = false(size(residual_mat,2),1);
-flag_son = false(size(residual_mat,2),1);
-flag_djf = false(size(residual_mat,2),1);
-flag_mam([3:12:end 4:12:end 5:12:end]) = true;
-flag_jja([6:12:end 7:12:end 8:12:end]) = true;
-flag_son([9:12:end 10:12:end 11:12:end]) = true;
-flag_djf([12:12:end 1:12:end 2:12:end]) = true;
+%flag_mam = false(size(residual_mat,2),1);
+%flag_jja = false(size(residual_mat,2),1);
+%flag_son = false(size(residual_mat,2),1);
+%flag_djf = false(size(residual_mat,2),1);
+%flag_mam([3:12:end 4:12:end 5:12:end]) = true;
+%flag_jja([6:12:end 7:12:end 8:12:end]) = true;
+%flag_son([9:12:end 10:12:end 11:12:end]) = true;
+%flag_djf([12:12:end 1:12:end 2:12:end]) = true;
 
 % Initialize accumulator for dR matrices and a counter
 dR_sum = zeros(size(residual_mat,1));
 count = 0;
 
 eps_mat = nan(size(residual_mat));
-[lambda, ~, eps_mat(:,flag_mam), W_mam, threshold_best_mam] = fit_SEM_MLE_fmincon(residual_mat(:,flag_mam), metaTable, proj);
-disp(['MAM - Lambda = ' num2str(lambda) '; thresh = ' num2str(threshold_best_mam/1000) ' km']);
-[lambda, ~, eps_mat(:,flag_jja), W_jja, threshold_best_jja] = fit_SEM_MLE_fmincon(residual_mat(:,flag_jja), metaTable, proj);
-disp(['JJA - Lambda = ' num2str(lambda) '; thresh = ' num2str(threshold_best_jja/1000) ' km']);
-[lambda, ~, eps_mat(:,flag_son), W_son, threshold_best_son] = fit_SEM_MLE_fmincon(residual_mat(:,flag_son), metaTable, proj);
-disp(['SON - Lambda = ' num2str(lambda) '; thresh = ' num2str(threshold_best_son/1000) ' km']);
-[lambda, ~, eps_mat(:,flag_djf), W_djf, threshold_best_djf] = fit_SEM_MLE_fmincon(residual_mat(:,flag_djf), metaTable, proj);
-disp(['DJF - Lambda = ' num2str(lambda) '; thresh = ' num2str(threshold_best_djf/1000) ' km']);
+%[lambda, ~, eps_mat(:,flag_mam), W_mam, threshold_best_mam] = fit_SEM_MLE_fmincon(residual_mat(:,flag_mam), metaTable, proj);
+%disp(['MAM - Lambda = ' num2str(lambda) '; thresh = ' num2str(threshold_best_mam/1000) ' km']);
+%[lambda, ~, eps_mat(:,flag_jja), W_jja, threshold_best_jja] = fit_SEM_MLE_fmincon(residual_mat(:,flag_jja), metaTable, proj);
+%disp(['JJA - Lambda = ' num2str(lambda) '; thresh = ' num2str(threshold_best_jja/1000) ' km']);
+%[lambda, ~, eps_mat(:,flag_son), W_son, threshold_best_son] = fit_SEM_MLE_fmincon(residual_mat(:,flag_son), metaTable, proj);
+%disp(['SON - Lambda = ' num2str(lambda) '; thresh = ' num2str(threshold_best_son/1000) ' km']);
+%[lambda, ~, eps_mat(:,flag_djf), W_djf, threshold_best_djf] = fit_SEM_MLE_fmincon(residual_mat(:,flag_djf), metaTable, proj);
+%disp(['DJF - Lambda = ' num2str(lambda) '; thresh = ' num2str(threshold_best_djf/1000) ' km']);
+[lambda, ~, eps_mat, W, threshold_best] = fit_SEM_MLE_fmincon(residual_mat, metaTable, proj);
+disp(['Lambda = ' num2str(lambda) '; thresh = ' num2str(threshold_best/1000) ' km']);
 
 %%
 
@@ -377,7 +382,8 @@ end
 disp('transform back ARMA residuals through SEM')
 
 %[epsilon] = inverse_SEM(eps_ARMA, W, lambda);
-[u_mat_lr] = inverse_SEM_season(eps_ARMA, W_mam, W_jja, W_son, W_djf, lambda);
+%[u_mat_lr] = inverse_SEM_season(eps_ARMA, W_mam, W_jja, W_son, W_djf, lambda);
+[u_mat_lr] = inverse_SEM(eps_ARMA, W, lambda);
 
 disp(['Done in ' num2str(round(toc/60,1)) ' mins'])
 

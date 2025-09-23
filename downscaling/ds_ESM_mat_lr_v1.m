@@ -74,7 +74,7 @@ for i_ID = 1:height(metaTable)
 
             % get prediction intervals with montecarlo
             nSim=1000;
-            nTime = size(X,1);
+            nTime = size(X,2);
 
             % Create simulated noise
             u_sim = sigma_hat * randn(nTime, nSim);

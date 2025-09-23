@@ -33,6 +33,10 @@ path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
 suffix = '_NA_020';
 
+disp('LR gridding')
+disp(name_var)
+disp(suffix)
+
 %% parameters that you most likely should not change
 
 % define projection

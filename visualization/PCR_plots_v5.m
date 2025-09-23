@@ -27,6 +27,8 @@ path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
 suffix = '_Hartfordtest';
 
+disp(suffix)
+disp(name_var)
 %% parameters that you most likely should not change
 
 switch name_var
