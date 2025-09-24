@@ -190,9 +190,14 @@ disp(['left with ' int2str(height(metaTable)) '/' int2str(nStations) ...
 
 switch name_var
     case 'pr'
-        list_point = metaTable.ID; %{'USC00043747','USC00200032'};
+        list_point = {'USC00067432','USC00190190','USC00190120','USC00190666','USC00194105',...
+            'USC00219046','USC00212737','USC00213567',...
+            'USC00218579','USC00212916','USC00218579',...
+            'USW00023155','USC00049452','USC00029542','MXN00002033'};%metaTable.ID;
     case 'tas'
-        list_point = metaTable.ID; %{'USC00351862','USW00014742'};
+        list_point = {'USW00014745','USW00014740','USC00275712',...
+            'USC00212737',
+            'USW00093193','USW00093134','USW00093112','USW00023188'};%metaTable.ID;
 end
 
 %% plot map with stations
