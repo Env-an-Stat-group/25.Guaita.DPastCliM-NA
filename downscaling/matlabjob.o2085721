@@ -1,4 +1,4 @@
-/opt/sge/crc/spool/d32cepyc107/job_scripts/2074588: line 10: cd: /data/pguaita/downscaling/matlab_code/downscaling/: No such file or directory
+/opt/sge/crc/spool/d32cepyc106/job_scripts/2085721: line 10: cd: /data/pguaita/downscaling/matlab_code/downscaling/: No such file or directory
 
                             < M A T L A B (R) >
                   Copyright 1984-2023 The MathWorks, Inc.
@@ -12,9 +12,12 @@ To get started, type doc.
 For product information, visit www.mathworks.com.
  
 Starting downscaling...
+PCR
+_NA_020
+tas
 Setting up variables...
 load and stack ESM data for the specified model
-Done in 2.3 mins
+Done in 3.5 mins
 Aggregating obs table
 doing month 1-1
 doing month 2-2
@@ -28,7 +31,7 @@ doing month 9-9
 doing month 10-10
 doing month 11-11
 doing month 12-12
-Done in 1.9 mins
+Done in 1.5 mins
 get the residuals...
 station number 100
 station number 200
@@ -98,66 +101,9 @@ station number 6500
 station number 6600
 station number 6700
 station number 6800
-station number 6900
-station number 7000
-station number 7100
-station number 7200
-station number 7300
-station number 7400
-station number 7500
-station number 7600
-station number 7700
-station number 7800
-station number 7900
-station number 8000
-station number 8100
-station number 8200
-station number 8300
-station number 8400
-station number 8500
-station number 8600
-station number 8700
-station number 8800
-station number 8900
-station number 9000
-station number 9100
-station number 9200
-station number 9300
-station number 9400
-station number 9500
-station number 9600
-station number 9700
-station number 9800
-station number 9900
-station number 10000
-station number 10100
-station number 10200
-station number 10300
-station number 10400
-station number 10500
-station number 10600
-station number 10700
-station number 10800
-station number 10900
-station number 11000
-station number 11100
-station number 11200
-station number 11300
-station number 11400
-station number 11500
 timestep 100
-Been running for 130.1 mins
+Been running for 51.2 mins
 timestep 200
-Been running for 292.6 mins
+Been running for 67.8 mins
 timestep 300
-Been running for 545.6 mins
-timestep 400
-Been running for 918.6 mins
-timestep 500
-Been running for 1443.2 mins
-timestep 600
-Been running for 1872.9 mins
-timestep 700
-Been running for 2320 mins
-timestep 800
-Been running for 2849.9 mins
+Been running for 88.4 mins

@@ -1,0 +1,63 @@
+/opt/sge/crc/spool/d32cepyc103/job_scripts/2081274: line 10: cd: /data/pguaita/downscaling/matlab_code/downscaling/: No such file or directory
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2023 The MathWorks, Inc.
+                  R2023b (23.2.0.2365128) 64-bit (glnxa64)
+                              August 23, 2023
+
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code/downscaling] 
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+pr
+7316 timeseries shorter than 20 years. they were removed from the dataset
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+calibrating model for month(s) 1-1
+PCA...
+calibrate LR...
+Starting parallel pool (parpool) using the 'Processes' profile ...
+Preserving jobs with IDs: 4 because they contain crash dump files.
+You can use 'delete(myCluster.Jobs)' to remove all jobs created with profile Processes. To create 'myCluster' use 'myCluster = parcluster('Processes')'.
+Connected to parallel pool with 8 workers.
+Elapsed time is 641.565188 seconds.
+lr RMSE 2.4795
+lr R2adj -0.04309
+initial PCR...
+initial RMSE 2.4717
+initial R2adj -0.036549
+PCR model selection...
+Iteration 1/14
+final PCR...
+final RMSE 2.4807
+final R2adj -0.044171
+save...
+calibrating model for month(s) 2-2
+PCA...
+calibrate LR...
+Elapsed time is 591.289700 seconds.
+lr RMSE 2.3498
+lr R2adj -0.10313
+initial PCR...
+initial RMSE 2.3647
+initial R2adj -0.11707
+PCR model selection...
+Iteration 1/14
+final PCR...
+final RMSE 2.3697
+final R2adj -0.12187
+save...
+calibrating model for month(s) 3-3
+PCA...
+calibrate LR...
+Elapsed time is 620.636663 seconds.
+lr RMSE 2.3028
+lr R2adj -0.049288
+initial PCR...
+initial RMSE 2.3255
+initial R2adj -0.070114
+PCR model selection...
+Iteration 1/14
+/opt/sge/crc/spool/d32cepyc103/job_scripts/2081274: line 14: 2739032 Killed                  matlab -nodisplay -nosplash -r "PCR_calibration_v5; exit;"

@@ -1,7 +1,7 @@
 #!/bin/bash
 #$ -M pguaita@nd.edu
 #$ -m abe
-#$ -pe smp 24
+#$ -pe smp 8
 #$ -q long@@crippa_d32cepyc
 #$ -N matlabjob
 
