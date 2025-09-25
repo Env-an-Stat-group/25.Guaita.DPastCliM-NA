@@ -11,10 +11,10 @@ disp('setting initial parameters...')
 rng(812)
 
 % parameters
-path_main = '/data/pguaita/downscaling/';
+path_main = 'C:\Users\guait\Università Cattolica del Sacro Cuore\FIS-AMB-ECOFIS - Documenti\GUAITA\PALEON\downscaling\';%'/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'pr'; % variable name
+name_var = 'tas'; % variable name
 name_experiment = 'past2k';
 % starting and ending year for plotting
 year_start = 0;
@@ -25,7 +25,7 @@ path_fig = fullfile(path_main,['downscaling_output_' name_model],'figures_PCR');
 path_file = fullfile(path_main,['downscaling_output_' name_model]);
 path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
-suffix = '_NA_020';
+suffix = '_Hartfordtest';
 
 disp(suffix)
 disp(name_var)
@@ -679,7 +679,7 @@ for i_season = 1:length(ind_season)
     
 end    
 
-clear ESM_4d *_tmp
+clear *_tmp
 
 close all
 
@@ -711,6 +711,15 @@ for i_season = 1:length(ind_season)
     plot_range_anomaly_PI(PI_range_tmp-PI_range_longerm, time_bound, year_start, flag_land, ...
         lat, lon, bias_limit/2, bias_step/2, palette_bias, path_shp_file, res_fig, ...
         name_var, i_mth_txt, unit_var, lim_lat, lim_lon, n_color_bias, path_fig, suffix)
+    % ESM plots
+    save_name = fullfile(path_fig, [name_var '_ESM field_' i_mth_txt suffix]);
+    geosurfm_meansdlabel(dsVal_longterm, flag_land, lat, lon, abs_limit, ...
+        save_name, unit_var, [i_mth_txt ' mean ESM ' name_var ' (2k years)'], ...
+        lim_lat, lim_lon, abs_step, palette_abs(n_color_abs), path_shp_file, res_fig);
+    plot_anomaly_ESM(dsVal_tmp-dsVal_longterm, time_bound, year_start, flag_land, ...
+        lat, lon, bias_limit/2, bias_step/2, palette_bias, path_shp_file, res_fig, ...
+        name_var, i_mth_txt, unit_var, lim_lat, lim_lon, n_color_bias, path_fig, suffix)
+
 end
 
 close all
