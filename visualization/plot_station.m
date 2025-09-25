@@ -34,7 +34,7 @@ end
 %% plot temperature stations
 close all
 
-star_list = {'USC00351862','USW00014742'};
+star_list = {'USW00014740','USW00093193'};
 
 plot_station_map_with_density(meta_tas, lim_lat, lim_lon, path_shp_file, ...
     fullfile(path_fig, 'temperature_station_locations.png'), 'tas GHCN-m stations', ...
@@ -44,7 +44,7 @@ plot_station_map_with_density(meta_tas, lim_lat, lim_lon, path_shp_file, ...
 
 close all
 
-star_list = {'USC00043747','USC00200032'};
+star_list = {'USC00190666','USC00049452'};
 
 plot_station_map_with_density(meta_pr, lim_lat, lim_lon, path_shp_file, ...
     fullfile(path_fig, 'precipitation_station_locations.png'), 'pr GHCN-m Stations',...

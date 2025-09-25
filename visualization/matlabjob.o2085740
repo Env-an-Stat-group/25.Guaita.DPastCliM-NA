@@ -1,0 +1,60 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2023 The MathWorks, Inc.
+                  R2023b (23.2.0.2365128) 64-bit (glnxa64)
+                              August 23, 2023
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+setting initial parameters...
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/visualization/C] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In point_timeline (line 15)] 
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/visualization/\Users\guait\Università
+Cattolica del Sacro Cuore\FIS-AMB-ECOFIS - Documenti\GUAITA\PALEON\downscaling\] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In point_timeline (line 15)] 
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/visualization/C] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In point_timeline (line 15)] 
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/visualization/\Users\guait\Università
+Cattolica del Sacro Cuore\FIS-AMB-ECOFIS -
+Documenti\GUAITA\PALEON\downscaling\/downscaling_output_MPI-ESM1-2-LR] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In point_timeline (line 15)] 
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/visualization/C] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In point_timeline (line 15)] 
+[Warning: Name is nonexistent or not a directory:
+/data/pguaita/downscaling/matlab_code_git/visualization/\Users\guait\Università
+Cattolica del Sacro Cuore\FIS-AMB-ECOFIS -
+Documenti\GUAITA\PALEON\downscaling\/downscaling_output_MPI-ESM1-2-LR/figures_PCR] 
+[> In path (line 109)
+In addpath>doPathAddition (line 116)
+In addpath (line 80)
+In point_timeline (line 15)] 
+     Done.
+load observation table and downscaled station data (including PI)
+     Done.
+filter stations for sufficient data coverage
+removing 7162/11546 timeseries shorter than 75 years.
+     Done.
+left with 253/11546 after selecting subdomain(s).
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
