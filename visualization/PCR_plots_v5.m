@@ -695,6 +695,8 @@ for i_season = 1:length(ind_season)
     dsVal_longterm = mean(dsVal_tmp,[3 4]);
     PI_range_tmp     = squeeze(PI_map_5d(:,:,ind_season_tmp,:,2)-PI_map_5d(:,:,ind_season_tmp,:,1));
     PI_range_longerm     = mean(PI_map_5d(:,:,ind_season_tmp,:,2)-PI_map_5d(:,:,ind_season_tmp,:,1),[3 4]);
+    ESM_tmp         = squeeze(ESM_4d(:,:,ind_season_tmp,:));
+    ESM_4d_longterm = mean(ESM_4d,[3 4]);
 
     % Define figure save path
     save_name = fullfile(path_fig, [name_var '_abs field_' i_mth_txt suffix]);
@@ -714,10 +716,10 @@ for i_season = 1:length(ind_season)
         name_var, i_mth_txt, unit_var, lim_lat, lim_lon, n_color_bias, path_fig, suffix)
     % ESM plots
     save_name = fullfile(path_fig, [name_var '_ESM field_' i_mth_txt suffix]);
-    geosurfm_meansdlabel(dsVal_longterm, flag_land, lat, lon, abs_limit, ...
+    geosurfm_meansdlabel(ESM_4d_longterm, flag_land, lat, lon, abs_limit, ...
         save_name, unit_var, [i_mth_txt ' mean ESM ' name_var ' (2k years)'], ...
         lim_lat, lim_lon, abs_step, palette_abs(n_color_abs), path_shp_file, res_fig);
-    plot_anomaly_ESM(dsVal_tmp-dsVal_longterm, time_bound, year_start, flag_land, ...
+    plot_anomaly_ESM(ESM_tmp-ESM_4d_longterm, time_bound, year_start, flag_land, ...
         lat, lon, bias_limit/2, bias_step/2, palette_bias, path_shp_file, res_fig, ...
         name_var, i_mth_txt, unit_var, lim_lat, lim_lon, n_color_bias, path_fig, suffix)
 
