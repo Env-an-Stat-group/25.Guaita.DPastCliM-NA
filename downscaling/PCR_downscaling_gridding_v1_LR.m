@@ -11,10 +11,10 @@ disp('Starting downscaling...')
 rng(812)
 
 % parameters
-path_main = '/data/pguaita/downscaling/';
+path_main = 'C:\Users\guait\Università Cattolica del Sacro Cuore\FIS-AMB-ECOFIS - Documenti\GUAITA\PALEON\downscaling';%'/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'tas'; % variable name
+name_var = 'pr'; % variable name
 name_experiment = 'past2k';
 % starting and ending year for the PMIP expeirment considered.
 % weird enough, but the past experiments start counting years from 7000 CE
@@ -31,7 +31,7 @@ path_output = fullfile(path_main, ['downscaling_output_' name_model]);
 path_fig = fullfile(path_main,['downscaling_models_' name_model],'figures_PCR');
 path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
-suffix = '_NA_020';
+suffix = '_Hartfordtest';
 
 disp('LR gridding')
 disp(name_var)

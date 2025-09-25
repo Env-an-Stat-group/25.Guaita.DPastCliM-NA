@@ -67,8 +67,8 @@ switch name_var
             palette_eof = @(m) Tol_div_BuRd(m);
 
             % range parameters
-            range_limit = [0 10];
-            range_step = 2;
+            range_limit = [0 15];
+            range_step = 3;
             n_color_range = 10;
             palette_range = @(m) Tol_seq_smoothrainbow(m);
 
@@ -87,8 +87,8 @@ switch name_var
             palette_bias = @(m) Tol_div_BuRd(m);
 
             % range parameters
-            range_limit = [0 10];
-            range_step = 2;
+            range_limit = [0 15];
+            range_step = 3;
             n_color_range = 10;
             palette_range = @(m) Tol_seq_smoothrainbow(m);
 
@@ -704,10 +704,11 @@ for i_season = 1:length(ind_season)
     plot_anomaly(dsVal_tmp-dsVal_longterm, time_bound, year_start, flag_land, ...
         lat, lon, bias_limit/2, bias_step/2, palette_bias, path_shp_file, res_fig, ...
         name_var, i_mth_txt, unit_var, lim_lat, lim_lon, n_color_bias, path_fig, suffix)
+    %%
     save_name = fullfile(path_fig, [name_var '_PI range_' i_mth_txt suffix]);
-    geosurfm_meansdlabel(PI_range_longerm, flag_land, lat, lon, abs_limit*2, ...
+    geosurfm_meansdlabel(PI_range_longerm, flag_land, lat, lon, range_limit, ...
         save_name, unit_var, [i_mth_txt ' mean PCR-downscaled 95% PI for ' name_var ' (2k years)'], ...
-        lim_lat, lim_lon, abs_step*2, palette_abs(n_color_abs), path_shp_file, res_fig);
+        lim_lat, lim_lon, range_step, palette_range(n_color_range), path_shp_file, res_fig);
     plot_range_anomaly_PI(PI_range_tmp-PI_range_longerm, time_bound, year_start, flag_land, ...
         lat, lon, bias_limit/2, bias_step/2, palette_bias, path_shp_file, res_fig, ...
         name_var, i_mth_txt, unit_var, lim_lat, lim_lon, n_color_bias, path_fig, suffix)
