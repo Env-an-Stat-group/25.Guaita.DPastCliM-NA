@@ -195,8 +195,7 @@ switch name_var
             'USC00218579','USC00212916','USC00218579',...
             'USW00023155','USC00049452','USC00029542','MXN00002033'};%metaTable.ID;
     case 'tas'
-        list_point = {'USW00014745','USW00014740','USC00275712',...
-            'USC00212737',
+        list_point = {'USW00014745','USW00014740',...
             'USW00093193','USW00093134','USW00093112','USW00023188'};%metaTable.ID;
 end
 
