@@ -14,7 +14,7 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'pr'; % variable name
+name_var = 'tas'; % variable name
 name_experiment = 'past2k';
 n_min_yr = 75; % minimum number of years for stations
 path_fig = fullfile(path_main,['downscaling_output_' name_model],'figures_PCR');
@@ -118,7 +118,7 @@ disp('     Done.')
 % get the predicted values by adding u_mat to the predicted average
 switch name_var
     case 'tas'
-        Ods_hat_mat = dsEValue_mat + u_mat; %EOds_hat_mat + u_mat;
+        Ods_hat_mat = EOds_hat_mat + u_mat; %EOds_hat_mat + u_mat;
     case 'pr'
         Ods_hat_mat = pr_realizations(EOds_hat_mat,u_mat,...
             path_main,name_var,suffix,name_model);
