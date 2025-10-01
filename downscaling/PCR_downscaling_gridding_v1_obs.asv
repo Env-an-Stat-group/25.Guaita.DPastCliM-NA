@@ -11,7 +11,7 @@ disp('Starting downscaling...')
 rng(812)
 
 % parameters
-path_main = '/data/pguaita/downscaling/';
+path_main = 'C:\Users\guait\Università Cattolica del Sacro Cuore\FIS-AMB-ECOFIS - Documenti\GUAITA\PALEON\downscaling\';%/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
 name_var = 'tas'; % variable name
@@ -31,7 +31,7 @@ path_output = fullfile(path_main, ['downscaling_output_' name_model]);
 path_fig = fullfile(path_main,['downscaling_models_' name_model],'figures_PCR');
 path_downmodel = fullfile(path_main,['downscaling_models_' name_model]);
 path_shp_file = fullfile(path_main,'/matlab_code_git/visualization/world_borders/ne_10m_admin_0_countries.shp'); 
-suffix = '_NA_020';
+suffix = '_Hartfordtest';
 
 disp('obs gridding')
 disp(suffix)
@@ -90,7 +90,6 @@ lon_land = ncread(fullfile(path_main,'static_maps','IMERG_land_sea_mask.nc'),'lo
 f_int_land = griddedInterpolant(lonland_grid,latland_grid,double(flag_land),'nearest');
 flag_land = logical(f_int_land(tgt_longrid,tgt_latgrid));
 
-clear f_int_land
 
 %% load and stack ESM data for the specified model
 
@@ -163,9 +162,6 @@ for i_mth_interval = 1:size(mth_interval,1)
 
 end
 
-% convert ESM to single
-tgt_ESM = single(round(tgt_ESM,2));
-
 disp(['Done in ' num2str(round(toc/60,1)) ' mins'])
 
 %% create observation maps
@@ -221,10 +217,7 @@ end
 
 disp(['Done in ' num2str(round(toc/60,1)) ' mins'])
 
-% clear some memory
-clear landseamask latland_grid lonland_grid obsTable tgt_ESM_mth obsTable_mth
-
-% convert output variables to single float
+%% clear memory convert output variables to single float
 
 disp('converting output to single float')
 obsValue_map = single(round(obsValue_map,2));
@@ -233,6 +226,8 @@ obsValue_test_map = single(round(obsValue_test_map,2));
 %% convert output variables to single float
 
 disp('reshape variables')
+
+tgt_ESM = single(round(tgt_ESM,2));
 
 % reshape the variables
 obsValue_map = reshape(obsValue_map,length(tgt_lon),length(tgt_lat),[]);

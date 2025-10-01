@@ -3,7 +3,6 @@ function Ohat = pr_realizations(EOhat,u_mat,...
 
 Ohat = nan(size(EOhat));
 
-
 % Step 1: compute raw realizations ----------------------------
 for i_mth = 1:12
     % load monthly Ot from model file    
