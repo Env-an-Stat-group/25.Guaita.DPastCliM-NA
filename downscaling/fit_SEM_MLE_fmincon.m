@@ -11,9 +11,9 @@ residual_mat(~metaTable.flag_cal,:) = NaN;
 validStations = find(metaTable.flag_cal);
 
 % Try multiple thresholds to pick W (same as before)
-lb_distance = 0;
-ub_distance = 50000;
-thresholds = linspace(lb_distance, ub_distance, 11);
+lb_distance = 25000;
+ub_distance = 100000;
+thresholds = linspace(lb_distance, ub_distance, 4);
 
 best_LL = -Inf;
 

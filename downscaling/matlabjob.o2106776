@@ -1,4 +1,4 @@
-/opt/sge/crc/spool/d32cepyc106/job_scripts/2085721: line 10: cd: /data/pguaita/downscaling/matlab_code/downscaling/: No such file or directory
+/opt/sge/crc/spool/d32cepyc104/job_scripts/2106776: line 10: cd: /data/pguaita/downscaling/matlab_code/downscaling/: No such file or directory
 
                             < M A T L A B (R) >
                   Copyright 1984-2023 The MathWorks, Inc.
@@ -17,7 +17,7 @@ _NA_020
 tas
 Setting up variables...
 load and stack ESM data for the specified model
-Done in 3.5 mins
+Done in 2.6 mins
 Aggregating obs table
 doing month 1-1
 doing month 2-2
@@ -31,7 +31,7 @@ doing month 9-9
 doing month 10-10
 doing month 11-11
 doing month 12-12
-Done in 1.5 mins
+Done in 1.6 mins
 get the residuals...
 station number 100
 station number 200
@@ -102,8 +102,6 @@ station number 6600
 station number 6700
 station number 6800
 timestep 100
-Been running for 51.2 mins
+Been running for 70.2 mins
 timestep 200
-Been running for 67.8 mins
-timestep 300
-Been running for 88.4 mins
+Been running for 125.8 mins
