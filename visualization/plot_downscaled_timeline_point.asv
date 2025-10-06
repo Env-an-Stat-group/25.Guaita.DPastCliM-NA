@@ -47,7 +47,7 @@ function plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_t
 
     % --- Calculate mean over the time window
     window_centre = round(((x_limits(1)*12+1)+(x_limits(2)*12))/2);
-    mean_window = mean(y_ds((window_centre-15*12+1):(window_centre+15*12)));
+    mean_window = mean(y_ds((window_centre-15*12):(window_centre+14*12)));
     mean_all = mean(y_ds);
     anomaly = mean_window-mean_all;
 
@@ -83,7 +83,7 @@ function plot_downscaled_timeline_point(name_var, unit_var, time_ESM, time_obs_t
     yl = ylim;
     xl = xlim;
     text(xl(1) + 0.02*(xl(2)-xl(1)), yl(1) + 0.05*(yl(2)-yl(1)), ...
-        sprintf('Anomaly (30-yr): %.2f %s', anomaly, unit_var), ...
+        sprintf('Anomaly: %.2f %s', anomaly, unit_var), ...
         'FontSize', 14, 'Color', colors(3,:), 'FontWeight', 'bold', ...
         'HorizontalAlignment', 'left', 'VerticalAlignment', 'bottom');
 
