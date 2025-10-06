@@ -13,7 +13,3 @@ setting initial parameters...
 load observation table and downscaled station data (including PI)
      Done.
 filter stations for sufficient data coverage
-removing 7162/11546 timeseries shorter than 75 years.
-     Done.
-left with 253/11546 after selecting subdomain(s).
-Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
