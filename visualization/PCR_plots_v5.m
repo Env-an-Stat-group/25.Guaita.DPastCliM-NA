@@ -560,7 +560,8 @@ filename = fullfile(path_fig, ['performance_table_' name_var '.csv']);
 % Save table as CSV
 writetable(result_table_final, filename, 'WriteRowNames', true);
 
-clear y_* valid_mask *_tmp Ods_hat_map_lr
+clear y_* valid_mask *_tmp Ods_hat_map_lr ESM_mat ESM_mat_test ...
+    obsTable_mat obsTable_mat_test Ods_hat_mat Ods_hat_mat_lr u_mat u_mat_lr
 
 disp('    Done.')
 
