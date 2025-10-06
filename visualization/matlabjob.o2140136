@@ -1,0 +1,2571 @@
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2023 The MathWorks, Inc.
+                  R2023b (23.2.0.2365128) 64-bit (glnxa64)
+                              August 23, 2023
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+setting initial parameters...
+_NA_020
+tas
+     Done.
+Defining initial variables...
+     Done.
+loading downscaled data and observed data (gridded)...
+     Done.
+define season flags
+     Done.
+Compute SSIM of mean fields...
+Mean field SSIMs:
+  PCR vs OBS: 0.9071
+  LR  vs OBS: 0.8467
+  ESM vs OBS: 0.7860
+Aggregating obs table
+doing month 1-1
+doing month 2-2
+doing month 3-3
+doing month 4-4
+doing month 5-5
+doing month 6-6
+doing month 7-7
+doing month 8-8
+doing month 9-9
+doing month 10-10
+doing month 11-11
+doing month 12-12
+create observation matrix (which is used for comparison with the final downscaled product) - this is taking only the non-spatialized testing values
+     Done.
+calculate performance metrics and compile table
+                                     PCR          LR         ESM   
+                                   ________    ________    ________
+
+    MeanBias_Yearly                 0.15575     0.14411     -1.0877
+    StdBias_Yearly                   3.0852      3.1173      3.6319
+    RMSE_Yearly                      3.0891      3.1206      3.7912
+    R2_Yearly                       0.91761     0.91592      0.8759
+    MAE_Yearly                        2.199      2.2066      2.9339
+    KGE_Yearly                      0.95338      0.9518     0.87551
+    SSIM_avg_time_Yearly                NaN         NaN         NaN
+    SSIM_mean_field_Yearly          0.90706     0.84673     0.78596
+    MeanBias_MAM                    0.37911     0.36156     -1.3158
+    StdBias_MAM                      3.1321      3.1693      3.3895
+    RMSE_MAM                         3.1549      3.1899      3.6359
+    R2_MAM                          0.84665     0.84323     0.79633
+    MAE_MAM                          2.2597      2.2478      2.8297
+    KGE_MAM                         0.90828     0.90666     0.83372
+    SSIM_avg_time_MAM                   NaN         NaN         NaN
+    SSIM_mean_field_MAM             0.89946     0.88511     0.78221
+    MeanBias_JJA                    0.20444     0.24359    -0.82459
+    StdBias_JJA                      2.6314      2.6767      3.0953
+    RMSE_JJA                         2.6393      2.6878      3.2032
+    R2_JJA                          0.67445     0.66239     0.52049
+    MAE_JJA                           1.831      1.8603       2.456
+    KGE_JJA                         0.83228     0.82876      0.7661
+    SSIM_avg_time_JJA                   NaN         NaN         NaN
+    SSIM_mean_field_JJA             0.88452     0.87431     0.87497
+    MeanBias_SON                    0.31067      0.3232    -0.47843
+    StdBias_SON                      2.9081      2.9325      3.3885
+    RMSE_SON                         2.9247      2.9502      3.4221
+    R2_SON                            0.857     0.85449     0.80421
+    MAE_SON                          2.0689      2.0632      2.6804
+    KGE_SON                         0.92111     0.91904     0.86197
+    SSIM_avg_time_SON                   NaN         NaN         NaN
+    SSIM_mean_field_SON             0.88824     0.79392     0.74693
+    MeanBias_DJF                   -0.27477    -0.35611      -1.738
+    StdBias_DJF                       3.557      3.5711      4.3993
+    RMSE_DJF                         3.5676      3.5888      4.7301
+    R2_DJF                          0.82268     0.82056     0.68828
+    MAE_DJF                          2.6408      2.6593      3.7774
+    KGE_DJF                         0.65977      0.5649     -1.0824
+    SSIM_avg_time_DJF                   NaN         NaN         NaN
+    SSIM_mean_field_DJF             0.92064     0.91116     0.88927
+    ClimDiff                        0.35031       0.366       1.098
+    TrendSlopeRatio_(model/obs)      1.3438      1.2976      1.7472
+    TrendSlopeRatio_(ds/esm)        0.76915     0.74271           1
+
+    Done.
+preparing large variables for plotting...
+     Done.
+Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+mb for PCR
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+bias of extremes
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+AngleUnits                  [ {degrees} | radians ]                 
+Aspect                      [ {normal} | transverse ]               
+FalseEasting                                                        
+FalseNorthing                                                       
+FixedOrient                 FixedOrient is a read-only property     
+Geoid                                                               
+MapLatLimit                                                         
+MapLonLimit                                                         
+MapParallels                                                        
+MapProjection                                                       
+NParallels                  NParallels is a read-only property      
+Origin                                                              
+ScaleFactor                                                         
+TrimLat                     TrimLat is a read-only property         
+TrimLon                     TrimLon is a read-only property         
+Zone                                                                
+Frame                       [ on | {off} ]                          
+FEdgeColor                                                          
+FFaceColor                                                          
+FFill                                                               
+FLatLimit                                                           
+FLineWidth                                                          
+FLonLimit                                                           
+Grid                        [ on | {off} ]                          
+GAltitude                                                           
+GColor                                                              
+GLineStyle                  [ - | -- | -. | {:} ]                   
+GLineWidth                                                          
+MLineException                                                      
+MLineFill                                                           
+MLineLimit                                                          
+MLineLocation                                                       
+MLineVisible                [ {on} | off ]                          
+PLineException                                                      
+PLineFill                                                           
+PLineLimit                                                          
+PLineLocation                                                       
+PLineVisible                [ {on} | off ]                          
+FontAngle                   [ {normal} | italic | oblique ]         
+FontColor                                                           
+FontName                                                            
+FontSize                                                            
+FontUnits                   [ inches | centimeters | normalized | {points} | pixels ]
+FontWeight                  [ {normal} | bold ]                     
+LabelFormat                 [ {compass} | signed | none ]           
+LabelRotation               [ on | {off} ]                          
+LabelUnits                  [ {degrees} | radians ]                 
+MeridianLabel               [ on | {off} ]                          
+MLabelLocation                                                      
+MLabelParallel                                                      
+MLabelRound                                                         
+ParallelLabel               [ on | {off} ]                          
+PLabelLocation                                                      
+PLabelMeridian                                                      
+PLabelRound                                                         
+absolute fields
+Finished.
