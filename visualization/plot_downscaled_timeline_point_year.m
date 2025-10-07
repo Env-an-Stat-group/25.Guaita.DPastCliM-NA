@@ -48,7 +48,7 @@ function plot_downscaled_timeline_point_year(name_var, unit_var, time_ESM, time_
 
     % --- Plot 30-yr movmean---
     plot(years_esm, movmean(y_esm,30,'omitnan'), 'LineWidth', 4, 'Color', 0.8*colors(2,:), 'DisplayName', name_model);
-    plot(years_esm, movmean(y_obs,30,'omitnan'), 'LineWidth', 4, 'Color', 0.8*colors(1,:), 'DisplayName', 'GHCN-m');
+    plot(years_esm, movmean(y_obs,30,'includenan'), 'LineWidth', 4, 'Color', 0.8*colors(1,:), 'DisplayName', 'GHCN-m');
     plot(years_esm, movmean(y_ds,30,'omitnan'),  'LineWidth', 4, 'Color', 0.8*colors(3,:), 'DisplayName', 'PCR downscaled');
 
     % --- Calculate mean over the time window

@@ -14,9 +14,9 @@ rng(812)
 path_main = '/data/pguaita/downscaling/';
 addpath(genpath(fullfile(path_main,'matlab_code_git')));
 name_model = 'MPI-ESM1-2-LR'; % model name
-name_var = 'tas'; % variable name
+name_var = 'pr'; % variable name
 name_experiment = 'past2k';
-n_min_yr = 75; % minimum number of years for stations
+n_min_yr = 100; % minimum number of years for stations
 path_fig = fullfile(path_main,['downscaling_output_' name_model],'figures_PCR');
 path_file = fullfile(path_main,['downscaling_output_' name_model]);
 path_obs = fullfile(path_main,'obs_data');
@@ -26,8 +26,8 @@ suffix = '_NA_020';
 
 % define subdomain for station selection (each row is a different
 % subdomain)
-lon_subdom = [-73.1 -71.1; -94.8 -92.8; -96.2 -94.2; -120.8 -110.8];
-lat_subdom = [41.5 43.5; 43.7 45.7; 46.2 48.2; 29.9 37.9];
+lon_subdom = [-73.1 -71.1];%; -94.8 -92.8; -96.2 -94.2; -120.8 -110.8];
+lat_subdom = [41.5 43.5];%; 43.7 45.7; 46.2 48.2; 29.9 37.9];
 
 %% load grid and define limits
 load(fullfile(path_main, ['static_maps/downscaling_grid' suffix '.mat']));
@@ -139,14 +139,13 @@ for i_ID = 1:nStations
     flag_ID = ismember(obsTable.ID, metaTable.ID(i_ID));
     obsTable_tmp = obsTable(flag_ID, :);
     % filter on months 1950-1955 and 1995-2000
-    flag_mth_1950 = obsTable_tmp.month_since_0CE>=23380 & obsTable_tmp.month_since_0CE<23460;  
-    flag_mth_2000 = obsTable_tmp.month_since_0CE>=23920 & obsTable_tmp.month_since_0CE<24000;  
-    obsTable_tmp = obsTable_tmp(flag_mth_1950 | flag_mth_2000,:);
+    % flag_mth_2000 = obsTable_tmp.month_since_0CE>=23920 & obsTable_tmp.month_since_0CE<24000;  
+    % obsTable_tmp = obsTable_tmp(flag_mth_2000,:);
     length_year(i_ID) = floor(height(obsTable_tmp) / 12);
 end
 
 % Identify short stations
-idx_remove = (length_year < 12);%< n_min_yr);
+idx_remove = (length_year < n_min_yr);
 
 % Count removed
 n_removed = sum(idx_remove);
@@ -190,11 +189,9 @@ disp(['left with ' int2str(height(metaTable)) '/' int2str(nStations) ...
 
 switch name_var
     case 'pr'
-        list_point = {'USC00190666',...
-            'USC00049452'};%metaTable.ID;
+        list_point = metaTable.ID; %{'USC00193052','USC00190666','USC00190120','USC00190190','USC00067432','USC194105','USC00049452'};%metaTable.ID;
     case 'tas'
-        list_point = {'USW00014740',...
-            'USW00093193'};%metaTable.ID;
+        list_point = {'USW00014740','USW00093193'};%metaTable.ID;
 end
 
 %% plot map with stations

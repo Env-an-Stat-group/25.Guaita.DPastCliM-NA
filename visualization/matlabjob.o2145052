@@ -9,11 +9,9 @@ To get started, type doc.
 For product information, visit www.mathworks.com.
  
 setting initial parameters...
+_NA_020
+tas
      Done.
-load observation table and downscaled station data (including PI)
+Defining initial variables...
      Done.
-filter stations for sufficient data coverage
-removing 5071/6889 timeseries shorter than 75 years.
-     Done.
-left with 90/6889 after selecting subdomain(s).
-Fontconfig warning: "/usr/share/fontconfig/conf.avail/05-reset-dirs-sample.conf", line 6: unknown element "reset-dirs"
+loading downscaled data and observed data (gridded)...
