@@ -53,7 +53,7 @@ function plot_anomaly(dsValue_anom_map, time_bound, year_start, flag_land, ...
     % Add a shared colorbar at the bottom
     cb = colorbar('Location', 'southoutside');
     cb.Label.String = unit_var;
-    cb.FontSize =   15;
+    cb.FontSize =   18;
     cb.FontWeight = 'bold';
     
     % Set ticks centered around 0 with step size

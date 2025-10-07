@@ -23,7 +23,8 @@ ax = worldmap(latlim_map, lonlim_map);
 setm(ax);
 
 % turn off latitude and longitude labels
-setm(ax, 'MeridianLabel', 'off', 'ParallelLabel', 'off', 'MapProjection', 'eckert4');
+setm(ax, 'MeridianLabel', 'off', 'ParallelLabel', 'off', ...
+    'MLineLocation', NaN, 'PLineLocation', NaN, 'MapProjection', 'eckert4');
 
 hold on
 
@@ -37,8 +38,11 @@ c.Ticks = (round(c_lim(1)/cstep)*cstep):cstep:(round(c_lim(2)/cstep)*cstep);
 title(title_text)
 
 % fix view options
-setm(gca,'fontsize',24,'fontweight','bold','glinewidth',1);
-set(gca,'FontWeight','bold','FontSize',28,'Tickdir','out','linewidth',1.5,'box','on')
+setm(gca,'fontsize',26,'fontweight','bold','glinewidth',1);
+set(gca,'FontWeight','bold','FontSize',32,'Tickdir','out','linewidth',1.5,'box','on')
+
+% position colorbar south outside
+set(c, 'Location', 'southoutside');
 
 % map shp file
 if exist('shp_file_path','var')
@@ -52,7 +56,7 @@ std_val  = std(matrix_map(filter), 'omitnan');
 % Place text in normalized figure coordinates (bottom-left)
 text(0.05, 0.11, sprintf('%.2f ± %.2f', mean_val, std_val), ...
     'Units', 'normalized', 'HorizontalAlignment', 'left', ...
-    'VerticalAlignment', 'bottom', 'FontSize', 28, 'FontWeight', 'bold', 'Color', 'k');
+    'VerticalAlignment', 'bottom', 'FontSize', 32, 'FontWeight', 'bold', 'Color', 'k');
 
 if ~isempty(save_name)
     print(f, [save_name '.png'], '-dpng', res);
