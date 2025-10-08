@@ -15,7 +15,7 @@ end
 [lat_mat, lon_mat] = meshgrid(lat, lon);
 
 if ~isempty(save_name)
-    f = figure('Name', save_name, 'Position', [100 100 1000 250]);
+    f = figure('Name', save_name, 'Position', [100 100 1000 260]);
 end
 
 % plot world map borders
@@ -43,7 +43,7 @@ set(gca,'FontWeight','bold','FontSize',18,'Tickdir','out','linewidth',1.5,'box',
 
 
 % position colorbar south outside
-set(c, 'Location', 'southoutside');
+set(c, 'Location', 'southoutside', 'TickLabelRotation', 0);
 c.FontSize =   18;
 
 % map shp file
@@ -58,7 +58,7 @@ std_val  = std(matrix_map(filter), 'omitnan');
 % Place text in normalized figure coordinates (bottom-left)
 text(0.02, 0.08, sprintf('%.2f ± %.2f', mean_val, std_val), ...
     'Units', 'normalized', 'HorizontalAlignment', 'left', ...
-    'VerticalAlignment', 'bottom', 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'k');
+    'VerticalAlignment', 'bottom', 'FontSize', 18, 'FontWeight', 'bold', 'Color', 'k');
 
 if ~isempty(save_name)
     print(f, [save_name '.png'], '-dpng', res);
