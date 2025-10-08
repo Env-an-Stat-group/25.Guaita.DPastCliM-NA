@@ -15,7 +15,7 @@ end
 [lat_mat, lon_mat] = meshgrid(lat, lon);
 
 if ~isempty(save_name)
-    f = figure('Name', save_name, 'Position', [100 100 1000 400]);
+    f = figure('Name', save_name, 'Position', [100 100 1000 300]);
 end
 
 % plot world map borders
@@ -39,7 +39,7 @@ title(title_text)
 
 % fix view options
 setm(gca,'fontsize',26,'fontweight','bold','glinewidth',1);
-set(gca,'FontWeight','bold','FontSize',32,'Tickdir','out','linewidth',1.5,'box','on')
+set(gca,'FontWeight','bold','FontSize',26,'Tickdir','out','linewidth',1.5,'box','on')
 
 % position colorbar south outside
 set(c, 'Location', 'southoutside');
@@ -54,9 +54,9 @@ mean_val = mean(matrix_map(filter), 'omitnan');
 std_val  = std(matrix_map(filter), 'omitnan');
 
 % Place text in normalized figure coordinates (bottom-left)
-text(0.05, 0.11, sprintf('%.2f ± %.2f', mean_val, std_val), ...
+text(0.02, 0.08, sprintf('%.2f ± %.2f', mean_val, std_val), ...
     'Units', 'normalized', 'HorizontalAlignment', 'left', ...
-    'VerticalAlignment', 'bottom', 'FontSize', 32, 'FontWeight', 'bold', 'Color', 'k');
+    'VerticalAlignment', 'bottom', 'FontSize', 30, 'FontWeight', 'bold', 'Color', 'k');
 
 if ~isempty(save_name)
     print(f, [save_name '.png'], '-dpng', res);
