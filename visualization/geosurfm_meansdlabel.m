@@ -41,8 +41,10 @@ title(title_text)
 setm(gca,'fontsize',18,'fontweight','bold','glinewidth',1);
 set(gca,'FontWeight','bold','FontSize',18,'Tickdir','out','linewidth',1.5,'box','on')
 
+
 % position colorbar south outside
 set(c, 'Location', 'southoutside');
+c.FontSize =   18;
 
 % map shp file
 if exist('shp_file_path','var')
@@ -56,7 +58,7 @@ std_val  = std(matrix_map(filter), 'omitnan');
 % Place text in normalized figure coordinates (bottom-left)
 text(0.02, 0.08, sprintf('%.2f ± %.2f', mean_val, std_val), ...
     'Units', 'normalized', 'HorizontalAlignment', 'left', ...
-    'VerticalAlignment', 'bottom', 'FontSize', 14, 'FontWeight', 'bold', 'Color', 'k');
+    'VerticalAlignment', 'bottom', 'FontSize', 16, 'FontWeight', 'bold', 'Color', 'k');
 
 if ~isempty(save_name)
     print(f, [save_name '.png'], '-dpng', res);
