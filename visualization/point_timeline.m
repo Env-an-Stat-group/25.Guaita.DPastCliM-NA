@@ -189,7 +189,7 @@ disp(['left with ' int2str(height(metaTable)) '/' int2str(nStations) ...
 
 switch name_var
     case 'pr'
-        list_point = metaTable.ID; %{'USC00193052','USC00190666','USC00190120','USC00190190','USC00067432','USC194105','USC00049452'};%metaTable.ID;
+        list_point = {'USC00431243','USC00049452'};%metaTable.ID;
     case 'tas'
         list_point = {'USW00014740','USW00093193'};%metaTable.ID;
 end
