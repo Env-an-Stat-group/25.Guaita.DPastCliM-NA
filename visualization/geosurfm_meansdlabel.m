@@ -15,7 +15,7 @@ end
 [lat_mat, lon_mat] = meshgrid(lat, lon);
 
 if ~isempty(save_name)
-    f = figure('Name', save_name, 'Position', [100 100 1000 500]);
+    f = figure('Name', save_name, 'Position', [100 100 1000 400]);
 end
 
 % plot world map borders
