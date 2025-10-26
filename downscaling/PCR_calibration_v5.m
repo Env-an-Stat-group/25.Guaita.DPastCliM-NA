@@ -25,7 +25,7 @@ disp(name_var)
 
 % number of iterations to calculate RMSE of the realizations
 n_err_iter_lr = 50;            % for the linear regression
-n_err_iter_selection = 10;      % for the model selection process
+n_err_iter_selection = 50;      % for the model selection process
 n_err_iter_final = 50;         % for the final PCR calibration
 
 %% parameters that you most likely should not change
